@@ -17,19 +17,226 @@
 <body class="bg-white text-gray-800">
 
     <!-- Navbar -->
-  <header class="fixed w-full bg-white shadow z-50">
-    <div class="container mx-auto flex justify-between items-center p-4">
-      <h1 class="text-2xl font-bold text-blue-600">EduConnect</h1>
-      <nav class="space-x-6 hidden md:flex">
-        <a href="/" class="hover:text-blue-500">Home</a>
-        <a href="/batch.html" class="hover:text-blue-500">Batch</a>
-        <a href="/selection.html" class="hover:text-blue-500">Selections</a>
-        <a href="/team.html" class="hover:text-blue-500">Our Team</a>
-        <a href="/resources.html" class="hover:text-blue-500">Resources</a>
-      </nav>
-      <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Join Now</button>
-    </div>
-  </header>
+    <header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Brand -->
+                <a href="/" class="text-2xl font-extrabold tracking-tight text-blue-600">EduTech</a>
+    
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <!-- Home (mega menu trigger) -->
+                    <div class="relative group">
+                        <button id="home-trigger" class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                            data-anim="nav-link" aria-haspopup="true" aria-expanded="false" aria-controls="mega-home">
+                            Home
+                        </button>
+    
+                        <!-- Mega Menu: Desktop -->
+                        <div id="mega-home"
+                            class="invisible opacity-0 pointer-events-none absolute left-1/2 -translate-x-1/2 top-full mt-3 w-[min(1100px,94vw)] rounded-2xl border border-gray-200 bg-white shadow-xl p-6 transition-all duration-200 ease-out">
+                            <div class="grid grid-cols-12 gap-6">
+                                <!-- Left: Categories -->
+                                <aside class="col-span-4">
+                                    <ul class="space-y-1">
+                                        <li>
+                                            <button
+                                                class="mm-cat flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm font-medium hover:bg-blue-50 hover:text-blue-700 active:bg-blue-100 data-[active=true]:bg-blue-100 data-[active=true]:text-blue-700"
+                                                data-target="iat" data-active="true">
+                                                <span>IAT/NEST</span>
+                                                <span class="text-xs text-gray-400">›</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                class="mm-cat flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm font-medium hover:bg-blue-50 hover:text-blue-700 active:bg-blue-100"
+                                                data-target="isi">
+                                                <span>ISI/CMI</span>
+                                                <span class="text-xs text-gray-400">›</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button
+                                                class="mm-cat flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm font-medium hover:bg-blue-50 hover:text-blue-700 active:bg-blue-100"
+                                                data-target="phd">
+                                                <span>PhD &amp; Internships</span>
+                                                <span class="text-xs text-gray-400">›</span>
+                                            </button>
+                                        </li>
+                                        <li class="pt-2">
+                                            <a href="/batch.html"
+                                                class="block rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-700 hover:bg-blue-50">
+                                                All Courses
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </aside>
+    
+                                <!-- Right: Cards Panel -->
+                                <section class="col-span-8">
+                                    <!-- IAT/NEST -->
+                                    <div class="mm-panel" id="panel-iat">
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                            <a href="/batch.html?track=iat&amp;level=class11"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">IAT/NEST</div>
+                                                <div class="text-gray-900 font-bold">Class 11</div>
+                                                <div class="text-gray-500 text-sm">Foundation &amp; advanced</div>
+                                            </a>
+                                            <a href="/batch.html?track=iat&amp;level=class12"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">IAT/NEST</div>
+                                                <div class="text-gray-900 font-bold">Class 12</div>
+                                                <div class="text-gray-500 text-sm">Problem solving</div>
+                                            </a>
+                                            <a href="/batch.html?track=iat&amp;level=repeater"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">IAT/NEST</div>
+                                                <div class="text-gray-900 font-bold">Repeater</div>
+                                                <div class="text-gray-500 text-sm">Focused revision</div>
+                                            </a>
+                                        </div>
+                                    </div>
+    
+                                    <!-- ISI/CMI -->
+                                    <div class="mm-panel hidden" id="panel-isi">
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                            <a href="/batch.html?track=isi&amp;level=class11"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">ISI/CMI</div>
+                                                <div class="text-gray-900 font-bold">Class 11</div>
+                                                <div class="text-gray-500 text-sm">Mathematics track</div>
+                                            </a>
+                                            <a href="/batch.html?track=isi&amp;level=class12"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">ISI/CMI</div>
+                                                <div class="text-gray-900 font-bold">Class 12</div>
+                                                <div class="text-gray-500 text-sm">Advanced prep</div>
+                                            </a>
+                                            <a href="/batch.html?track=isi&amp;level=repeater"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">ISI/CMI</div>
+                                                <div class="text-gray-900 font-bold">Repeater</div>
+                                                <div class="text-gray-500 text-sm">Intensive course</div>
+                                            </a>
+                                        </div>
+                                    </div>
+    
+                                    <!-- PhD/Internships -->
+                                    <div class="mm-panel hidden" id="panel-phd">
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                            <a href="/batch.html?track=phd&amp;level=class11"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">PhD &amp; Internships</div>
+                                                <div class="text-gray-900 font-bold">Class 11</div>
+                                                <div class="text-gray-500 text-sm">Early orientation</div>
+                                            </a>
+                                            <a href="/batch.html?track=phd&amp;level=class12"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">PhD &amp; Internships</div>
+                                                <div class="text-gray-900 font-bold">Class 12</div>
+                                                <div class="text-gray-500 text-sm">Research skills</div>
+                                            </a>
+                                            <a href="/batch.html?track=phd&amp;level=repeater"
+                                                class="mm-card group rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition">
+                                                <div class="text-blue-600 font-semibold mb-1">PhD &amp; Internships</div>
+                                                <div class="text-gray-900 font-bold">Repeater</div>
+                                                <div class="text-gray-500 text-sm">Deep dive</div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <a href="/batch.html" class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                        data-anim="nav-link">Courses</a>
+                    <a href="/selection.html" class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                        data-anim="nav-link">Selections</a>
+                    <a href="/team.html" class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                        data-anim="nav-link">Our Team</a>
+                    <a href="/resources.html" class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                        data-anim="nav-link">Resources</a>
+                    <a href="/contact.html" class="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                        data-anim="nav-link">Contact</a>
+                </nav>
+    
+                <!-- Hamburger -->
+                <button id="burger"
+                    class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50"
+                    aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 bg-white">
+            <div class="px-4 py-3 space-y-1">
+                <!-- Home mobile accordion -->
+                <button class="w-full flex items-center justify-between py-2 text-left font-medium text-gray-800"
+                    data-mobile-toggle="home">
+                    <span>Home</span>
+                    <span class="text-gray-400">+</span>
+                </button>
+                <div class="ml-3 mt-1 hidden space-y-1" data-mobile-panel="home">
+                    <!-- Categories accordion inside Home -->
+                    <button
+                        class="w-full flex items-center justify-between py-2 text-left text-sm font-medium text-gray-700"
+                        data-mobile-toggle="home-iat">
+                        <span>IAT/NEST</span><span class="text-gray-300">+</span>
+                    </button>
+                    <div class="ml-3 hidden space-y-1" data-mobile-panel="home-iat">
+                        <a href="/batch.html?track=iat&amp;level=class11" class="block py-1 text-sm text-gray-600">Class
+                            11</a>
+                        <a href="/batch.html?track=iat&amp;level=class12" class="block py-1 text-sm text-gray-600">Class
+                            12</a>
+                        <a href="/batch.html?track=iat&amp;level=repeater"
+                            class="block py-1 text-sm text-gray-600">Repeater</a>
+                    </div>
+    
+                    <button
+                        class="w-full flex items-center justify-between py-2 text-left text-sm font-medium text-gray-700"
+                        data-mobile-toggle="home-isi">
+                        <span>ISI/CMI</span><span class="text-gray-300">+</span>
+                    </button>
+                    <div class="ml-3 hidden space-y-1" data-mobile-panel="home-isi">
+                        <a href="/batch.html?track=isi&amp;level=class11" class="block py-1 text-sm text-gray-600">Class
+                            11</a>
+                        <a href="/batch.html?track=isi&amp;level=class12" class="block py-1 text-sm text-gray-600">Class
+                            12</a>
+                        <a href="/batch.html?track=isi&amp;level=repeater"
+                            class="block py-1 text-sm text-gray-600">Repeater</a>
+                    </div>
+    
+                    <button
+                        class="w-full flex items-center justify-between py-2 text-left text-sm font-medium text-gray-700"
+                        data-mobile-toggle="home-phd">
+                        <span>PhD &amp; Internships</span><span class="text-gray-300">+</span>
+                    </button>
+                    <div class="ml-3 hidden space-y-1" data-mobile-panel="home-phd">
+                        <a href="/batch.html?track=phd&amp;level=class11" class="block py-1 text-sm text-gray-600">Class
+                            11</a>
+                        <a href="/batch.html?track=phd&amp;level=class12" class="block py-1 text-sm text-gray-600">Class
+                            12</a>
+                        <a href="/batch.html?track=phd&amp;level=repeater"
+                            class="block py-1 text-sm text-gray-600">Repeater</a>
+                    </div>
+    
+                    <a href="/batch.html" class="block py-2 text-sm font-medium text-blue-700">All Courses</a>
+                </div>
+    
+                <a href="/batch.html" class="block py-2 font-medium text-gray-800">Courses</a>
+                <a href="/selection.html" class="block py-2 font-medium text-gray-800">Selections</a>
+                <a href="/team.html" class="block py-2 font-medium text-gray-800">Our Team</a>
+                <a href="/resources.html" class="block py-2 font-medium text-gray-800">Resources</a>
+                <a href="/contact.html" class="block py-2 font-medium text-gray-800">Contact</a>
+            </div>
+        </div>
+    </header>
 
   <main class="py-8">
     <section class="py-10 overflow-x-hidden">
@@ -42,7 +249,7 @@
         <p class="text-xl font-medium text-center mt-5 mb-10 italic sm:mb-14">Handpicked by our educators—precise, comprehensive, and up-to-date for your success.</p>
         <div class="flex flex-col md:flex-row justify-center mt-8 gap-3 max-w-7xl mx-auto">
             <dotlottie-wc src="https://lottie.host/9d8ef89b-a689-4d13-a3b8-289cf7b1de9e/KE7x9e9bs7.lottie"
-                style="width: 420px; height: 420px"></dotlottie-wc>
+                style="width: 420px; height: 420px" speed="1" autoplay loop></dotlottie-wc>
             
             <div class="max-w-3xl mx-auto">
                 <div

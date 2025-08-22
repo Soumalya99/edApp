@@ -37,21 +37,339 @@ var testimonialSwiper = new Swiper(".testimonial-swiper", {
     clickable: true,
   }
 });
+class HeaderNav {
+  constructor(options = {}) {
+    const defaults = {
+      // Element IDs/selectors
+      headerId: "site-header",
+      triggerId: "home-trigger",
+      megaId: "mega-home",
+      burgerId: "burger",
+      mobileMenuId: "mobile-menu",
+      categorySelector: ".mm-cat",
+      mobileToggleSelector: "[data-mobile-toggle]",
+      navLinkSelector: "[data-anim='nav-link']",
 
-class NavbarAnimation {
+      // Panels mapping by key
+      panelsMap: {
+        iat: "#panel-iat",
+        isi: "#panel-isi",
+        phd: "#panel-phd"
+      },
+
+      // Behavior
+      defaultCategory: "iat",
+      closeDelayMs: 120,
+      desktopMinWidth: 768
+    };
+
+    this.cfg = { ...defaults, ...options };
+
+    // State
+    this.megaOpen = false;
+    this.closeTimer = null;
+
+    // Elements (resolved in init)
+    this.header = null;
+    this.trigger = null;
+    this.mega = null;
+    this.burger = null;
+    this.mobileMenu = null;
+    this.categoryButtons = [];
+    this.panels = {};
+    this.mobileToggles = [];
+    this.mq = null;
+
+    // Bound handlers to allow add/removeEventListener safely
+    this._onTriggerEnter = this.openMega.bind(this);
+    this._onTriggerFocus = this.openMega.bind(this);
+    this._onTriggerLeave = this.scheduleClose.bind(this);
+    this._onTriggerBlur = this.scheduleClose.bind(this);
+    this._onMegaEnter = this._clearCloseTimer.bind(this);
+    this._onMegaLeave = this.scheduleClose.bind(this);
+    this._onEsc = this._onEsc.bind(this);
+    this._onDocClick = this._onDocClick.bind(this);
+    this._onBurgerClick = this.toggleMobileMenu.bind(this);
+    this._onMQChange = this._onMQChange.bind(this);
+  }
+
   init() {
-    const navLinks = document.querySelectorAll('header nav a, header button, header h1');
-    if (!window.gsap || !navLinks.length) return;
-    gsap.set(navLinks, { opacity: 0, y: -20 });
-    gsap.to(navLinks, {
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.2,
-      ease: "power2.out"
+    const d = document;
+
+    // Resolve elements
+    this.header = d.getElementById(this.cfg.headerId);
+    this.trigger = d.getElementById(this.cfg.triggerId);
+    this.mega = d.getElementById(this.cfg.megaId);
+    this.burger = d.getElementById(this.cfg.burgerId);
+    this.mobileMenu = d.getElementById(this.cfg.mobileMenuId);
+
+    // Build panels map
+    this.panels = {};
+    for (const [key, sel] of Object.entries(this.cfg.panelsMap)) {
+      this.panels[key] = d.querySelector(sel);
+    }
+
+    // Category buttons
+    this.categoryButtons = Array.from(d.querySelectorAll(this.cfg.categorySelector));
+
+    // Mobile toggles
+    this.mobileToggles = Array.from(d.querySelectorAll(this.cfg.mobileToggleSelector));
+
+    // Match media for desktop breakpoint
+    this.mq = window.matchMedia(`(min-width: ${this.cfg.desktopMinWidth}px)`);
+    this.mq.addEventListener?.("change", this._onMQChange);
+
+    // GSAP intro animations
+    if (window.gsap && this.header) {
+      gsap.from(this.header, { y: -40, opacity: 0, duration: 0.6, ease: "power2.out", clearProps: "all" });
+      const navLinks = d.querySelectorAll(this.cfg.navLinkSelector);
+      if (navLinks.length) {
+        gsap.from(navLinks, {
+          y: -8,
+          opacity: 0,
+          duration: 0.4,
+          stagger: 0.06,
+          delay: 0.15,
+          ease: "power2.out",
+          clearProps: "all"
+        });
+      }
+    }
+
+    // Desktop mega menu interactions
+    if (this.trigger && this.mega) {
+      this.trigger.addEventListener("mouseenter", this._onTriggerEnter);
+      this.trigger.addEventListener("focus", this._onTriggerFocus);
+      this.trigger.addEventListener("mouseleave", this._onTriggerLeave);
+      this.trigger.addEventListener("blur", this._onTriggerBlur);
+      this.mega.addEventListener("mouseenter", this._onMegaEnter);
+      this.mega.addEventListener("mouseleave", this._onMegaLeave);
+
+      document.addEventListener("keydown", this._onEsc);
+      document.addEventListener("click", this._onDocClick);
+    }
+
+    // Category switching
+    this.categoryButtons.forEach((btn) => {
+      const targetKey = btn.dataset.target;
+      if (!targetKey) return;
+
+      const onEnter = () => this.setActiveCategory(targetKey);
+      const onClick = () => this.setActiveCategory(targetKey);
+
+      btn.addEventListener("mouseenter", onEnter);
+      btn.addEventListener("click", onClick);
+
+      // Save listeners for cleanup
+      btn._headerNavListeners = [
+        ["mouseenter", onEnter],
+        ["click", onClick]
+      ];
+    });
+
+    // Initialize default panel
+    this.setActiveCategory(this.cfg.defaultCategory);
+
+    // Mobile menu toggles
+    if (this.burger) {
+      this.burger.addEventListener("click", this._onBurgerClick);
+    }
+
+    this.mobileToggles.forEach((btn) => {
+      const onClick = () => {
+        const key = btn.getAttribute("data-mobile-toggle");
+        const panel = d.querySelector(`[data-mobile-panel="${key}"]`);
+        if (!panel) return;
+
+        const willOpen = panel.classList.contains("hidden");
+        panel.classList.toggle("hidden");
+
+        // update + / - indicator if present
+        const indicator = btn.querySelector("span:last-child");
+        if (indicator) indicator.textContent = willOpen ? "−" : "+";
+
+        if (willOpen && window.gsap) {
+          gsap.from(panel.children, {
+            y: 6,
+            opacity: 0,
+            duration: 0.2,
+            stagger: 0.03,
+            ease: "power1.out",
+            clearProps: "all"
+          });
+        }
+      };
+
+      btn.addEventListener("click", onClick);
+      btn._headerNavListeners = [["click", onClick]];
+    });
+
+    return this;
+  }
+
+  // Public API
+  openMega() {
+    if (!this.mega || this.megaOpen) return;
+    this.megaOpen = true;
+    this.trigger?.setAttribute("aria-expanded", "true");
+    this.mega.classList.remove("invisible", "opacity-0", "pointer-events-none");
+
+    if (window.gsap) {
+      // Animate only the currently visible panel's cards to avoid hidden-panel side effects
+      const activePanel = this._getActivePanel();
+      const cards = activePanel ? activePanel.querySelectorAll(".mm-card") : [];
+      if (cards && cards.length) {
+        gsap.killTweensOf(cards);
+        gsap.from(cards, {
+          y: 10,
+          opacity: 0,
+          duration: 0.28,
+          stagger: 0.07,
+          ease: "power1.out",
+          clearProps: "transform,opacity"
+        });
+      }
+    }
+  }
+
+  closeMega() {
+    if (!this.mega || !this.megaOpen) return;
+    this.megaOpen = false;
+    this.trigger?.setAttribute("aria-expanded", "false");
+    this.mega.classList.add("opacity-0", "invisible", "pointer-events-none");
+  }
+
+  scheduleClose() {
+    this._clearCloseTimer();
+    this.closeTimer = setTimeout(() => this.closeMega(), this.cfg.closeDelayMs);
+  }
+
+  setActiveCategory(key) {
+    // Update button states
+    this.categoryButtons.forEach((btn) => {
+      const isActive = btn.dataset.target === key;
+      btn.dataset.active = isActive ? "true" : "false";
+      btn.classList.toggle("bg-blue-100", isActive);
+      btn.classList.toggle("text-blue-700", isActive);
+    });
+
+    // Toggle panels
+    Object.entries(this.panels).forEach(([k, el]) => {
+      if (!el) return;
+      if (k === key) {
+        el.classList.remove("hidden");
+        if (window.gsap && this.megaOpen) {
+          const cards = el.querySelectorAll(".mm-card");
+          if (cards.length) {
+            gsap.killTweensOf(cards);
+            gsap.from(cards, {
+              y: 10,
+              opacity: 0,
+              duration: 0.25,
+              stagger: 0.05,
+              ease: "power1.out",
+              clearProps: "transform,opacity"
+            });
+          }
+        }
+      } else {
+        el.classList.add("hidden");
+      }
     });
   }
+
+  toggleMobileMenu() {
+    if (!this.mobileMenu || !this.burger) return;
+    const isHidden = this.mobileMenu.classList.contains("hidden");
+    this.mobileMenu.classList.toggle("hidden");
+    this.burger.setAttribute("aria-expanded", String(isHidden));
+
+    if (isHidden && window.gsap) {
+      const items = this.mobileMenu.querySelectorAll("a, button[data-mobile-toggle]");
+      if (items.length) {
+        gsap.killTweensOf(items);
+        gsap.from(items, {
+          y: 8,
+          opacity: 0,
+          duration: 0.25,
+          stagger: 0.04,
+          ease: "power1.out",
+          clearProps: "transform,opacity"
+        });
+      }
+    }
+  }
+
+  destroy() {
+    // Clean desktop mega menu listeners
+    if (this.trigger) {
+      this.trigger.removeEventListener("mouseenter", this._onTriggerEnter);
+      this.trigger.removeEventListener("focus", this._onTriggerFocus);
+      this.trigger.removeEventListener("mouseleave", this._onTriggerLeave);
+      this.trigger.removeEventListener("blur", this._onTriggerBlur);
+    }
+    if (this.mega) {
+      this.mega.removeEventListener("mouseenter", this._onMegaEnter);
+      this.mega.removeEventListener("mouseleave", this._onMegaLeave);
+    }
+    document.removeEventListener("keydown", this._onEsc);
+    document.removeEventListener("click", this._onDocClick);
+
+    // Category buttons
+    this.categoryButtons.forEach((btn) => {
+      (btn._headerNavListeners || []).forEach(([evt, fn]) => btn.removeEventListener(evt, fn));
+      delete btn._headerNavListeners;
+    });
+
+    // Mobile
+    if (this.burger) {
+      this.burger.removeEventListener("click", this._onBurgerClick);
+    }
+    this.mobileToggles.forEach((btn) => {
+      (btn._headerNavListeners || []).forEach(([evt, fn]) => btn.removeEventListener(evt, fn));
+      delete btn._headerNavListeners;
+    });
+
+    // MQ
+    this.mq?.removeEventListener?.("change", this._onMQChange);
+
+    // Timers
+    this._clearCloseTimer();
+  }
+
+  // Private helpers
+  _getActivePanel() {
+    // Only one panel should be visible at a time
+    return this.mega?.querySelector(".mm-panel:not(.hidden)") || null;
+  }
+
+  _clearCloseTimer() {
+    if (this.closeTimer) {
+      clearTimeout(this.closeTimer);
+      this.closeTimer = null;
+    }
+  }
+
+  _onEsc(e) {
+    if (e.key === "Escape") this.closeMega();
+  }
+
+  _onDocClick(e) {
+    if (!this.megaOpen) return;
+    const withinTrigger = this.trigger?.contains(e.target);
+    const withinMega = this.mega?.contains(e.target);
+    if (!withinTrigger && !withinMega) this.closeMega();
+  }
+
+  _onMQChange(e) {
+    // Close mobile menu when moving to desktop
+    if (e.matches) {
+      this.mobileMenu?.classList.add("hidden");
+      this.burger?.setAttribute("aria-expanded", "false");
+    }
+  }
 }
+
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   gsap.set('.selection-card', { opacity: 0, y: 60, scale: 0.96 });
@@ -101,16 +419,7 @@ class FeaturesAnimation {
     const cards = section.querySelectorAll('.bg-white');
     gsap.set(cards, { opacity: 0, y: 36 });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top center",
-        end: "+=520",
-        pin: true,
-        scrub: 1.2,
-        anticipatePin: 1,
-      }
-    });
+    const tl = gsap.timeline();
 
     tl.to(cards, {
       opacity: 1,
@@ -633,7 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animationDataUrl: 'https://lottie.host/embed/95afefff-94d2-4ef5-8e49-430decdbd2d1/K4fTX35Fw3.lottie'
   }).init();
   // lottieAnimations.init();
-  new NavbarAnimation().init();
+  new HeaderNav().init();
   new SelectionCardsAnimation().init();
   new FeaturesAnimation().init();
   new CurriculumSectionAnimation().init();
