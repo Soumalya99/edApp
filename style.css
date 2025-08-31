@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 .swiper-button-next,
 .swiper-button-prev {
   width: 32px !important;
@@ -57,4 +60,121 @@
 } */
 .animate-fadeInUp {
   animation: fadeInUp 0.9s cubic-bezier(0.4,0,1,1) forwards;
+}
+
+.satisfy-regular {
+  font-family: "Satisfy", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.zilla-slab-light {
+  font-family: "Zilla Slab", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.zilla-slab-regular {
+  font-family: "Zilla Slab", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.zilla-slab-medium {
+  font-family: "Zilla Slab", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.zilla-slab-semibold {
+  font-family: "Zilla Slab", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.zilla-slab-bold {
+  font-family: "Zilla Slab", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.zilla-slab-light-italic {
+  font-family: "Zilla Slab", serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.zilla-slab-regular-italic {
+  font-family: "Zilla Slab", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.zilla-slab-medium-italic {
+  font-family: "Zilla Slab", serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.zilla-slab-semibold-italic {
+  font-family: "Zilla Slab", serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.zilla-slab-bold-italic {
+  font-family: "Zilla Slab", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+
+/* .container {
+  width: 350px;
+  margin: 100px auto;
+  border: 1px solid #ccc;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.input {
+  padding: 0.5rem;
+  width: 100%;
+  margin: 0.25rem 0 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.btn {
+  background: #2563eb;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+} */
+
+
+.glow-border {
+  box-shadow: 0 0 0 0 rgba(168,85,247,0.03),0 10px 30px 0 rgba(64,35,124,0.09);
+  transition: box-shadow 0.3s;
+}
+.group:hover .glow-border, .group:focus .glow-border {
+  box-shadow: 0 0 0 16px rgba(168,85,247,0.18), 0 24px 60px 0 rgba(64,35,124,0.20);
+  border-color: #a855f7;
 }

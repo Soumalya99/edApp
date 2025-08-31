@@ -52,13 +52,14 @@ class HeaderNav {
 
       // Panels mapping by key
       panelsMap: {
-        iat: "#panel-iat",
-        isi: "#panel-isi",
-        phd: "#panel-phd"
+        neet: "#panel-neet",
+        jee: "#panel-jee",
+        nursing: "#panel-nursing",
+        anmgnm: "#panel-anmgnm"
       },
 
       // Behavior
-      defaultCategory: "iat",
+      defaultCategory: "neet",
       closeDelayMs: 120,
       desktopMinWidth: 768
     };
@@ -209,6 +210,7 @@ class HeaderNav {
 
   // Public API
   openMega() {
+    this._clearCloseTimer();
     if (!this.mega || this.megaOpen) return;
     this.megaOpen = true;
     this.trigger?.setAttribute("aria-expanded", "true");
@@ -410,13 +412,25 @@ class SelectionCardsAnimation {
 }
 
 class FeaturesAnimation {
+  constructor() {
+    this._weakmap = new WeakMap();
+    this._onEnter = this._onEnter.bind(this);
+    this._onLeave = this._onLeave.bind(this);
+
+    this.cards = [];
+  }
   init() {
     if (!window.gsap || !window.ScrollTrigger) return;
     gsap.registerPlugin(ScrollTrigger);
 
     const section = document.getElementById('features');
     if (!section) return;
-    const cards = section.querySelectorAll('.bg-white');
+    const cards = section.querySelectorAll('.glow-card');
+    if (!cards) return;
+
+    this._card = Array.from(cards);
+
+
     gsap.set(cards, { opacity: 0, y: 36 });
 
     const tl = gsap.timeline();
@@ -424,12 +438,145 @@ class FeaturesAnimation {
     tl.to(cards, {
       opacity: 1,
       y: 0,
-      duration: 0.75,
-      stagger: 0.22,
+      duration: 0.9,
+      stagger: 0.4,
       ease: "power3.out"
     });
+
+    //Attaching hover listener .for glow animation
+    this._card.forEach((card) => {
+      card.addEventListener('mouseenter', this._onEnter);
+      card.addEventListener('mouseleave', this._onLeave);
+    });
+
+  }
+  _onEnter(e) {
+    const el = e.currentTarget;
+    //Kill any animation running
+    gsap.killTweensOf(el);
+
+    const rgb = el.dataset?.glowColor || '99,102,241';
+
+    gsap.to(el, {
+      duration: 0.38,
+      ease: 'power2.out',
+      y: -4,
+      scale: 1.015,
+      boxShadow: `0 0 0 2px rgba(${rgb}, 0.25), 0 10px 28px rgba(${rgb}, 0.30), 0 0 56px rgba(${rgb}, 0.45)`
+    })
+
+    const tl = gsap.timeline({ repeat: -1, yoyo: true, defaults: { duration: 1.2, ease: 'sine.inOut' } });
+    tl.to(el, {
+      boxShadow: `0 0 0 2px rgba(${rgb}, 0.35), 0 12px 32px rgba(${rgb}, 0.38), 0 0 64px rgba(${rgb}, 0.60)`
+    });
+
+    this._weakmap.set(el, tl);
+  }
+
+  _onLeave(e) {
+    const el = e.currentTarget;
+
+    const tl = this._weakmap.get(el);
+    if (tl) {
+      tl.kill();
+      this._weakmap.delete(el);
+    }
+
+    gsap.to(el, {
+      duration: 0.28,
+      ease: 'power2.inOut',
+      y: 0,
+      scale: 1,
+      boxShadow: '0 8px 24px rgba(0,0,0,0.08)'
+    });
+  }
+
+  destroy() {
+    if (!this._card.length) return;
+
+    this._card.forEach((el) => {
+      el.removeEventListener('mouseenter', this._onEnter);
+      el.removeEventListener('mouseleave', this._onLeave);
+
+      // Kill any GSAP tweens on the element
+      gsap.killTweensOf(el);
+
+      // If a timeline exists in WeakMap, kill it
+      const tl = this._weakmap.get(el);
+      if (tl) {
+        tl.kill();
+        this._weakmap.delete(el);
+      }
+    });
+
+    this._card = [];
   }
 }
+
+
+// function Achievers(){
+//   const grid = document.getElementById('achievers-grid');
+//   if (!grid) return;
+
+//   fetch('php_backend/api/achievers.php')
+//     .then(r => r.json())
+//     .then(data => {
+//       const achievers = Array.isArray(data) ? data : (data.achievers || []);
+//       if (!achievers.length) {
+//         grid.innerHTML = '<p class="text-gray-600">No achievers found.</p>';
+//         return;
+//       }
+//       const html = achievers.map(a => {
+//         const name = a.name || 'Achiever';
+//         const rank = a.rank || 'Unknown';
+//         const imgPath = a.image_path || a.image || '';
+//         return `
+//           <div class="achiever-card flex rounded-lg shadow-lg p-3 border border-purple-400">
+//             <img src="${imgPath}" alt="${name}" class="w-24 h-24 object-cover rounded-full" onerror="this.src='https://via.placeholder.com/600x360?text=No+Image'">
+//             <div class="text-center">
+//               <p class="text-3xl pt-[50px] font-bold text-purple-700 mb-6">AIR<br /><span class="text-6xl">${rank}</span></p>
+//               <p class="font-semibold text-gray-700">${name}<br /> <span>In unreserved category</span></p>
+//             </div>
+//           </div>`;
+//       }).join('');
+//       grid.innerHTML = html;
+//     });
+// }
+
+
+// fetch('php_backend/api/candidate.php')
+//           .then(r => r.json())
+//           .then(data => {
+//             const candidates = Array.isArray(data) ? data : (data.candidates || []);
+//             if (!candidates.length) {
+//               if (window.gsap) gsap.killTweensOf('.skeleton');
+//               grid.innerHTML = '<p class="text-gray-600">No candidates found.</p>';
+//               return;
+//             }
+//             const baseSeg = window.location.pathname.split('/')[1] || '';
+//             const basePrefix = baseSeg ? ('/' + baseSeg + '/') : '/';
+//             const html = candidates.map(c => {
+//               const name = c.name || c.candidate_name || 'Candidate';
+//               const imgPath = c.image_path || c.image || '';
+//               const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (basePrefix + String(imgPath || '').replace(/^\\+/, ''));
+//               return `
+//                 <div class="selection-card candidate-card opacity-0 translate-y-3 rounded-lg bg-gradient-to-r from-blue-300 to-purple-300 border border-purple-300 bg-white shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden max-w-[450px] w-full mx-auto">
+//                   <div class="overflow-hidden">
+//                     <img src="${imgSrc}" alt="${name}"
+//                       class="w-full h-56 sm:h-64 object-cover transform transition-transform duration-300 hover:scale-105"
+//                       onerror="this.src='https://via.placeholder.com/600x360?text=No+Image'">
+//                   </div>
+//                   <div class="p-4 text-center">
+//                     <p class="font-semibold text-gray-800 text-lg">${name}</p>
+//                   </div>
+//                 </div>`;
+//             }).join('');
+//             if (window.gsap) gsap.killTweensOf('.skeleton');
+//             grid.innerHTML = html;
+//             if (window.gsap) gsap.to('.candidate-card', {opacity:1, y:0, duration:0.5, stagger:0.08, ease:'power2.out'});
+
+
+
 
 class CurriculumSectionAnimation {
   init() {
@@ -514,57 +661,64 @@ class StudentCardsAnimation {
 
 class AchieverCardsAnimation {
   init() {
-    if (!window.gsap || !window.ScrollTrigger) return;
-    gsap.registerPlugin(ScrollTrigger);
+    const grid = document.getElementById('achievers-grid');
+    if (!grid) return;
 
-    gsap.fromTo('.about-heading, .learn-h2',
-      { opacity: 0, y: 44 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "bounce.out",
-        scrollTrigger: {
-          trigger: "#about",
-          start: "top 80%",
-          toggleActions: "play none none reverse"
+    fetch('php_backend/api/candidate.php')
+      .then(r => r.json())
+      .then(data => {
+        const achievers = Array.isArray(data) ? data : (data.achievers || []);
+        if (!achievers.length) {
+          grid.innerHTML = '<p class="text-gray-600">No achievers found.</p>';
+          return;
         }
-      }
-    );
-    if (document.querySelector('.about-svg')) {
-      gsap.fromTo('.about-svg',
-        { opacity: 0, scale: 0.7 },
-        {
-          opacity: 1, scale: 1, duration: 0.8, ease: "power2.out",
-          scrollTrigger: {
-            trigger: "#about",
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
+        // Only use the first two achievers
+        const topTwo = achievers.slice(0, 2);
+        const html = topTwo.map(a => {
+          const name = a.name || 'Achiever';
+          const rank = a.rank || 'Unknown';
+          const imgPath = a.image_path || a.image || '';
+          return `
+            <div class="achiever-card flex flex-col items-center bg-gradient-to-tr from-amber-200 via-yellow-50 to-purple-100 shadow-xl rounded-2xl border-4 border-purple-400/60 mx-auto max-w-xs my-8 pb-0 pt-0 relative group">
+              <div class="w-full sm:w-60 md:w-72 aspect-[4/3] bg-white rounded-t-2xl overflow-hidden flex-shrink-0">
+                <img src="${imgPath}" alt="${name}"
+                  class="w-full h-full object-cover rounded-t-2xl border-b-4 border-white shadow-2xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_0_8px_rgba(168,85,247,0.25)] group-hover:border-purple-400 glow-border"
+                  onerror="this.src='https://via.placeholder.com/400x533?text=No+Image'">
+              </div>
+              <div class="w-full text-center px-5 pt-2 pb-3">
+                <p class="text-2xl font-extrabold text-purple-900 mb-1 drop-shadow-lg">${name}</p>
+                <!-- AIR or other details can be added here -->
+              </div>
+            </div>`;
+        }).join('');
+        grid.innerHTML = html;
+
+        // Animate after rendering
+        if (window.gsap && window.ScrollTrigger) {
+          gsap.registerPlugin(ScrollTrigger);
+          const cards = document.querySelectorAll("#achievers-grid .achiever-card");
+          cards.forEach((card, i) => {
+            const fromX = i === 0 ? -96 : 96;
+            gsap.fromTo(
+              card,
+              { opacity: 0, x: fromX, scale: 0.90 },
+              {
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                duration: 1,
+                delay: 0.15 + i * 0.13,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 85%",
+                  toggleActions: "play none none reverse"
+                }
+              }
+            );
+          });
         }
-      );
-    }
-    const cards = document.querySelectorAll("#about .achiever-card");
-    cards.forEach((card, i) => {
-      const fromX = i === 0 ? -96 : 96;
-      gsap.fromTo(
-        card,
-        { opacity: 0, x: fromX, scale: 0.90 },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 1,
-          delay: 0.15 + i * 0.13,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
-    });
+      });
   }
 }
 
@@ -934,7 +1088,30 @@ class ResourceSectionGSAPAnim {
   }
 }
 
-/***  MAIN BOOTSTRAP *****/ 
+
+document.addEventListener('DOMContentLoaded', function () {
+  var waContactForm = document.getElementById('wa-contact-form');
+  if (waContactForm) {
+    waContactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('wa-name').value.trim();
+      const track = document.getElementById('wa-track').value.trim();
+      const level = document.getElementById('wa-level').value.trim();
+      const address = document.getElementById('wa-address').value.trim();
+      const contact = document.getElementById('wa-contact').value.trim();
+      const query = document.getElementById('wa-query').value.trim();
+      const founderNumber = '919999999999'; // With country code, no plus or spaces
+      const msg = `Name: ${name}\nCourse: ${track} (${level})\nAddress: ${address}\nContact: ${contact}\nQuery: ${query}`;
+      const url = `https://wa.me/${founderNumber}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    });
+  }
+});
+
+
+
+
+/***  MAIN BOOTSTRAP *****/
 document.addEventListener('DOMContentLoaded', () => {
 
   new LottieGsapPinAnimation({
@@ -957,6 +1134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cardSelector: '.faq-card'
   }).init();
   new ResourceSectionGSAPAnim('.max-w-3xl').init();
+  Achievers();
 
 });
 
