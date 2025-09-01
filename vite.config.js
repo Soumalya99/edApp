@@ -5,11 +5,12 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                home: 'index.html',
-                batch: 'batch.html',
-                selection: 'selection.html',
-                teams: 'team.html',
-                resources: 'resources.html'
+                home: 'index.php',
+                batch: 'batch.php',
+                selection: 'selection.php',
+                teams: 'team.php',
+                resources: 'resources.php',
+                contact: 'contact.php',
             }
         }
     },
