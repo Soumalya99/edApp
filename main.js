@@ -1,42 +1,6 @@
-var swiper = new Swiper(".mySwiper", {
-  slidesPerView: 1,
-  spaceBetween: 24,
-  slidesPerGroup: 1,
-  loop: true,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  breakpoints: {
-    640: {
-      slidesPerView: 2,
-      slidesPerGroup: 2,
-    },
-    1024: {
-      slidesPerView: 3,
-      slidesPerGroup: 3,
-    },
-  },
-});
+let mainSwiper;
 
-
-var testimonialSwiper = new Swiper(".testimonial-swiper", {
-  loop: true,
-  autoplay: {
-    delay: 3500,
-    disableOnInteraction: false,
-  },
-  slidesPerView: 1,
-  grabCursor: true,
-  pagination: {
-    el: ".testimonial-swiper .swiper-pagination",
-    clickable: true,
-  }
-});
+// All Swiper initialization now happens in DOMContentLoaded
 class HeaderNav {
   constructor(options = {}) {
     const defaults = {
@@ -659,6 +623,10 @@ class StudentCardsAnimation {
 }
 
 
+
+
+
+
 class AchieverCardsAnimation {
   init() {
     const grid = document.getElementById('achievers-grid');
@@ -667,56 +635,84 @@ class AchieverCardsAnimation {
     fetch('php_backend/api/candidate.php')
       .then(r => r.json())
       .then(data => {
-        const achievers = Array.isArray(data) ? data : (data.achievers || []);
+        let achievers = Array.isArray(data) ? data : (data.achievers || []);
+        achievers = achievers.filter((a, idx, arr) =>
+          a && a.name && idx === arr.findIndex(b => b.name === a.name)
+        );
         if (!achievers.length) {
           grid.innerHTML = '<p class="text-gray-600">No achievers found.</p>';
           return;
         }
-        // Only use the first two achievers
-        const topTwo = achievers.slice(0, 2);
-        const html = topTwo.map(a => {
+        const displayList = achievers.slice(0, 16);
+
+        // Build slides (name overlaid on image bottom)
+        const makeSlide = (a) => {
           const name = a.name || 'Achiever';
-          const rank = a.rank || 'Unknown';
           const imgPath = a.image_path || a.image || '';
           return `
-            <div class="achiever-card flex flex-col items-center bg-gradient-to-tr from-amber-200 via-yellow-50 to-purple-100 shadow-xl rounded-2xl border-4 border-purple-400/60 mx-auto max-w-xs my-8 pb-0 pt-0 relative group">
-              <div class="w-full sm:w-60 md:w-72 aspect-[4/3] bg-white rounded-t-2xl overflow-hidden flex-shrink-0">
+            <div class="swiper-slide achiever-card group relative mx-auto w-36 sm:w-40 md:w-48 lg:w-56 my-3 snap-center">
+              <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-xl ring-1 ring-purple-200/50 bg-white">
                 <img src="${imgPath}" alt="${name}"
-                  class="w-full h-full object-cover rounded-t-2xl border-b-4 border-white shadow-2xl transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_0_8px_rgba(168,85,247,0.25)] group-hover:border-purple-400 glow-border"
+                  class="w-full h-full object-cover transition-all duration-400 group-hover:scale-105 glow-border"
                   onerror="this.src='https://via.placeholder.com/400x533?text=No+Image'">
+                <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none"></div>
+                <p class="absolute inset-x-0 bottom-1 sm:bottom-2 text-xs sm:text-sm md:text-base lg:text-lg font-semibold text-white text-center drop-shadow-md px-2">${name}</p>
               </div>
-              <div class="w-full text-center px-5 pt-2 pb-3">
-                <p class="text-2xl font-extrabold text-purple-900 mb-1 drop-shadow-lg">${name}</p>
-                <!-- AIR or other details can be added here -->
-              </div>
-            </div>`;
-        }).join('');
+            </div>
+          `;
+        };
+        const slides = displayList.map(makeSlide).join('');
+
+        // Swiper markup (single professional slider)
+        const html = `
+        <div class="swiper achiever-swiper">
+          <div class="swiper-wrapper">
+            ${slides}
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>`;
         grid.innerHTML = html;
 
-        // Animate after rendering
-        if (window.gsap && window.ScrollTrigger) {
-          gsap.registerPlugin(ScrollTrigger);
-          const cards = document.querySelectorAll("#achievers-grid .achiever-card");
-          cards.forEach((card, i) => {
-            const fromX = i === 0 ? -96 : 96;
-            gsap.fromTo(
-              card,
-              { opacity: 0, x: fromX, scale: 0.90 },
-              {
-                opacity: 1,
-                x: 0,
-                scale: 1,
-                duration: 1,
-                delay: 0.15 + i * 0.13,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: card,
-                  start: "top 85%",
-                  toggleActions: "play none none reverse"
-                }
-              }
-            );
+        // Responsive container classes
+        grid.className = 'w-full max-w-7xl mx-auto overflow-hidden relative';
+
+        // Initialize Swiper with autoplay and responsive breakpoints
+        if (window.Swiper) {
+          new Swiper('.achiever-swiper', {
+            loop: true,
+            speed: 900,
+            autoplay: {
+              delay: 2000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true
+            },
+            slidesPerView: 1,
+            spaceBetween: 20,
+            breakpoints: {
+              640: { slidesPerView: 2, spaceBetween: 20 },
+              768: { slidesPerView: 3, spaceBetween: 20 },
+              1024: { slidesPerView: 4, spaceBetween: 24 }
+            },
+            pagination: { el: '.achiever-swiper .swiper-pagination', clickable: true },
+            navigation: { nextEl: '.achiever-swiper .swiper-button-next', prevEl: '.achiever-swiper .swiper-button-prev' }
           });
+        }
+
+        // GSAP entry animation for cards
+        if (window.gsap) {
+          const cards = grid.querySelectorAll('.achiever-card');
+          if (cards && cards.length) {
+            gsap.from(cards, {
+              opacity: 0,
+              y: 16,
+              duration: 0.6,
+              stagger: 0.06,
+              ease: 'power2.out',
+              clearProps: 'transform,opacity'
+            });
+          }
         }
       });
   }
@@ -758,7 +754,7 @@ class MentorCardsAnimation {
 
 class TeamTypewriterAnimation {
   constructor() {
-    this.message = `At EduConnect, our dedicated team blends years of academic expertise with a profound passion for mentoring. Our founder, Dr. Meera Sharma, envisioned a learning space where every student is guided by top educators in Physics, Math, Chemistry, and Biology. Together, we are committed to nurturing talent, inspiring curiosity, and helping you achieve your highest dreams.`;
+    this.message = `At Theta Fornix, our dedicated team blends years of academic expertise with a profound passion for mentoring. Our founder, Dr. Meera Sharma, envisioned a learning space where every student is guided by top educators in Physics, Math, Chemistry, and Biology. Together, we are committed to nurturing talent, inspiring curiosity, and helping you achieve your highest dreams.`;
   }
   init() {
     const target = document.getElementById('team-typewriter');
@@ -1028,6 +1024,42 @@ class FAQTickets {
 }
 
 
+// class ScrollHybridCardGSAP {
+//   init() {
+//     if (!window.gsap || !window.IntersectionObserver) return;
+//     const hybridCard = document.getElementById('hybrid-card');
+//     const hybridVideo = document.getElementById('hybrid-video');
+//     const hybridText = document.getElementById('hybrid-text');
+//     if (!hybridCard || !hybridVideo || !hybridText) return;
+
+//     let hasAnimated = false;
+//     const observer = new IntersectionObserver((entries, obs) => {
+//       entries.forEach(entry => {
+//         if (entry.isIntersecting && !hasAnimated) {
+//           hasAnimated = true;
+
+//           // Reveal card container instantly
+//           hybridCard.classList.remove('opacity-0', 'pointer-events-none');
+//           gsap.set([hybridVideo, hybridText], { opacity: 0 });
+//           gsap.set(hybridVideo, { x: -120 });
+//           gsap.set(hybridText, { x: 120 });
+
+//           // Animate video and text
+//           gsap.to(hybridVideo, { opacity: 1, x: 0, duration: 1, ease: "power3.out" });
+//           gsap.to(hybridText, { opacity: 1, x: 0, duration: 1, delay: 0.15, ease: "power3.out" });
+
+//           // Autoplay video if possible when revealed
+//           if (hybridVideo.paused) {
+//             try { hybridVideo.play(); } catch (e) { /* Ignore */ }
+//           }
+//           obs.unobserve(entry.target);
+//         }
+//       });
+//     }, { threshold: 0.37 });
+//     observer.observe(hybridCard);
+//   }
+// }
+
 class ResourceSectionGSAPAnim {
   constructor(containerSelector) {
     // The section container (use the parent .max-w-3xl or assign a class/id)
@@ -1134,8 +1166,120 @@ document.addEventListener('DOMContentLoaded', () => {
     cardSelector: '.faq-card'
   }).init();
   new ResourceSectionGSAPAnim('.max-w-3xl').init();
-  Achievers();
+  new ScrollHybridCardGSAP().init();
 
+  // Registration Modal Popup Logic (legacy popup, keep hidden but support old code)   
+  const registerModal = document.getElementById('register-modal-overlay');
+  const registerModalClose = document.getElementById('register-modal-close');
+  let regModalTimeout;
+  if (registerModal) {
+    registerModal.classList.add('hidden'); // always keep hidden in new UX
+  }
+
+  // Offer Notification/Popup Toggling
+  const offerWrap = document.getElementById('earlybird-offer-wrap');
+  const offerBubble = document.getElementById('earlybird-popup');
+  const offerFormPopup = document.getElementById('earlybird-form-popup');
+  const offerFormClose = document.getElementById('earlybird-form-close');
+  const offerForm = document.getElementById('earlybird-wa-form');
+
+  // Offer logic: delayed show, protected 10s non-interactive with unlock after 10s
+  let formLockTimeout = null;
+  let reopenInterval = null;
+  let formIsLocked = false;
+  let offerClickable = false;
+  let lastFormOpen = null;
+  offerBubble.classList.add('opacity-0', 'pointer-events-none'); // Hide initially
+
+  // Helper to animate bell icon
+  function animateBell() {
+    const bell = offerBubble.querySelector('.fa-bell');
+    if (bell) {
+      bell.classList.add('fa-shake'); // FontAwesome 6+ animate class
+    }
+  }
+  animateBell();
+
+  function lockFormFor10s() {
+    formIsLocked = true;
+    // Optionally visually indicate lockout (e.g. pulse the close button, or just ignore)
+    setTimeout(() => {
+      formIsLocked = false;
+    }, 8000);
+  }
+
+  function showOfferForm(auto=false) {
+    offerBubble.classList.add('hidden');
+    offerFormPopup.classList.remove('hidden');
+    offerFormPopup.classList.add('animate-fadeInUp');
+    lastFormOpen = Date.now();
+    lockFormFor10s();
+    // When form is open, the notification bell animates
+    animateBell();
+  }
+
+  function closeOfferForm() {
+    if (formIsLocked) return; // Cannot close until lock time passes
+    offerFormPopup.classList.add('hidden');
+    offerBubble.classList.remove('hidden');
+    offerFormPopup.classList.remove('animate-fadeInUp');
+    // Reanimate bell
+    animateBell();
+  }
+
+  // Initial delay: 1s then auto-open the form
+  setTimeout(() => {
+    offerBubble.classList.remove('opacity-0', 'pointer-events-none');
+    showOfferForm(true); // open form after 1s by default
+    // Unlock click after 10s for close, not needed for open since it's auto
+    offerClickable = true;
+    // Activate bell again
+    animateBell();
+    // Repeat show after every 60s
+    if (reopenInterval) clearInterval(reopenInterval);
+    reopenInterval = setInterval(() => {
+      showOfferForm(true);
+    }, 30000);
+  }, 60000);
+
+  // Handler: Don't let user close for lock duration
+  if (offerFormClose) {
+    offerFormClose.addEventListener('click', (e) => {
+      if (formIsLocked) {
+        // Optionally shake/animate the close button to indicate lock
+        offerFormClose.classList.add('animate-shake-x');
+        setTimeout(()=>offerFormClose.classList.remove('animate-shake-x'),400);
+        return;
+      }
+      closeOfferForm();
+    });
+  }
+  // Handler: notification bubble click to open form (as backup if user closed and before 1 minute)
+  if (offerBubble && offerFormPopup) {
+    offerBubble.addEventListener('click', () => {
+      if (!offerFormPopup.classList.contains('hidden')) return; // Do not double-open
+      showOfferForm(false);
+    });
+  }
+
+  // WhatsApp submission for Early Bird form popup
+  if (offerForm) {
+    offerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('earlybird-wa-name').value.trim();
+      const track = document.getElementById('earlybird-wa-track').value.trim();
+      const level = document.getElementById('earlybird-wa-level').value.trim();
+      const address = document.getElementById('earlybird-wa-address').value.trim();
+      const contact = document.getElementById('earlybird-wa-contact').value.trim();
+      const query = document.getElementById('earlybird-wa-query').value.trim();
+      const founderNumber = '919999999999'; // With country code, no plus or spaces
+      const msg = `Name: ${name}\nCourse: ${track} (${level})\nAddress: ${address}\nContact: ${contact}\nQuery: ${query}`;
+      const url = `https://wa.me/${founderNumber}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+      // Optionally close after submit, but respect lock
+      if (!formIsLocked) closeOfferForm();
+    });
+  }
 });
 
 

@@ -3,9 +3,9 @@ session_start();
 $admin_name = $_SESSION['admin_name'] ?? '';
 // Handle logout
 if (isset($_GET['logout']) && $_GET['logout'] == '1') {
-    unset($_SESSION['admin_name']);
-    header("Location: index.php");
-    exit();
+  unset($_SESSION['admin_name']);
+  header("Location: index.php");
+  exit();
 }
 ?>
 
@@ -20,12 +20,15 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EduConnect</title>
+  <title>Theta Fornix</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    referrerpolicy="no-referrer" />
 </head>
 
 <body class="bg-white text-gray-800 overflow-x-hidden">
@@ -37,7 +40,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <!-- Brand -->
-          <a href="" class="text-2xl font-extrabold tracking-tight text-blue-600">EduTech</a>
+          <a href="" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
 
           <!-- Desktop Nav -->
           <nav class="hidden md:flex items-center gap-8">
@@ -211,42 +214,43 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
           </nav>
 
           <!-- Admin Section & Hamburger -->
-        <div class="flex items-center gap-4">
-        <!-- Admin Info (Desktop) -->
-        <div class="hidden md:flex items-center gap-3">
-          <?php if (isset($admin_name) && !empty($admin_name)): ?>
-            <div class="flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-lg">
-              <!-- Admin Welcome -->
-              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          <div class="flex items-center gap-4">
+            <!-- Admin Info (Desktop) -->
+            <div class="hidden md:flex items-center gap-3">
+              <?php if (isset($admin_name) && !empty($admin_name)): ?>
+                <div class="flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-lg">
+                  <!-- Admin Welcome -->
+                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                       d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-              </svg>
-              <span class="text-sm font-medium text-blue-700">Welcome,
-                <?php echo htmlspecialchars($admin_name); ?></span>
+                  </svg>
+                  <span class="text-sm font-medium text-blue-700">Welcome,
+                    <?php echo htmlspecialchars($admin_name); ?></span>
+                </div>
+                <!-- Logout Button -->
+                <a href="?logout=1"
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
+                  onclick="return confirm('Are you sure you want to logout?')">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                    </path>
+                  </svg>
+                  Logout
+                </a>
+              <?php else: ?>
+                <!-- Login Button -->
+                <a href="adminLogin.php"
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7">
+                    </path>
+                  </svg>
+                  Login
+                </a>
+              <?php endif; ?>
             </div>
-            <!-- Logout Button -->
-            <a href="?logout=1"
-              class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
-              onclick="return confirm('Are you sure you want to logout?')">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-              </svg>
-              Logout
-            </a>
-          <?php else: ?>
-            <!-- Login Button -->
-            <a href="adminLogin.php"
-              class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-              Login
-            </a>
-          <?php endif; ?>
-        </div>
-      </div>
+          </div>
 
           <!-- Hamburger -->
           <button id="burger"
@@ -363,7 +367,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
         class="underline font-semibold hover:text-white ml-1">Enquire on WhatsApp</a>
     </div>
     <!-- Features -->
-    <section id="features" class="py-20 bg-purple-200">
+    <section id="features" class="py-20 bg-gradient-to-b from-red-200 to-blue-200">
       <div class="container mx-auto px-4">
         <h3 class="text-4xl zilla-slab-medium-italic text-center mb-3 ">Features we offer</h3>
         <p class="text-xl text-center zilla-slab-semibold mb-12">" What We Offer to Make Learning Smarter "</p>
@@ -424,55 +428,122 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
         </div>
       </div>
     </section>
+
+
     <!-- About -->
-    <section id="about" class="py-20 bg-purple-100">
-      <h3 class="text-4xl text-center font-semibold zilla-slab-regular-italic mb-3 about-heading">Top Achievers</h3>
-      <h3 class="text-xl text-purple-700 text-center italic mb-9 font-semibold">" Celebrating the milestones of students
-        who turned dreams into reality. "</h3>
+    <section id="about" class="py-20 bg-gradient-to-b from-blue-50 to-red-300/75">
+      <h3 class="text-4xl text-center font-semibold satisfy-regular mb-5 about-heading">Top Achievers</h3>
+      <h3 class=" text-center text-lg md:text-2xl text-purple-900 satisfy-stylish mb-9 font-medium"> " Congratulations
+        to our Top Achievers — Theta Fornix proudly celebrates your exceptional results. Your dedication,<br />
+        discipline, and integrity inspire our entire learning community. "</h3>
       <div class="container max-w-5xl mx-auto px-4">
-        <div id="achievers-grid" class="flex flex-col sm:flex-row gap-3 my-10 justify-center"></div>
+        <!-- Achievers grid dynamically injected -->
+        <div id="achievers-grid"
+          class="w-full max-w-full sm:max-w-2xl md:max-w-4xl lg:max-w-6xl mx-auto overflow-hidden relative my-10"></div>
       </div>
 
-      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8 py-5 px-4 overflow-x-hidden">
-        <!-- Lottie Animation on the left -->
-        <div class="w-full md:w-1/2 flex justify-center">
-          <iframe src="https://lottie.host/embed/304b01a6-34b9-41e9-b9eb-d37a8e010dc6/6oQocn6FlH.lottie"
-            style="width:630px; height:500px; background:transparent; border:none; border-radius:1.5rem; "
-            allowfullscreen aria-label="WhatsApp Chat with Mentor" loading="lazy" class="mx-auto w-80 h-96 sm:w-[380px] sm:h-[430px] md:w-[510px] md:h-[580px]"></iframe>
-        </div>
 
-        <!-- Description on the right -->
-        <div class="w-full md:w-1/2 flex flex-col justify-center items-center md:items-start">
-          <div
-            class="bg-gradient-to-tr from-green-100 via-blue-100 to-indigo-100 p-8 shadow-xl rounded-2xl max-w-xl w-full">
-            <h2 class="font-['Zilla_Slab'] text-3xl md:text-4xl font-bold mb-3 text-amber-600 drop-shadow">1-on-1
-              Mentorship<br>for Doubt Resolution</h2>
-            <ul class="list-disc pl-5 space-y-4 font-['Roboto'] text-lg text-amber-700">
-              <li>
-                <span class="font-bold text-blue-600">Personal Doubt Clearing:</span> Each student gets direct access
-                to expert mentors via WhatsApp and scheduled private meets.
-              </li>
-              <li>
-                <span class="font-bold text-blue-600">Faster, Deeper Understanding:</span> Our EduCare experts
-                patiently break down concepts so you overcome blocks—no matter how many tries it takes.
-              </li>
-              <li>
-                <span class="font-bold text-blue-600">Individual Attention:</span> 1-on-1 meetings ensure your
-                learning never gets lost in a group. Every session is tailored to your pace.
-              </li>
-              <li>
-                <span class="font-bold text-blue-600">From confusion to clarity:</span> Our goal is that every doubt
-                is resolved before the next step, making you exam-ready with confidence.
-              </li>
-              <li class="mt-2 text-blue-600 font-semibold">EduCare is committed to individualized mentorship, not
-                just group lectures.</li>
-            </ul>
+      <!-- About Theta Fornix -->
+      <section id="about-theta" class="pt-6 md:pt-10">
+        <div class="container mx-auto px-4 max-w-7xl">
+          <div id="info-card-1" class="scroll-card">
+            <!-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"> -->
+            <!-- About Section Responsive Layout -->
+            <section
+              class="flex flex-col max-w-7xl lg:flex-row items-center justify-center gap-8 min-h-[600px] sm:min-h-[680px] py-10 w-full">
+
+              <!-- About Heading: always at the top -->
+              <div class="w-full lg:hidden mb-6 text-center">
+                <h2 class="satisfy-regular text-3xl sm:text-4xl font-bold text-purple-800">About Theta Fornix</h2>
+              </div>
+
+              <!-- Image Left (stacked on mobile, left on large) -->
+              <div
+                class="relative flex justify-center w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto order-2 lg:order-1">
+                <img src="img/Owner_Theta_Fornix.jpeg" alt="Owner's Photo"
+                  class="about-image-hover relative z-10 rounded-2xl w-full h-auto aspect-square border-4 border-purple-300 shadow-xl border border-red-300 object-cover">
+              </div>
+
+              <!-- About Content Right -->
+              <div
+                class="w-full max-w-xl mx-auto lg:text-left text-center flex flex-col justify-center order-3 lg:order-2">
+                <!-- Heading on large screens -->
+                <div class="hidden lg:block mb-4">
+                  <h2 class="satisfy-regular text-3xl sm:text-4xl font-bold text-purple-800">About Theta Fornix</h2>
+                </div>
+                <p class="text-gray-900 font-medium text-base sm:text-lg leading-relaxed">
+                  <span class="text-red-800 font-medium text-base sm:text-lg leading-relaxed">Welcome to THETA
+                    FORNIX</span>
+                  – where dreams meet success! In Medinipur, we are the only institute with an
+                  exclusive collaboration with NEETPREP.COM, Delhi, bringing the finest online learning resources right
+                  into our classrooms. With a proud history of consistent selections in Government Colleges for NEET,
+                  JEE, JENPAS-UG, ANM/GNM, we combine the best of modern technology and personal care.
+                </p>
+                <p class="text-gray-900 font-medium text-base sm:text-lg leading-relaxed mt-3">
+                  Our digital
+                  classrooms, personalized doubt-solving sessions, one-to-one attention, and regular tests keep every
+                  student exam-ready. With the highest student satisfaction and a proven track record, THETA FORNIX is
+                  Medinipur’s No.1 choice for success. Join us today to experience learning that truly transforms
+                  futures!
+                </p>
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+                  <a href="team.php"
+                    class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-semibold shadow-md transition">
+                    Know more
+                  </a>
+                  <a href="tel:+919999999999"
+                    class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-purple-300 text-purple-700 hover:bg-purple-50 font-semibold shadow-sm transition">
+                    <i class="fa-solid fa-phone"></i>
+                    Call +91 99999 99999
+                  </a>
+                </div>
+                <p class="mt-3 text-sm text-gray-700">Available 9:00 AM – 8:00 PM IST • You can also WhatsApp the same
+                  number</p>
+              </div>
+            </section>
+            <!-- </div> -->
+          </div>
+          <div id="info-card-2" class="scroll-card">
+            <div class="max-w-8xl mx-auto my-12 px-4">
+              <div
+                class="rounded-xl bg-gradient-to-r from-amber-200 to-red-300 shadow-lg ring-1 ring-gray-200 flex flex-col lg:flex-row items-center gap-10 p-5 lg:p-8">
+                <!-- Left: Text content -->
+                <div
+                  class="w-full lg:w-1/2 text-center lg:text-left flex flex-col justify-center items-center lg:items-start">
+                  <h2 class="text-3xl font-semibold text-purple-800 mb-5 satisfy-regular">Our core Aim</h2>
+                  <p class="text-gray-900 font-medium text-base md:text-lg mb-4">
+                    At THETA FORNIX, we don’t just prepare students for exams — we prepare them for life. With
+                    dedication, innovation, and personal care, we have built a space where every dream finds direction.
+                    Our exclusive collaboration with NEETPREP.COM, Delhi gives our students an edge with national-level
+                    content, while our modern classrooms, doubt-solving, and individual attention ensure no student is
+                    left behind. The trust of parents and the success of our students in Government Colleges inspire us
+                    every day. We welcome you to join the THETA FORNIX family, where excellence is not an option — it’s
+                    a habit
+                  </p>
+                  <a href="#know-more"
+                    class="inline-block mt-3 rounded-lg italic text-lg font-semibold text-red-800 hover:text-purple-700 transition shadow">" Join us today to experience learning that truly transforms futures ! "</a>
+                </div>
+                <!-- Right: Video -->
+                <div class="w-full lg:w-1/2 flex justify-center">
+                  <video class="rounded-xl shadow-md w-full max-w-md" controls>
+                    <source src="video/Theta_Fornix_Video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+
+
+      <!-- Mentorship Section -->
+
     </section>
 
-    <section class="py-8 bg-gradient-to-r from-purple-600 to-amber-700 px-4 sm:px-8">
+
+    <section class="py-6 bg-gradient-to-r from-purple-600 to-amber-700 px-4 sm:px-8">
       <div
         class="max-w-8xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12 text-3xl font-bold text-white text-center">
         <p>52M + <br /><span class="text-xl font-semibold">Views</span></p>
@@ -482,9 +553,9 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
       </div>
     </section>
 
-    <section class="py-14 bg-purple-50">
+    <section class="py-14 px-2 sm:px-4 bg-purple-50">
       <h2 class="text-3xl sm:text-4xl font-semibold satisfy-regular text-center text-purple-800 mb-10 learn-h2">
-        What Our Learners Say About EduConnect
+        What Our Learners Say About Theta Fornix
       </h2>
       <div class="flex justify-center mb-10" aria-label="average rating 5 out of 5 stars">
         <svg class="w-8 h-8 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
@@ -525,18 +596,18 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
             <!-- 10 TESTIMONIALS: ROW 1 -->
             <div class="flex min-w-max gap-6">
               <!-- Review 1 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Rahul Verma"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;EduConnect transformed the way I prepare for competitive exams! The mentors are friendly and
+                  &ldquo;Theta Fornix transformed the way I prepare for competitive exams! The mentors are friendly and
                   doubt-solving sessions are excellent.&rdquo;
                 </blockquote>
                 <div class="font-bold text-purple-800 text-base">Rahul Verma</div>
                 <div class="text-xs text-purple-600">Mumbai, Class of 2025</div>
               </div>
               <!-- Review 2 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sneha Patel"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -547,27 +618,27 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Ahmedabad, Class of 2024</div>
               </div>
               <!-- Review 3 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Amit Sharma"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;Weekly tests and peer learning made a huge difference in my journey with EduConnect!&rdquo;
+                  &ldquo;Weekly tests and peer learning made a huge difference in my journey with Theta Fornix!&rdquo;
                 </blockquote>
                 <div class="font-bold text-purple-800 text-base">Amit Sharma</div>
                 <div class="text-xs text-purple-600">Delhi, Class of 2023</div>
               </div>
               <!-- Review 4 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="Harshad Mehta"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;I cleared my doubts in minutes. EduConnect made even tough topics simple for me.&rdquo;
+                  &ldquo;I cleared my doubts in minutes. Theta Fornix made even tough topics simple for me.&rdquo;
                 </blockquote>
                 <div class="font-bold text-purple-800 text-base">Harshad Mehta</div>
                 <div class="text-xs text-purple-600">Surat, Class of 2025</div>
               </div>
               <!-- Review 5 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/women/87.jpg" alt="Sakshi Singh"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -577,18 +648,18 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Lucknow, Class of 2023</div>
               </div>
               <!-- Review 6 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="Kunal Raj"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;I was able to manage school and competitive prep together, thanks to EduConnect’s flexible
+                  &ldquo;I was able to manage school and competitive prep together, thanks to Theta Fornix’s flexible
                   schedule.&rdquo;
                 </blockquote>
                 <div class="font-bold text-purple-800 text-base">Kunal Raj</div>
                 <div class="text-xs text-purple-600">Patna, Class of 2024</div>
               </div>
               <!-- Review 7 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/16.jpg" alt="Ravi Iyengar"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -598,27 +669,27 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Chennai, Class of 2025</div>
               </div>
               <!-- Review 8 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Pooja Rathore"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;EduConnect’s live problem-solving really helped me clear my backlog.&rdquo;
+                  &ldquo;Theta Fornix’s live problem-solving really helped me clear my backlog.&rdquo;
                 </blockquote>
                 <div class="font-bold text-purple-800 text-base">Pooja Rathore</div>
                 <div class="text-xs text-purple-600">Indore, Class of 2024</div>
               </div>
               <!-- Review 9 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Deepak Joshi"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;Resources are up-to-date and cover everything. Highly recommend EduConnect!&rdquo;
+                  &ldquo;Resources are up-to-date and cover everything. Highly recommend Theta Fornix!&rdquo;
                 </blockquote>
                 <div class="font-bold text-purple-800 text-base">Deepak Joshi</div>
                 <div class="text-xs text-purple-600">Jaipur, Class of 2022</div>
               </div>
               <!-- Review 10 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/women/70.jpg" alt="Nisha Pillai"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -633,11 +704,11 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
               <!-- Copy-paste the same 10 review cards here -->
               <!-- ... -->
               <!-- Review 1 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Rahul Verma"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;EduConnect transformed the way I prepare for competitive exams! The mentors are friendly and
+                  &ldquo;Theta Fornix transformed the way I prepare for competitive exams! The mentors are friendly and
                   doubt-solving sessions are excellent.&rdquo;
                 </blockquote>
                 <div class="font-bold text-purple-800 text-base">Rahul Verma</div>
@@ -649,109 +720,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
             </div>
           </div>
         </div>
-        <!-- SECOND MARQUEE ROW, reverse direction -->
-        <div class="overflow-hidden">
-          <div class="marquee flex" style="animation: marquee-right 18s linear infinite;">
-            <div class="flex min-w-max gap-6">
-              <!-- Reviews 1-10 as above, copy-paste and change aria-hidden as needed -->
-              <!-- ... -->
-              <!-- Review 1 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Rahul Verma"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;EduConnect transformed the way I prepare for competitive exams! The mentors are friendly and
-                  doubt-solving sessions are excellent.&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Rahul Verma</div>
-                <div class="text-xs text-purple-600">Mumbai, Class of 2025</div>
-              </div>
-              <!-- Review 3 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Amit Sharma"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;Weekly tests and peer learning made a huge difference in my journey with EduConnect!&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Amit Sharma</div>
-                <div class="text-xs text-purple-600">Delhi, Class of 2023</div>
-              </div>
-              <!-- Review 4 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="Harshad Mehta"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;I cleared my doubts in minutes. EduConnect made even tough topics simple for me.&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Harshad Mehta</div>
-                <div class="text-xs text-purple-600">Surat, Class of 2025</div>
-              </div>
-              <!-- Review 5 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/women/87.jpg" alt="Sakshi Singh"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;The best part is personal attention! I never felt left out in any session.&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Sakshi Singh</div>
-                <div class="text-xs text-purple-600">Lucknow, Class of 2023</div>
-              </div>
-              <!-- Review 6 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="Kunal Raj"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;I was able to manage school and competitive prep together, thanks to EduConnect’s flexible
-                  schedule.&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Kunal Raj</div>
-                <div class="text-xs text-purple-600">Patna, Class of 2024</div>
-              </div>
-              <!-- Review 7 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/men/16.jpg" alt="Ravi Iyengar"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;The mock tests are so close to the real thing! Helped me boost my score.&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Ravi Iyengar</div>
-                <div class="text-xs text-purple-600">Chennai, Class of 2025</div>
-              </div>
-              <!-- Review 8 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Pooja Rathore"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;EduConnect’s live problem-solving really helped me clear my backlog.&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Pooja Rathore</div>
-                <div class="text-xs text-purple-600">Indore, Class of 2024</div>
-              </div>
-              <!-- Review 9 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Deepak Joshi"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;Resources are up-to-date and cover everything. Highly recommend EduConnect!&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Deepak Joshi</div>
-                <div class="text-xs text-purple-600">Jaipur, Class of 2022</div>
-              </div>
-              <!-- Review 10 -->
-              <div class="flex flex-col items-center bg-white px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
-                <img src="https://randomuser.me/api/portraits/women/70.jpg" alt="Nisha Pillai"
-                  class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
-                <blockquote class="text-base italic text-gray-700 mb-3 text-center">
-                  &ldquo;The study plans and weekly feedback gave my preparation the right direction!&rdquo;
-                </blockquote>
-                <div class="font-bold text-purple-800 text-base">Nisha Pillai</div>
-                <div class="text-xs text-purple-600">Kochi, Class of 2023</div>
-              </div>
-            </div>
-            <!-- ...repeat reviews 2-10... -->
-          </div>
-          <!--  -->
-        </div>
+        
       </div>
       </div>
     </section>
@@ -762,16 +731,22 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
         <!-- Main Images Row -->
         <!-- Recognized By Text & Logos -->
         <div class="w-full flex flex-col items-center">
-          <h2 class="text-3xl font-semibold text-purple-800 mb-2">Certified by</h2>
+          <h2 class="text-3xl font-semibold text-purple-800 mb-2">Affiliated with</h2>
+          <div class="flex flex-wrap gap-7 justify-center items-center mt-2 mb-4">
+            <img src="img/competishun.jpeg" alt="Ministry Logo"
+              class="h-32 w-auto object-contain brightness-110 bg-white rounded px-2 py-1 shadow" />
+            <img src="img/neetprep.jpeg" alt="MSME Logo"
+              class="h-32 w-auto object-contain bg-white rounded px-2 py-1 shadow" />
+          </div>
+          <h2 class="text-3xl font-semibold text-purple-800 mb-2">Recognized by</h2>
           <div class="flex flex-wrap gap-7 justify-center items-center mt-2">
-            <img src="https://iisc.ac.in/wp-content/uploads/2020/08/IISc_Master_Seal.jpg" alt="IISc Logo"
+            <img src="img/Ministry.png" alt="Ministry Logo"
               class="h-24 w-auto object-contain brightness-110 bg-white rounded px-2 py-1 shadow" />
-            <img
-              src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1c/IIT_Kharagpur_Logo.svg/250px-IIT_Kharagpur_Logo.svg.png"
-              alt="IIT KGP Logo" class="h-24 w-auto object-contain bg-white rounded px-2 py-1 shadow" />
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7dZY7GWwWuG3tdITlX8FOyEO5ceDAWb8YRQ&s"
-              alt="NCERT Logo" class="h-24 w-auto object-contain bg-white rounded px-2 py-1 shadow" />
-            <img src="https://upload.wikimedia.org/wikipedia/en/4/4e/UGC_India_Logo.png" alt="UGC Logo"
+            <img src="img/msme.png" alt="MSME Logo"
+              class="h-24 w-auto object-contain bg-white rounded px-2 py-1 shadow" />
+            <img src="img/iso.jpg" alt="ISO Logo"
+              class="h-24 w-auto object-contain bg-white rounded px-2 py-1 shadow" />
+            <img src="img/images.jpeg" alt="DIDI Logo"
               class="h-24 w-auto object-contain bg-white rounded px-2 py-1 shadow" />
           </div>
         </div>
@@ -779,72 +754,92 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
     </section>
     <!-- Recognition Section End -->
 
-    <!-- Contact Form Section -->
-    <section id="contactform" class="py-8 bg-gradient-to-br from-yellow-100 via-purple-50 to-blue-50 px-4">
-  <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start gap-4 md:gap-8">
-    <!-- LEFT: Catchy Info Block -->
-    <div class="flex-1 mb-6 md:mb-0 flex flex-col justify-center">
-      <h2 class="text-3xl md:text-4xl zilla-slab-semibold-italic text-purple-700 mb-3">Contact the Founders</h2>
-      <span class="text-purple-800 text-xl font-semibold mb-2 block">We're here to listen, guide, and support your academic dreams.</span>
-      <p class="text-purple-900 mb-4 zilla-slab-semibold text-lg">Fill out your details and directly connect with our founding team via WhatsApp. We care about your learning and respond to every query professionally and confidentially.</p>
-      <ul class="text-md font-medium text-purple-700 pl-4 list-disc mb-3">
-        <li>Personal, expert advice — not bots</li>
-        <li>Recommended track/course guidance for your goal</li>
-        <li>Fastest query resolution — seamless on mobile</li>
-        <li>Respect, privacy, and a genuinely student-focused team</li>
-      </ul>
+
+
+    <!-- Offer Notification and Registration Popup (Bottom Right) -->
+    <div id="earlybird-offer-wrap"
+      class="fixed z-[1001] bottom-5 right-5 flex flex-col items-end gap-3 pointer-events-none">
+      <!-- Notification Bubble -->
+      <div id="earlybird-popup"
+        class="pointer-events-auto group bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-xl rounded-full px-4 py-2.5 flex items-center gap-3 cursor-pointer transition-all duration-300 hover:shadow-2xl animate-bounce">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/15">
+          <i class="fa-solid fa-bell"></i>
+        </span>
+        <span class="text-sm font-semibold tracking-wide">New Offer</span>
+      </div>
+
+      <!-- Form Popup (Initially Hidden) -->
+      <div id="earlybird-form-popup"
+        class="pointer-events-auto w-full max-w-sm md:max-w-lg bg-white/95 backdrop-blur-xl border border-purple-200 shadow-2xl rounded-2xl p-4 md:p-4 flex flex-col gap-3 relative hidden ring-1 ring-purple-100">
+        <button id="earlybird-form-close"
+          class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-lg text-gray-500 hover:text-red-600 bg-white/90 rounded-full shadow-sm z-10"
+          aria-label="Close">&times;</button>
+
+        <!-- Header -->
+        <div class="flex items-start gap-3 pb-3 border-b border-purple-100">
+          <div
+            class="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-500 text-white flex items-center justify-center shadow-md">
+            <i class="fa-solid fa-gift"></i>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg md:text-xl font-extrabold text-purple-800">New Student Welcome Offer</h3>
+            <p class="text-xs md:text-sm text-purple-600">Unlock 10% off on your first purchase</p>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="earlybird-wa-form" class="flex flex-col gap-3 mt-1">
+          <div>
+            <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-name">Full Name</label>
+            <input id="earlybird-wa-name" name="name" type="text" required placeholder="e.g., Aarav Sharma"
+              class="w-full px-3 py-2 rounded-lg border border-purple-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-base transition bg-white/90" />
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-track">Course
+                Track</label>
+              <select id="earlybird-wa-track" name="track" required
+                class="w-full px-3 py-2 rounded-lg border border-purple-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-base transition bg-white/90">
+                <option value="">Select Track</option>
+                <option value="NEET">NEET</option>
+                <option value="JEE">JEE</option>
+                <option value="Nursing">BSC Nursing</option>
+                <option value="ANM/GNM">ANM &amp; GNM</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-level">Level</label>
+              <select id="earlybird-wa-level" name="level" required
+                class="w-full px-3 py-2 rounded-lg border border-purple-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-base transition bg-white/90">
+                <option value="">Select Level</option>
+                <option value="Class 11">Class 11</option>
+                <option value="Class 12">Class 12</option>
+                <option value="Repeater">Repeater</option>
+                <option value="Crash Course">Crash Course</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-contact">Contact
+              Number</label>
+            <input id="earlybird-wa-contact" name="contact" type="text" required pattern="[0-9]{10,15}" maxlength="15"
+              placeholder="e.g., 9876543210"
+              class="w-full px-3 py-2 rounded-lg border border-purple-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-base transition bg-white/90" />
+          </div>
+
+          <button type="submit"
+            class="mt-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 active:from-purple-800 active:to-fuchsia-800 text-white font-bold text-base rounded-lg py-2.5 transition-all shadow-lg">
+            <i class="fa-solid fa-paper-plane"></i>
+            Send via WhatsApp
+          </button>
+
+          <p class="text-[11px] text-gray-500 mt-1">We respect your privacy. Your details are used only to process your
+            enquiry. By submitting, you agree to be contacted via WhatsApp or call.</p>
+        </form>
+      </div>
     </div>
-    <!-- RIGHT: Form -->
-    <form id="wa-contact-form" class="w-full md:w-6/12 max-w-md bg-white/90 shadow-xl rounded-lg flex flex-col gap-3 border border-purple-200 mx-auto px-2 py-5">
-      <div>
-        <label class="font-semibold text-purple-800 mb-1 block text-sm" for="wa-name">Name</label>
-        <input id="wa-name" name="name" type="text" required placeholder="Your Name"
-               class="w-full px-2 py-1.5 rounded border border-purple-200 focus:border-blue-400 outline-none text-base transition" />
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-        <div>
-          <label class="font-semibold text-purple-800 mb-1 block text-sm" for="wa-track">Course Track</label>
-          <select id="wa-track" name="track" required class="w-full px-2 py-1.5 rounded border border-purple-200 focus:border-blue-400 outline-none text-base transition">
-            <option value="">Select Track</option>
-            <option value="NEET">NEET</option>
-            <option value="JEE">JEE</option>
-            <option value="Nursing">BSC Nursing</option>
-            <option value="ANM/GNM">ANM &amp; GNM</option>
-          </select>
-        </div>
-        <div>
-          <label class="font-semibold text-purple-800 mb-1 block text-sm" for="wa-level">Level</label>
-          <select id="wa-level" name="level" required class="w-full px-2 py-1.5 rounded border border-purple-200 focus:border-blue-400 outline-none text-base transition">
-            <option value="">Select Level</option>
-            <option value="Class 11">Class 11</option>
-            <option value="Class 12">Class 12</option>
-            <option value="Repeater">Repeater</option>
-            <option value="Crash Course">Crash Course</option>
-          </select>
-        </div>
-      </div>
-      <div>
-        <label class="font-semibold text-purple-800 mb-1 block text-sm" for="wa-address">Address</label>
-        <input id="wa-address" name="address" type="text" required placeholder="Your Address" 
-               class="w-full px-2 py-1.5 rounded border border-purple-200 focus:border-blue-400 outline-none text-base transition" />
-      </div>
-      <div>
-        <label class="font-semibold text-purple-800 mb-1 block text-sm" for="wa-contact">Contact Number</label>
-        <input id="wa-contact" name="contact" type="text" required pattern="[0-9]{10,15}" maxlength="15" placeholder="Your Contact Number" 
-               class="w-full px-2 py-1.5 rounded border border-purple-200 focus:border-blue-400 outline-none text-base transition" />
-      </div>
-      <div>
-        <label class="font-semibold text-purple-800 mb-1 block text-sm" for="wa-query">Query / Message</label>
-        <textarea id="wa-query" name="query" rows="3" required placeholder="Type your question or request..."
-               class="w-full px-2 py-1.5 rounded border border-purple-200 focus:border-blue-400 outline-none text-base transition"></textarea>
-      </div>
-      <button type="submit"
-              class="bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-base rounded py-2 transition-all shadow w-full">
-        Send via WhatsApp
-      </button>
-    </form>
-  </div>
-</section>
+    <!-- End Offer Notification and Registration Popup -->
+
   </main>
   <!-- Footer -->
   <footer id="contact" class="bg-blue-950 text-white pt-10 pb-6 mt-12">
@@ -853,7 +848,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
       <div class="flex flex-col lg:flex-row flex-wrap gap-10 justify-between">
         <!-- Address and About -->
         <div class="flex-1 min-w-[220px] mb-8 lg:mb-0">
-          <h4 class="text-xl font-semibold mb-3 text-blue-100">EduConnect</h4>
+          <h4 class="text-xl font-semibold mb-3 text-blue-100">Theta Fornix</h4>
           <p class="text-blue-200 mb-3">Empowering learners across India with quality education and mentorship for a
             brighter future.</p>
           <div class="mb-2 flex items-start">
@@ -861,7 +856,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
               <path
                 d="M10 2C6.13 2 3 5.14 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.86-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 10 6a2.5 2.5 0 0 1 0 5.5z" />
             </svg>
-            <span>EduConnect Tower, 123 Knowledge Avenue,<br>Bengaluru, Karnataka, 560001</span>
+            <span>Theta Fornix Tower, 123 Knowledge Avenue,<br>Bengaluru, Karnataka, 560001</span>
           </div>
           <div class="mb-2 flex items-center">
             <svg class="w-5 h-5 mr-2 text-blue-300" fill="none" stroke="currentColor" stroke-width="2"
@@ -878,8 +873,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
               <path d="M4 4h16v16H4z" />
               <path d="M22,6L12,13L2,6" />
             </svg>
-            <span>Email: <a href="mailto:info@educonnect.in"
-                class="hover:underline hover:text-yellow-200">info@educonnect.in</a></span>
+            <span>Email: <a href="mailto:info@Theta Fornix.in" class="hover:underline hover:text-yellow-200">info@Theta
+                Fornix.in</a></span>
           </div>
           <!-- Social Icons -->
           <div class="flex space-x-4 mt-5">
@@ -937,7 +932,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
       <div class="border-t border-blue-900 my-7"></div>
       <!-- Bottom Bar -->
       <div class="flex flex-col md:flex-row justify-between items-center text-sm text-blue-300 gap-2">
-        <span>© 2025 EduConnect. All Rights Reserved.</span>
+        <span>© 2025 Theta Fornix. All Rights Reserved.</span>
         <span>Made with <span class="text-red-400">♥</span> for Indian learners</span>
       </div>
     </div>
@@ -945,6 +940,20 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
+      // Enforce autoplay & muted for home video
+      var vid = document.querySelector("#home-video video");
+      if (vid) {
+        vid.muted = true;
+        vid.autoplay = true;
+        vid.playsInline = true;
+        vid.setAttribute("muted", "");
+        vid.setAttribute("autoplay", "");
+        vid.setAttribute("playsinline", "");
+        var playPromise = vid.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(function () { });
+        }
+      }
       // Animate video
       gsap.from("#home-video", {
         opacity: 0,
@@ -990,6 +999,33 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
       }
     });
 
+  </script>
+  <script>
+    class MentorshipSlider {
+      constructor() {
+        this.swiper = new Swiper('.mentorship-slider', {
+          loop: true,
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new MentorshipSlider();
+    });
+  </script>
+  <script>
 
   </script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

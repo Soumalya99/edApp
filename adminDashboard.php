@@ -20,7 +20,7 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard | EduConnect</title>
+  <title>Admin Dashboard | Theta Fornix</title>
 
   <!-- Inter font and Tailwind CDN -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -74,7 +74,7 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <!-- Brand -->
-        <a href="/" class="text-2xl font-extrabold tracking-tight text-blue-600">EduTech</a>
+        <a href="/" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
 
         <!-- Desktop Nav -->
         <nav class="hidden md:flex items-center gap-8">
@@ -363,13 +363,95 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
 
   <main class="max-w-6xl mx-auto px-4 pb-20 grid gap-10">
     <!-- Teacher Profile -->
+    <?php
+    // --- Start of teacher preview grid ---
+    $all_teachers = [];
+    try {
+      require_once __DIR__ . '/php_backend/config/conf.php';
+      $stmt = $pdo->query("SELECT id, name, profile_image FROM teachers ORDER BY id DESC");
+      if ($stmt) {
+        $all_teachers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      }
+    } catch (Exception $e) {
+      error_log('Error fetching teachers: ' . $e->getMessage());
+    }
+    // --- End of teacher preview grid fetch ---
+    ?>
     <section id="teacher-profile-section"
       class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
       <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div class="flex items-center justify-center">
-          <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_4kx2q32n.json" background="transparent"
-            speed="1" class="w-72 h-72" loop autoplay>
-          </lottie-player>
+        <!-- Left: Show all teacher photos with cross overlay for delete -->
+        <div>
+          <h3 class="text-xl font-semibold mb-2 text-slate-900">All Teachers</h3>
+          <?php if (!empty($all_teachers)): ?>
+            <style>
+              .teacher-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+              .teacher-img-wrap { position: relative; }
+              .teacher-delete-btn {
+                position: absolute;
+                top: 0.4em; right: 0.4em;
+                background: rgba(255,55,55,0.93);
+                color: #fff;
+                border: none;
+                border-radius: 9999px;
+                width: 2rem; height: 2rem;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 1.25rem;
+                box-shadow: 0 1px 6px 0 rgba(0,0,0,0.08);
+                z-index: 5;
+                transition: background 0.18s;
+                cursor: pointer;
+                opacity: 0.85;
+              }
+              .teacher-delete-btn:hover {
+                background: #d91a20;
+                opacity: 1;
+              }
+            </style>
+            <div class="teacher-gallery">
+              <?php foreach ($all_teachers as $teacher): ?>
+                <div class="teacher-img-wrap bg-slate-50 p-2 rounded-lg shadow text-center">
+                  <button class="teacher-delete-btn" title="Delete" data-id="<?php echo $teacher['id']; ?>">
+                    &times;
+                  </button>
+                  <img src="<?php echo htmlspecialchars($teacher['profile_image']); ?>"
+                       alt="Photo of <?php echo htmlspecialchars($teacher['name']); ?>"
+                       class="w-full h-32 object-cover rounded-md shadow bg-slate-100 mb-2">
+                  <p class="text-sm font-medium text-slate-700 truncate" title="<?php echo htmlspecialchars($teacher['name']); ?>">
+                    <?php echo htmlspecialchars($teacher['name']); ?>
+                  </p>
+                </div>
+              <?php endforeach; ?>
+            </div>
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.teacher-delete-btn').forEach(function(btn) {
+                  btn.addEventListener('click', function() {
+                    if (!confirm('Delete this teacher profile?')) return;
+                    const teacherId = this.getAttribute('data-id');
+                    const imgWrap = this.closest('.teacher-img-wrap');
+                    fetch('php_backend/api/teachers.php?id=' + encodeURIComponent(teacherId), {
+                      method: 'DELETE',
+                    }).then(async res => {
+                      const result = await res.json();
+                      if (res.ok) {
+                        imgWrap.remove();
+                        ToastNotification.show('Teacher profile deleted.');
+                      } else {
+                        ToastNotification.show(result.error || 'Delete failed.', 'error');
+                      }
+                    }).catch(() => {
+                      ToastNotification.show('Could not reach server.', 'error');
+                    });
+                  });
+                });
+              });
+            </script>
+          <?php else: ?>
+            <div class="flex items-center justify-center h-full bg-slate-50 rounded-lg p-8 border border-dashed">
+              <p class="text-slate-500 text-center">No teachers to show.<br>Upload one to see it here.</p>
+            </div>
+          <?php endif; ?>
         </div>
         <div>
           <h3 class="text-xl font-semibold mb-1 text-slate-900">Update Teacher Profile</h3>
@@ -461,12 +543,92 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
       </section> -->
 
     <!-- Founders -->
+    <?php
+    // --- Start of founders preview grid ---
+    $all_founders = [];
+    try {
+      require_once __DIR__ . '/php_backend/config/conf.php';
+      $stmt = $pdo->query("SELECT id, name, image_path FROM founders ORDER BY id DESC");
+      if ($stmt) {
+        $all_founders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      }
+    } catch (Exception $e) {
+      error_log('Error fetching founders: ' . $e->getMessage());
+    }
+    // --- End of founders preview grid fetch ---
+    ?>
     <section id="founder-section" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
       <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div class="flex items-center justify-center">
-          <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_pwohahvd.json" background="transparent"
-            speed="1" class="w-72 h-72" loop autoplay>
-          </lottie-player>
+        <!-- Left: Show all founder photos with delete cross overlay -->
+        <div>
+          <h3 class="text-xl font-semibold mb-2 text-slate-900">All Founders</h3>
+          <?php if (!empty($all_founders)): ?>
+            <style>
+              .founder-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+              .founder-img-wrap { position: relative; }
+              .founder-delete-btn {
+                position: absolute;
+                top: 0.4em; right: 0.4em;
+                background: rgba(255,55,55,0.93);
+                color: #fff;
+                border: none;
+                border-radius: 9999px;
+                width: 2rem; height: 2rem;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 1.25rem;
+                box-shadow: 0 1px 6px 0 rgba(0,0,0,0.08);
+                z-index: 5;
+                transition: background 0.18s;
+                cursor: pointer;
+                opacity: 0.85;
+              }
+              .founder-delete-btn:hover {
+                background: #d91a20;
+                opacity: 1;
+              }
+            </style>
+            <div class="founder-gallery">
+              <?php foreach ($all_founders as $founder): ?>
+                <div class="founder-img-wrap bg-slate-50 p-2 rounded-lg shadow text-center">
+                  <button class="founder-delete-btn" title="Delete" data-id="<?php echo $founder['id']; ?>">&times;</button>
+                  <img src="<?php echo htmlspecialchars($founder['image_path']); ?>"
+                       alt="Photo of <?php echo htmlspecialchars($founder['name']); ?>"
+                       class="w-full h-32 object-cover rounded-md shadow bg-slate-100 mb-2">
+                  <p class="text-sm font-medium text-slate-700 truncate" title="<?php echo htmlspecialchars($founder['name']); ?>">
+                    <?php echo htmlspecialchars($founder['name']); ?>
+                  </p>
+                </div>
+              <?php endforeach; ?>
+            </div>
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.founder-delete-btn').forEach(function(btn) {
+                  btn.addEventListener('click', function() {
+                    if (!confirm('Delete this founder photo?')) return;
+                    const founderId = this.getAttribute('data-id');
+                    const imgWrap = this.closest('.founder-img-wrap');
+                    fetch('php_backend/api/founders.php?id=' + encodeURIComponent(founderId), {
+                      method: 'DELETE',
+                    }).then(async res => {
+                      const result = await res.json();
+                      if (res.ok) {
+                        imgWrap.remove();
+                        ToastNotification.show('Founder photo deleted.');
+                      } else {
+                        ToastNotification.show(result.error || 'Delete failed.', 'error');
+                      }
+                    }).catch(() => {
+                      ToastNotification.show('Could not reach server.', 'error');
+                    });
+                  });
+                });
+              });
+            </script>
+          <?php else: ?>
+            <div class="flex items-center justify-center h-full bg-slate-50 rounded-lg p-8 border border-dashed">
+              <p class="text-slate-500 text-center">No founders to show.<br>Upload one to see it here.</p>
+            </div>
+          <?php endif; ?>
         </div>
         <div>
           <h3 class="text-xl font-semibold mb-1 text-slate-900">Add or Update a Founder</h3>
@@ -517,8 +679,8 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
       // This requires your database connection file. Adjust the path if necessary.
       require_once __DIR__ . '/php_backend/config/conf.php';
 
-      // Fetches the 4 most recent candidates.
-      $stmt = $pdo->query("SELECT name, image_path FROM candidates ORDER BY id DESC LIMIT 4");
+      // Fetch all candidates for admin preview
+      $stmt = $pdo->query("SELECT id, name, image_path FROM candidates ORDER BY id DESC");
 
       if ($stmt) {
         $recent_candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -571,14 +733,41 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
 
         <!-- Right side: Preview of recently added images -->
         <div>
-          <h3 class="text-xl font-semibold mb-4 text-slate-900">Recently Added</h3>
+          <h3 class="text-xl font-semibold mb-4 text-slate-900">All Candidates</h3>
           <?php if (!empty($recent_candidates)): ?>
-            <div class="grid grid-cols-2 gap-4">
+            <style>
+              .candidate-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+              .candidate-img-wrap { position: relative; }
+              .candidate-delete-btn {
+                position: absolute;
+                top: 0.4em; right: 0.4em;
+                background: rgba(255,55,55,0.93);
+                color: #fff;
+                border: none;
+                border-radius: 9999px;
+                width: 2rem; height: 2rem;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 1.25rem;
+                box-shadow: 0 1px 6px 0 rgba(0,0,0,0.08);
+                z-index: 5;
+                transition: background 0.18s;
+                cursor: pointer;
+                opacity: 0.85;
+              }
+              .candidate-delete-btn:hover {
+                background: #d91a20;
+                opacity: 1;
+              }
+            </style>
+            <div class="candidate-gallery">
               <?php foreach ($recent_candidates as $candidate): ?>
-                <div class="text-center">
+                <div class="candidate-img-wrap group bg-slate-50 p-2 rounded-lg shadow text-center">
+                  <button class="candidate-delete-btn" title="Delete" data-id="<?php echo $candidate['id']; ?>">
+                    &times;
+                  </button>
                   <img src="<?php echo htmlspecialchars($candidate['image_path']); ?>"
                     alt="Photo of <?php echo htmlspecialchars($candidate['name']); ?>"
-                    class="w-full h-32 object-cover rounded-lg shadow-md mb-2 bg-slate-100">
+                    class="w-full h-32 object-cover rounded-md shadow bg-slate-100 mb-2">
                   <p class="text-sm font-medium text-slate-700 truncate"
                     title="<?php echo htmlspecialchars($candidate['name']); ?>">
                     <?php echo htmlspecialchars($candidate['name']); ?>
@@ -586,9 +775,33 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
                 </div>
               <?php endforeach; ?>
             </div>
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.candidate-delete-btn').forEach(function(btn) {
+                  btn.addEventListener('click', function() {
+                    if (!confirm('Delete this candidate photo?')) return;
+                    const candidateId = this.getAttribute('data-id');
+                    const imgWrap = this.closest('.candidate-img-wrap');
+                    fetch('php_backend/api/candidate.php?id=' + encodeURIComponent(candidateId), {
+                      method: 'DELETE',
+                    }).then(async res => {
+                      const result = await res.json();
+                      if (res.ok) {
+                        imgWrap.remove();
+                        ToastNotification.show('Photo deleted.');
+                      } else {
+                        ToastNotification.show(result.error || 'Delete failed.', 'error');
+                      }
+                    }).catch(() => {
+                      ToastNotification.show('Could not reach server.', 'error');
+                    });
+                  });
+                });
+              });
+            </script>
           <?php else: ?>
             <div class="flex items-center justify-center h-full bg-slate-50 rounded-lg p-8 border border-dashed">
-              <p class="text-slate-500 text-center">No recent candidates to show.<br>Upload one to see it here.</p>
+              <p class="text-slate-500 text-center">No candidates to show.<br>Upload one to see it here.</p>
             </div>
           <?php endif; ?>
         </div>
@@ -818,7 +1031,7 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
       <div class="flex flex-col lg:flex-row flex-wrap gap-10 justify-between">
         <!-- Address and About -->
         <div class="flex-1 min-w-[220px] mb-8 lg:mb-0">
-          <h4 class="text-xl font-semibold mb-3 text-blue-100">EduConnect</h4>
+          <h4 class="text-xl font-semibold mb-3 text-blue-100">Theta Fornix</h4>
           <p class="text-blue-200 mb-3">Empowering learners across India with quality education and mentorship for a
             brighter future.</p>
           <div class="mb-2 flex items-start">
@@ -826,7 +1039,7 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
               <path
                 d="M10 2C6.13 2 3 5.14 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.86-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 10 6a2.5 2.5 0 0 1 0 5.5z" />
             </svg>
-            <span>EduConnect Tower, 123 Knowledge Avenue,<br>Bengaluru, Karnataka, 560001</span>
+            <span>Theta Fornix Tower, 123 Knowledge Avenue,<br>Bengaluru, Karnataka, 560001</span>
           </div>
           <div class="mb-2 flex items-center">
             <svg class="w-5 h-5 mr-2 text-blue-300" fill="none" stroke="currentColor" stroke-width="2"
@@ -843,8 +1056,8 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
               <path d="M4 4h16v16H4z" />
               <path d="M22,6L12,13L2,6" />
             </svg>
-            <span>Email: <a href="mailto:info@educonnect.in"
-                class="hover:underline hover:text-yellow-200">info@educonnect.in</a></span>
+            <span>Email: <a href="mailto:info@Theta Fornix.in"
+                class="hover:underline hover:text-yellow-200">info@Theta Fornix.in</a></span>
           </div>
           <!-- Social Icons -->
           <div class="flex space-x-4 mt-5">
@@ -902,7 +1115,7 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
       <div class="border-t border-blue-900 my-7"></div>
       <!-- Bottom Bar -->
       <div class="flex flex-col md:flex-row justify-between items-center text-sm text-blue-300 gap-2">
-        <span>© 2025 EduConnect. All Rights Reserved.</span>
+        <span>© 2025 Theta Fornix. All Rights Reserved.</span>
         <span>Made with <span class="text-red-400">♥</span> for Indian learners</span>
       </div>
     </div>

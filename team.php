@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EduConnect</title>
+    <title>Theta Fornix</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
@@ -22,7 +22,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <!-- Brand -->
-                <a href="index.php" class="text-2xl font-extrabold tracking-tight text-blue-600">EduTech</a>
+                <a href="index.php" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-8">
@@ -298,31 +298,40 @@
             🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919999999999"
                 class="underline font-semibold hover:text-white ml-1">Enquire on WhatsApp</a>
         </div>
-        <h2 class="text-4xl font-semibold text-purple-600 text-center mt-8 mb-6">Meet ur Mentors</h2>
-        <h3 class="team-mentors-h3 text-2xl font-medium text-center mb-6">
+        <h2 class="text-4xl font-semibold text-purple-600 zilla-slab-regular-italic text-center mt-8 mb-6">Meet ur Mentors</h2>
+        <h3 class="team-mentors-h3 text-2xl satisfy-stylish font-medium text-center mb-6">
             Inspiring Excellence in Physics, Math, Chemistry &amp; Biology
         </h3>
-        <div id="mentors-grid" class="mentors-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8 px-6">
+        <div id="mentors-grid" class="mentors-grid grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8 px-6">
             <!-- Dynamically injected -->
         </div>
     </section>
 
 
-    <section class="max-w-5xl mx-auto py-12 px-4 mb-8">
-        <h2 class="text-4xl font-semibold mb-6 text-purple-700 text-center">About Our Team &amp; Founder</h2>
-        <div class="team-intro-flex flex flex-col sm:flex-row items-center justify-center gap-8 relative">
-            <!-- Lottie Animation Container -->
-            <div id="lottie-team" class="w-64 h-64 sm:w-96 sm:h-96 shrink-0 flex items-center justify-center">
-                <dotlottie-wc src="https://lottie.host/95afefff-94d2-4ef5-8e49-430decdbd2d1/K4fTX35Fw3.lottie"
+    <section class=" py-12  mb-8 bg-gradient-to-b from-red-100 to-amber-100">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-semibold satisfy-regular mb-6 text-purple-700 text-center">About Our Team &amp; Founder</h2>
+            <div class="team-intro-flex flex flex-col md:flex-row items-center justify-center gap-8 relative">
+              <!-- Left Section: image + Lottie, stacked -->
+              <div class="flex flex-col items-center basis-2/5 flex-[0_0_40%] max-w-[40%] w-full">
+                <img src="img/Owner_Theta_Fornix.jpeg" alt="Owner_Theta_Fornix"
+                     class="w-64 h-64 sm:w-96 sm:h-96 object-cover rounded-lg border-4 shadow-lg mb-5" />
+                <!-- <div id="lottie-team" class="w-64 h-64 sm:w-96 sm:h-96 flex items-center justify-center shrink-0">
+                  <dotlottie-wc src="https://lottie.host/95afefff-94d2-4ef5-8e49-430decdbd2d1/K4fTX35Fw3.lottie"
                     style="width: 100%; height: 100%;" speed="1" autoplay loop>
-                </dotlottie-wc>
+                  </dotlottie-wc>
+                </div> -->
+              </div>
+              <!-- Right Section: Team Typewriter -->
+              <div class="flex-1 basis-3/5 max-w-[60%]">
+                <p id="team-typewriter"
+                  class="text-xl sm:text-xl md:text-2xl text-gray-700 md:text-left text-center leading-relaxed font-medium min-h-[90px] font-mono mt-6 md:mt-0"
+                  style="white-space: pre-line;">
+                  <!-- The paragraph will be animated in by GSAP script -->
+                </p>
+              </div>
             </div>
-            <!-- Typing Animated Paragraph -->
-            <p id="team-typewriter"
-                class="text-xl sm:text-xl md:text-2xl text-gray-700 text-center leading-relaxed font-medium min-h-[90px] font-mono mt-6"
-                style="white-space: pre-line;">
-                <!-- The paragraph will be animated in by GSAP script -->
-            </p>
+
         </div>
     </section>
 
@@ -344,7 +353,7 @@
             <div class="flex flex-col lg:flex-row flex-wrap gap-10 justify-between">
                 <!-- Address and About -->
                 <div class="flex-1 min-w-[220px] mb-8 lg:mb-0">
-                    <h4 class="text-xl font-semibold mb-3 text-blue-100">EduConnect</h4>
+                    <h4 class="text-xl font-semibold mb-3 text-blue-100">Theta Fornix</h4>
                     <p class="text-blue-200 mb-3">Empowering learners across India with quality education and mentorship
                         for
                         a brighter future.</p>
@@ -353,7 +362,7 @@
                             <path
                                 d="M10 2C6.13 2 3 5.14 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.86-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 10 6a2.5 2.5 0 0 1 0 5.5z" />
                         </svg>
-                        <span>EduConnect Tower, 123 Knowledge Avenue,<br>Bengaluru, Karnataka, 560001</span>
+                        <span>Theta Fornix Tower, 123 Knowledge Avenue,<br>Bengaluru, Karnataka, 560001</span>
                     </div>
                     <div class="mb-2 flex items-center">
                         <svg class="w-5 h-5 mr-2 text-blue-300" fill="none" stroke="currentColor" stroke-width="2"
@@ -370,8 +379,8 @@
                             <path d="M4 4h16v16H4z" />
                             <path d="M22,6L12,13L2,6" />
                         </svg>
-                        <span>Email: <a href="mailto:info@educonnect.in"
-                                class="hover:underline hover:text-yellow-200">info@educonnect.in</a></span>
+                        <span>Email: <a href="mailto:info@Theta Fornix.in"
+                                class="hover:underline hover:text-yellow-200">info@Theta Fornix.in</a></span>
                     </div>
                     <!-- Social Icons -->
                     <div class="flex space-x-4 mt-5">
@@ -429,7 +438,7 @@
             <div class="border-t border-blue-900 my-7"></div>
             <!-- Bottom Bar -->
             <div class="flex flex-col md:flex-row justify-between items-center text-sm text-blue-300 gap-2">
-                <span>© 2025 EduConnect. All Rights Reserved.</span>
+                <span>© 2025 Theta Fornix. All Rights Reserved.</span>
                 <span>Made with <span class="text-red-400">♥</span> for Indian learners</span>
             </div>
         </div>
@@ -462,10 +471,10 @@
                         const imgPath = t.profile_image || t.image || '';
                         const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (basePrefix + String(imgPath || '').replace(/^\\+/, ''));
                         return `
-                <div class="mentor-card group relative flex flex-col items-center rounded-xl border border-purple-300 shadow-lg bg-gradient-to-tr from-blue-100 via-gray-100 to-amber-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                <div class="mentor-card group relative flex flex-col items-center rounded-xl border border-purple-300 shadow-lg bg-gradient-to-b from-blue-100 to-red-100 p-3 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                   <span class="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.5),transparent_60%)]"></span>
                   <img src="${imgSrc}" alt="${name}"
-                       class="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-4 border-purple-300 shadow object-cover mb-4 transform transition-transform duration-300 group-hover:scale-105"
+                       class="w-full h-auto border-4 border-purple-300 shadow object-cover mb-4 transform transition-transform duration-300 group-hover:scale-105"
                        onerror="this.src='https://via.placeholder.com/176?text=Mentor'">
                   <h3 class="text-xl font-bold text-purple-800">${name}</h3>
                   <p class="text-gray-600 text-center mt-1">
@@ -537,11 +546,13 @@
             return `
           <div class="mentor-card group relative flex flex-col items-center rounded-xl border border-purple-300 shadow-lg bg-gradient-to-tr from-blue-100 via-gray-100 to-amber-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
             <span class="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.5),transparent_60%)]"></span>
-            <img src="${imgSrc}" alt="${name}" class="w-40 h-40 sm:w-44 sm:h-44 rounded-full border-4 border-purple-300 shadow object-cover mb-4 transform transition-transform duration-300 group-hover:scale-105" onerror="this.src='https://via.placeholder.com/176?text=Mentor'">
+            <img src="${imgSrc}" alt="${name}"
+                 class="w-40 h-40 sm:w-75 sm:h-auto border-4 border-purple-300 shadow object-cover mb-4 transform transition-transform duration-300 group-hover:scale-105"
+                 onerror="this.src='https://via.placeholder.com/176?text=Mentor'">
             <h3 class="text-xl font-bold text-purple-800">${name}</h3>
             <p class="text-gray-600 text-center mt-1">
               ${subject}
-              ${university ? `<br/><span class='text-gray-500'>${university}</span>` : ''}
+              ${university ? `<br/><span class="text-gray-500">${university}</span>` : ''}
             </p>
           </div>`;
         }

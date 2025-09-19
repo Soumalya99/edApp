@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EduConnect</title>
+    <title>Theta Fornix</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
@@ -21,7 +21,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <!-- Brand -->
-                <a href="index.php" class="text-2xl font-extrabold tracking-tight text-blue-600">EduTech</a>
+                <a href="index.php" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-8">
@@ -344,7 +344,7 @@
             <div class="flex flex-col lg:flex-row flex-wrap gap-10 justify-between">
                 <!-- Address and About -->
                 <div class="flex-1 min-w-[220px] mb-8 lg:mb-0">
-                    <h4 class="text-xl font-semibold mb-3 text-blue-100">EduConnect</h4>
+                    <h4 class="text-xl font-semibold mb-3 text-blue-100">Theta Fornix</h4>
                     <p class="text-blue-200 mb-3">Empowering learners across India with quality education and mentorship
                         for
                         a brighter future.</p>
@@ -353,7 +353,7 @@
                             <path
                                 d="M10 2C6.13 2 3 5.14 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.86-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 10 6a2.5 2.5 0 0 1 0 5.5z" />
                         </svg>
-                        <span>EduConnect Tower, 123 Knowledge Avenue,<br>Bengaluru, Karnataka, 560001</span>
+                        <span>Theta Fornix Tower, 123 Knowledge Avenue,<br>Bengaluru, Karnataka, 560001</span>
                     </div>
                     <div class="mb-2 flex items-center">
                         <svg class="w-5 h-5 mr-2 text-blue-300" fill="none" stroke="currentColor" stroke-width="2"
@@ -370,8 +370,8 @@
                             <path d="M4 4h16v16H4z" />
                             <path d="M22,6L12,13L2,6" />
                         </svg>
-                        <span>Email: <a href="mailto:info@educonnect.in"
-                                class="hover:underline hover:text-yellow-200">info@educonnect.in</a></span>
+                        <span>Email: <a href="mailto:info@Theta Fornix.in"
+                                class="hover:underline hover:text-yellow-200">info@Theta Fornix.in</a></span>
                     </div>
                     <!-- Social Icons -->
                     <div class="flex space-x-4 mt-5">
@@ -429,7 +429,7 @@
             <div class="border-t border-blue-900 my-7"></div>
             <!-- Bottom Bar -->
             <div class="flex flex-col md:flex-row justify-between items-center text-sm text-blue-300 gap-2">
-                <span>© 2025 EduConnect. All Rights Reserved.</span>
+                <span>© 2025 Theta Fornix. All Rights Reserved.</span>
                 <span>Made with <span class="text-red-400">♥</span> for Indian learners</span>
             </div>
         </div>
