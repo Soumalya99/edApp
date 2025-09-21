@@ -19,7 +19,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <!-- Brand -->
-        <a href="index.php" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
+        <a href="index.php" class="text-5xl font-semibold square-peg-regular text-red-700">Theta Fornix</a>
 
         <!-- Desktop Nav -->
         <nav class="hidden md:flex items-center gap-8">
@@ -350,44 +350,58 @@
 
 
   <!-- MESSAGE FROM RECENT ACHIEVERS SECTION -->
-  <section class="py-16 bg-gradient-to-b from-amber-700/15 to-white" id="testimonials" style="font-family:'Lora',serif;">
+  <section class="py-16 bg-gradient-to-b from-amber-700/15 to-white" id="testimonials"
+    style="font-family:'Lora',serif;">
     <div class="max-w-3xl mx-auto px-4">
-      <h2 class="text-4xl satisfy-regular text-center text-amber-800 mb-5" >Message from Our Recent Achievers</h2>
-      <p class="text-xl text-amber-700 text-center mb-8 zilla-slab-medium-italic">See how Theta Fornix helped our students achieve their dreams!</p>
+      <h2 class="text-4xl satisfy-regular text-center text-amber-800 mb-8">Message from Our Recent Achievers</h2>
+      <p class="text-2xl text-amber-700 text-center mb-12 zilla-slab-regular-italic">See how Theta Fornix helped our
+        students achieve their dreams!</p>
       <!-- Swiper -->
       <div class="swiper achiever-swiper">
         <div class="swiper-wrapper">
           <!-- Slide 1: Example -->
-          <div class="swiper-slide flex flex-col md:flex-row md:items-center rounded-3xl shadow-xl p-8 gap-8 md:gap-14 bg-gradient-to-r from-red-200 to-amber-200 border border-amber-300">
+          <div
+            class="swiper-slide flex flex-col md:flex-row md:items-center rounded-3xl shadow-xl p-8 gap-8 md:gap-14 bg-gradient-to-r from-red-200 to-amber-200 border border-amber-300">
             <!-- Left: Image -->
             <div class="flex justify-center md:justify-end items-center w-full md:w-1/3 mb-8 md:mb-0">
-              <img src="img/Ayantika.jpeg" alt="Ayantika Bag" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full border-4 border-amber-400 shadow-lg" />
+              <img src="img/Ayantika.jpeg" alt="Ayantika Bag"
+                class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full border-4 border-amber-400 shadow-lg" />
             </div>
             <!-- Right: Testimonial -->
             <div class="w-full md:w-2/3 flex flex-col gap-3 justify-center items-center md:items-start">
-              <p class="text-lg sm:text-xl text-gray-800 italic text-center md:text-left leading-relaxed">“I never thought I could reach my dream college. Theta Fornix's structured guidance made all the difference – from crisp concept classes to 24/7 doubt-solving!”</p>
+              <p class="text-lg sm:text-xl text-gray-800 italic text-center md:text-left leading-relaxed">“I never
+                thought I could reach my dream college. Theta Fornix's structured guidance made all the difference –
+                from crisp concept classes to 24/7 doubt-solving!”</p>
               <div class="font-semibold text-amber-800 text-xl">Ayantika Bag</div>
               <div class="text-base font-semibold text-amber-700">Rank | 541</div>
             </div>
           </div>
           <!-- Slide 2: -->
-          <div class="swiper-slide flex flex-col md:flex-row md:items-center rounded-3xl shadow-xl p-8 gap-8 md:gap-14 bg-gradient-to-r from-red-200 to-amber-200 border border-amber-300">
+          <div
+            class="swiper-slide flex flex-col md:flex-row md:items-center rounded-3xl shadow-xl p-8 gap-8 md:gap-14 bg-gradient-to-r from-red-200 to-amber-200 border border-amber-300">
             <div class="flex justify-center md:justify-end items-center w-full md:w-1/3 mb-8 md:mb-0">
-              <img src="img/Touhidul.jpeg" alt="Touhidul Islam" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full border-4 border-amber-400 shadow-lg" />
+              <img src="img/Touhidul.jpeg" alt="Touhidul Islam"
+                class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full border-4 border-amber-400 shadow-lg" />
             </div>
             <div class="w-full md:w-2/3 flex flex-col gap-3 justify-center items-center md:items-start">
-              <p class="text-lg sm:text-xl text-gray-800 italic text-center md:text-left leading-relaxed">“Personal mentorship and detailed feedback really set them apart. I always knew where I stood and how to improve. Huge thanks to all teachers!”</p>
+              <p class="text-lg sm:text-xl text-gray-800 italic text-center md:text-left leading-relaxed">“Personal
+                mentorship and detailed feedback really set them apart. I always knew where I stood and how to improve.
+                Huge thanks to all teachers!”</p>
               <div class="font-semibold text-amber-800 text-xl">Touhidul Islam</div>
               <div class="text-base font-semibold text-amber-700">Rank | AIR 569</div>
             </div>
           </div>
           <!-- Slide 3: -->
-          <div class="swiper-slide flex flex-col md:flex-row md:items-center rounded-3xl shadow-xl p-8 gap-8 md:gap-14 bg-gradient-to-r from-red-200 to-amber-200 border border-amber-300">
+          <div
+            class="swiper-slide flex flex-col md:flex-row md:items-center rounded-3xl shadow-xl p-8 gap-8 md:gap-14 bg-gradient-to-r from-red-200 to-amber-200 border border-amber-300">
             <div class="flex justify-center md:justify-end items-center w-full md:w-1/3 mb-8 md:mb-0">
-              <img src="img/Sayan.jpeg" alt="Sayan Khanra" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full border-4 border-amber-400 shadow-lg" />
+              <img src="img/Sayan.jpeg" alt="Sayan Khanra"
+                class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full border-4 border-amber-400 shadow-lg" />
             </div>
             <div class="w-full md:w-2/3 flex flex-col gap-3 justify-center items-center md:items-start">
-              <p class="text-lg sm:text-xl text-gray-800 italic text-center md:text-left leading-relaxed">“Personal mentorship and detailed feedback really set them apart. I always knew where I stood and how to improve. Huge thanks to all teachers!”</p>
+              <p class="text-lg sm:text-xl text-gray-800 italic text-center md:text-left leading-relaxed">“Personal
+                mentorship and detailed feedback really set them apart. I always knew where I stood and how to improve.
+                Huge thanks to all teachers!”</p>
               <div class="font-semibold text-amber-800 text-xl">Sayan Khanra</div>
               <div class="text-base font-semibold text-amber-700">Rank | 512</div>
             </div>
@@ -400,7 +414,7 @@
       </div>
     </div>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         if (window.Swiper) {
           new Swiper('.achiever-swiper', {
             slidesPerView: 1,
@@ -423,40 +437,45 @@
     class="fixed z-[1001] bottom-5 right-5 flex flex-col items-end gap-3 pointer-events-none">
     <!-- Notification Bubble -->
     <div id="earlybird-popup"
-      class="pointer-events-auto  bg-amber-500 shadow-xl rounded-full p-5 flex items-center gap-3  cursor-default transition-all duration-300 animate-bounce">
-      <i class="fa-solid fa-bell"></i>
+      class="pointer-events-auto group bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-xl rounded-full px-4 py-2.5 flex items-center gap-3 cursor-pointer transition-all duration-300 hover:shadow-2xl animate-bounce">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/15">
+        <i class="fa-solid fa-bell"></i>
+      </span>
+      <span class="text-sm font-semibold tracking-wide">New Offer</span>
     </div>
+
     <!-- Form Popup (Initially Hidden) -->
     <div id="earlybird-form-popup"
-      class="pointer-events-auto bg-gradient-to-r from-green-200 to-amber-200 w-full min-w-[290px] max-w-xs md:max-w-lg bg-white border border-purple-200 shadow-2xl rounded-xl p-3 md:p-6 flex flex-col gap-1 md:gap-3 relative hidden">
+      class="pointer-events-auto w-full max-w-sm md:max-w-lg bg-white/95 backdrop-blur-xl border border-purple-200 shadow-2xl rounded-2xl p-4 md:p-4 flex flex-col gap-3 relative hidden ring-1 ring-purple-100">
       <button id="earlybird-form-close"
         class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center text-lg text-gray-500 hover:text-red-600 bg-white/90 rounded-full shadow-sm z-10"
         aria-label="Close">&times;</button>
-      <div class="flex items-center gap-2 mb-2">
-        <span
-          class="w-9 h-9 flex items-center justify-center bg-green-100 text-green-600 rounded-full shadow border border-green-300">
-          <i class="fa-solid fa-bell fa-shake"></i>
-        </span>
-        <h3 class="text-xl font-bold text-purple-700 drop-shadow-sm">Register for Early Bird Offer</h3>
-      </div>
-      <span class="flex-1">
-        <p
-          class="bg-white/90 border border-green-400 rounded-md px-3 py-1 text-green-800 font-bold text-md md:text-lg mb-1 shadow">
-          EARLY BIRD OFFER!</p>
-        <span class="block text-red-600 font-semibold text-sm md:text-base">Get 10% off on your first purchase</span>
-      </span>
-      <form id="earlybird-wa-form" class="flex flex-col gap-2">
-        <div>
-          <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-name">Name</label>
-          <input id="earlybird-wa-name" name="name" type="text" required placeholder="Your Name"
-            class="w-full px-2 py-1.5 rounded border border-purple-300 focus:border-blue-400 outline-none text-base transition" />
+
+      <!-- Header -->
+      <div class="flex items-start gap-3 pb-3 border-b border-purple-100">
+        <div
+          class="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-500 text-white flex items-center justify-center shadow-md">
+          <i class="fa-solid fa-gift"></i>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div class="flex-1">
+          <h3 class="text-lg md:text-xl font-extrabold text-purple-800">New Student Welcome Offer</h3>
+          <p class="text-xs md:text-sm text-purple-600">Unlock 10% off on your first purchase</p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="earlybird-wa-form" class="flex flex-col gap-3 mt-1">
+        <div>
+          <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-name">Full Name</label>
+          <input id="earlybird-wa-name" name="name" type="text" required placeholder="e.g., Aarav Sharma"
+            class="w-full px-3 py-2 rounded-lg border border-purple-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-base transition bg-white/90" />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-track">Course
               Track</label>
             <select id="earlybird-wa-track" name="track" required
-              class="w-full px-2 py-1.5 rounded border border-purple-300 focus:border-blue-400 outline-none text-base transition">
+              class="w-full px-3 py-2 rounded-lg border border-purple-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-base transition bg-white/90">
               <option value="">Select Track</option>
               <option value="NEET">NEET</option>
               <option value="JEE">JEE</option>
@@ -467,7 +486,7 @@
           <div>
             <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-level">Level</label>
             <select id="earlybird-wa-level" name="level" required
-              class="w-full px-2 py-1.5 rounded border border-purple-300 focus:border-blue-400 outline-none text-base transition">
+              class="w-full px-3 py-2 rounded-lg border border-purple-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-base transition bg-white/90">
               <option value="">Select Level</option>
               <option value="Class 11">Class 11</option>
               <option value="Class 12">Class 12</option>
@@ -480,12 +499,18 @@
           <label class="font-semibold text-purple-800 mb-1 block text-sm" for="earlybird-wa-contact">Contact
             Number</label>
           <input id="earlybird-wa-contact" name="contact" type="text" required pattern="[0-9]{10,15}" maxlength="15"
-            placeholder="Your Contact Number"
-            class="w-full px-2 py-1.5 rounded border border-purple-300 focus:border-blue-400 outline-none text-base transition" />
+            placeholder="e.g., 9876543210"
+            class="w-full px-3 py-2 rounded-lg border border-purple-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none text-base transition bg-white/90" />
         </div>
+
         <button type="submit"
-          class="bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-base rounded py-2 transition-all shadow mt-3">Send
-          via WhatsApp</button>
+          class="mt-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 active:from-purple-800 active:to-fuchsia-800 text-white font-bold text-base rounded-lg py-2.5 transition-all shadow-lg">
+          <i class="fa-solid fa-paper-plane"></i>
+          Send via WhatsApp
+        </button>
+
+        <p class="text-[11px] text-gray-500 mt-1">We respect your privacy. Your details are used only to process your
+          enquiry. By submitting, you agree to be contacted via WhatsApp or call.</p>
       </form>
     </div>
   </div>
@@ -514,7 +539,7 @@
               <path d="M16 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8z" />
               <path d="M9 7h6" />
             </svg>
-            <span>Phone: <a href="tel:+919999999999" class="hover:underline hover:text-yellow-200">+91 99999
+            <span>Phone: <a href="tel:+919564787621" class="hover:underline hover:text-yellow-200">+91 99999
                 99999</a></span>
           </div>
           <div class="flex items-center">

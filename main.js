@@ -754,12 +754,16 @@ class MentorCardsAnimation {
 
 class TeamTypewriterAnimation {
   constructor() {
-    this.message = `At Theta Fornix, our dedicated team blends years of academic expertise with a profound passion for mentoring. Our founder, Dr. Meera Sharma, envisioned a learning space where every student is guided by top educators in Physics, Math, Chemistry, and Biology. Together, we are committed to nurturing talent, inspiring curiosity, and helping you achieve your highest dreams.`;
+    this.message = `At THETA FORNIX, we don’t just prepare students for exams — we prepare them for life. With dedication, innovation,
+     and personal care, we have built a space where every dream finds direction. Our exclusive collaboration with NEETPREP.COM, 
+     Delhi gives our students an edge with national-level content, while our modern classrooms, doubt-solving, 
+     and individual attention ensure no student is left behind. The trust of parents and the success of our students in Government Colleges inspire us every day. 
+     We welcome you to join the THETA FORNIX family, where excellence is not an option — it’s a habit`;
   }
   init() {
     const target = document.getElementById('team-typewriter');
     if (!target || !window.gsap) return;
-    target.style.minHeight = "90px";
+    target.style.minHeight = "70px";
     target.textContent = "";
 
     let cursor = document.getElementById('typewriter-cursor');
@@ -795,7 +799,7 @@ class TeamTypewriterAnimation {
               target.textContent = current;
               target.appendChild(cursor);
               index++;
-              setTimeout(typeNextWord, 120 + Math.min(words[index - 1].length * 30, 290));
+              setTimeout(typeNextWord, 30 + Math.min(words[index - 1].length * 8, 55));
             } else {
               target.textContent = current;
             }
@@ -803,7 +807,7 @@ class TeamTypewriterAnimation {
           typeNextWord();
         }
       });
-    }, { threshold: 0.23 });
+    }, { threshold: 0.27 });
 
     observer.observe(target);
   }
@@ -960,6 +964,88 @@ class LottieGsapPinAnimation {
     });
   }
 }
+
+
+
+
+class RecentBatchesGrid {
+  constructor(targetId = 'recent-batches') {
+    this.targetId = targetId;
+    document.addEventListener('DOMContentLoaded', () => {
+      this.init();
+    });
+  }
+
+  async init() {
+    try {
+      const allCourses = await this.fetchCourses();
+      console.log('allCourses', allCourses); // <-- ADD THIS LINE
+      const chosen = this.pickRandomRelevant(allCourses, 4);
+      this.renderBatches(chosen);
+    } catch (err) {
+      this.renderError(err);
+    }
+  }
+
+  async fetchCourses() {
+    const resp = await fetch('php_backend/api/courses.php');
+    if (!resp.ok) throw new Error('Failed to fetch courses');
+    return await resp.json();
+  }
+
+  pickRandomRelevant(allCourses, count = 4) {
+  // Get only COHORT batches of (JEE + 12) or (NEET + 11)
+  const filtered = allCourses.filter(c => {
+    const title = (c.title || '').toLowerCase();
+    return title.includes('cohort');
+  });
+  // Shuffle
+  for (let i = filtered.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+  }
+  return filtered.slice(0, count);
+}
+
+  renderBatches(courses) {
+    const el = document.getElementById(this.targetId);
+    if (!el) return;
+    el.innerHTML = courses.map(course => `
+      <div class="bg-white w-80 shadow rounded-lg p-4 flex flex-col border border-amber-700 transition-transform duration-200 ease-in-out hover:shadow-2xl hover:scale-105">
+        <img src="${course.batch_image_path || 'fallback.jpg'}" alt="${course.title || ''}" class="w-96 h-full object-cover rounded-md mb-4">
+        <h3 class="text-xl font-bold mb-2 ml-2">${course.title || ''}</h3>
+        <ul class="mb-6 text-black space-y-1 pl-5 list-disc text-sm">
+          ${course.description
+        ? course.description.split('\n').map(line => `<li>${line}</li>`).join('')
+        : '<li>No details available.</li>'}
+        </ul>
+        <div class="mt-auto flex justify-between items-center pt-3">
+          <div>
+            <span class="text-xl font-semibold text-green-800 mr-2">₹${course.price || 0}</span>
+            ${course.original_price
+        ? `<span class="text-gray-600 line-through text-lg">₹${course.original_price}</span>`
+        : ''}
+          </div>
+          <a href="https://wa.me/919564787621" target="_blank" rel="noopener"
+            class="inline-block bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-5 rounded-3xl transition duration-200">
+            Enquire
+          </a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderError(err) {
+    const el = document.getElementById(this.targetId);
+    if (!el) return;
+    el.innerHTML = `<p class="text-red-700">Failed to load recent batches. Please try again later.</p>`;
+    // Optionally log error
+    // console.error(err);
+  }
+}
+
+new RecentBatchesGrid('recent-batches');
+
 
 class FAQTickets {
   constructor({ ticketTrackSelector, ticketItemSelector, cardSelector }) {
@@ -1140,8 +1226,120 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+    class MentorshipSlider {
+      constructor() {
+        this.swiper = new Swiper('.mentorship-slider', {
+          loop: true,
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      }
+    }
 
 
+  class OfferNotificationPopup {
+    constructor() {
+      this.offerBubble = document.getElementById('earlybird-popup');
+      this.offerFormPopup = document.getElementById('earlybird-form-popup');
+      this.offerFormClose = document.getElementById('earlybird-form-close');
+      this.offerForm = document.getElementById('earlybird-wa-form');
+      this.showTimeout = null;
+      this.reopenInterval = null;
+      this.isPopupVisible = false; // Register form popup state
+      this.visibleMs = 20000; // Show 3s
+      this.intervalMs = 60000; // Repeat every 30s
+      this.autoTimeout = null;
+      this.reopenTimeout = null;
+      this.setup();
+    }
+    setup() {
+      // Always make bubble visible
+      if (this.offerBubble) {
+        this.offerBubble.classList.remove('opacity-0', 'pointer-events-none', 'hidden');
+      }
+      this.addListeners();
+      this._autoShowPopupInitial();
+    }
+    addListeners() {
+      // Notification bubble click opens popup
+      if (this.offerBubble && this.offerFormPopup) {
+        this.offerBubble.addEventListener('click', () => {
+          this._showPopupManually();
+        });
+      }
+      // Register popup close button (cross)
+      if (this.offerFormClose) {
+        this.offerFormClose.addEventListener('click', () => this._closePopupAndReschedule());
+      }
+      // WhatsApp form submit
+      if (this.offerForm) {
+        this.offerForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('earlybird-wa-name').value.trim();
+          const track = document.getElementById('earlybird-wa-track').value.trim();
+          const level = document.getElementById('earlybird-wa-level').value.trim();
+          const address = document.getElementById('earlybird-wa-address').value.trim();
+          const contact = document.getElementById('earlybird-wa-contact').value.trim();
+          const query = document.getElementById('earlybird-wa-query').value.trim();
+          const founderNumber = '919999999999';
+          const msg = `Name: ${name}\nCourse: ${track} (${level})\nAddress: ${address}\nContact: ${contact}\nQuery: ${query}`;
+          const url = `https://wa.me/${founderNumber}?text=${encodeURIComponent(msg)}`;
+          window.open(url, '_blank');
+          this._closePopupAndReschedule();
+        });
+      }
+    }
+    // Auto open on page load, then auto cycles every 30s
+    _autoShowPopupInitial() {
+      this._showPopup(true);
+    }
+
+    _scheduleNextAutoPopup() {
+      if (this.reopenTimeout) clearTimeout(this.reopenTimeout);
+      this.reopenTimeout = setTimeout(() => {
+        this._showPopup(true);
+      }, this.intervalMs);
+    }
+    _showPopup(isAuto = false) {
+      if (!this.offerFormPopup) return;
+      // Don't pop up if already visible
+      if (this.isPopupVisible) return;
+      // Show popup
+      this.isPopupVisible = true;
+      this.offerFormPopup.classList.remove('hidden');
+      this.offerFormPopup.classList.add('animate-fadeInUp');
+      // Hide after 3s unless closed early
+      if (this.autoTimeout) clearTimeout(this.autoTimeout);
+      this.autoTimeout = setTimeout(() => {
+        this._closePopupAndReschedule();
+      }, this.visibleMs);
+    }
+    // Manual show = show popup, then reschedule auto popup cycle
+    _showPopupManually() {
+      if (this.isPopupVisible || !this.offerFormPopup) return;
+      this._showPopup(false);
+      this._scheduleNextAutoPopup();
+    }
+    // Hide the popup and start 30s interval for next auto open
+    _closePopupAndReschedule() {
+      if (!this.offerFormPopup) return;
+      if (this.autoTimeout) clearTimeout(this.autoTimeout);
+      this.offerFormPopup.classList.add('hidden');
+      this.offerFormPopup.classList.remove('animate-fadeInUp');
+      this.isPopupVisible = false;
+      this._scheduleNextAutoPopup();
+    }
+  }
 
 /***  MAIN BOOTSTRAP *****/
 document.addEventListener('DOMContentLoaded', () => {
@@ -1165,121 +1363,16 @@ document.addEventListener('DOMContentLoaded', () => {
     ticketItemSelector: '.faq-ticker-item',
     cardSelector: '.faq-card'
   }).init();
+  new MentorshipSlider();
   new ResourceSectionGSAPAnim('.max-w-3xl').init();
-  new ScrollHybridCardGSAP().init();
+  // new ScrollHybridCardGSAP().init();
+  new OfferNotificationPopup(); 
 
   // Registration Modal Popup Logic (legacy popup, keep hidden but support old code)   
-  const registerModal = document.getElementById('register-modal-overlay');
-  const registerModalClose = document.getElementById('register-modal-close');
-  let regModalTimeout;
-  if (registerModal) {
-    registerModal.classList.add('hidden'); // always keep hidden in new UX
-  }
 
-  // Offer Notification/Popup Toggling
-  const offerWrap = document.getElementById('earlybird-offer-wrap');
-  const offerBubble = document.getElementById('earlybird-popup');
-  const offerFormPopup = document.getElementById('earlybird-form-popup');
-  const offerFormClose = document.getElementById('earlybird-form-close');
-  const offerForm = document.getElementById('earlybird-wa-form');
 
-  // Offer logic: delayed show, protected 10s non-interactive with unlock after 10s
-  let formLockTimeout = null;
-  let reopenInterval = null;
-  let formIsLocked = false;
-  let offerClickable = false;
-  let lastFormOpen = null;
-  offerBubble.classList.add('opacity-0', 'pointer-events-none'); // Hide initially
+  // Offer Notification/Popup Toggling as a Class
 
-  // Helper to animate bell icon
-  function animateBell() {
-    const bell = offerBubble.querySelector('.fa-bell');
-    if (bell) {
-      bell.classList.add('fa-shake'); // FontAwesome 6+ animate class
-    }
-  }
-  animateBell();
-
-  function lockFormFor10s() {
-    formIsLocked = true;
-    // Optionally visually indicate lockout (e.g. pulse the close button, or just ignore)
-    setTimeout(() => {
-      formIsLocked = false;
-    }, 8000);
-  }
-
-  function showOfferForm(auto=false) {
-    offerBubble.classList.add('hidden');
-    offerFormPopup.classList.remove('hidden');
-    offerFormPopup.classList.add('animate-fadeInUp');
-    lastFormOpen = Date.now();
-    lockFormFor10s();
-    // When form is open, the notification bell animates
-    animateBell();
-  }
-
-  function closeOfferForm() {
-    if (formIsLocked) return; // Cannot close until lock time passes
-    offerFormPopup.classList.add('hidden');
-    offerBubble.classList.remove('hidden');
-    offerFormPopup.classList.remove('animate-fadeInUp');
-    // Reanimate bell
-    animateBell();
-  }
-
-  // Initial delay: 1s then auto-open the form
-  setTimeout(() => {
-    offerBubble.classList.remove('opacity-0', 'pointer-events-none');
-    showOfferForm(true); // open form after 1s by default
-    // Unlock click after 10s for close, not needed for open since it's auto
-    offerClickable = true;
-    // Activate bell again
-    animateBell();
-    // Repeat show after every 60s
-    if (reopenInterval) clearInterval(reopenInterval);
-    reopenInterval = setInterval(() => {
-      showOfferForm(true);
-    }, 30000);
-  }, 60000);
-
-  // Handler: Don't let user close for lock duration
-  if (offerFormClose) {
-    offerFormClose.addEventListener('click', (e) => {
-      if (formIsLocked) {
-        // Optionally shake/animate the close button to indicate lock
-        offerFormClose.classList.add('animate-shake-x');
-        setTimeout(()=>offerFormClose.classList.remove('animate-shake-x'),400);
-        return;
-      }
-      closeOfferForm();
-    });
-  }
-  // Handler: notification bubble click to open form (as backup if user closed and before 1 minute)
-  if (offerBubble && offerFormPopup) {
-    offerBubble.addEventListener('click', () => {
-      if (!offerFormPopup.classList.contains('hidden')) return; // Do not double-open
-      showOfferForm(false);
-    });
-  }
-
-  // WhatsApp submission for Early Bird form popup
-  if (offerForm) {
-    offerForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name = document.getElementById('earlybird-wa-name').value.trim();
-      const track = document.getElementById('earlybird-wa-track').value.trim();
-      const level = document.getElementById('earlybird-wa-level').value.trim();
-      const address = document.getElementById('earlybird-wa-address').value.trim();
-      const contact = document.getElementById('earlybird-wa-contact').value.trim();
-      const query = document.getElementById('earlybird-wa-query').value.trim();
-      const founderNumber = '919999999999'; // With country code, no plus or spaces
-      const msg = `Name: ${name}\nCourse: ${track} (${level})\nAddress: ${address}\nContact: ${contact}\nQuery: ${query}`;
-      const url = `https://wa.me/${founderNumber}?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
-      // Optionally close after submit, but respect lock
-      if (!formIsLocked) closeOfferForm();
-    });
-  }
 });
 
 

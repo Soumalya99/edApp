@@ -21,7 +21,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <!-- Brand -->
-                <a href="index.php" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
+                <a href="index.php" class="text-5xl font-semibold square-peg-regular text-red-700">Theta Fornix</a>
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-8">
@@ -291,77 +291,128 @@
     </header>
 
     <main class="py-12">
-      <section id="contactform" class="bg-gradient-to-br from-yellow-100 via-purple-50 to-blue-50 px-4 py-10">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start gap-4 md:gap-8">
-          <!-- LEFT: Catchy Info Block -->
-          <div class="flex-1 mb-8 md:mb-0 flex flex-col justify-center">
-            <h2 class="text-3xl md:text-4xl zilla-slab-semibold-italic text-purple-700 mb-3">
-              Get In Touch With Us
-            </h2>
-            <span class="text-purple-800 text-xl font-semibold mb-2 block">
-              We're ready to listen, advise, and empower your journey.
-            </span>
-            <p class="text-purple-900 mb-4 zilla-slab-semibold text-lg">
-              Use this form to immediately connect with our founders via WhatsApp. Every query is answered with care and complete confidentiality by a real, experienced mentor—never a bot.
-            </p>
-            <ul class="text-md font-medium text-purple-700 pl-4 list-disc mb-3">
-              <li>100% personal attention — founders only</li>
-              <li>Get course/track guidance that fits YOUR dreams</li>
-              <li>No delays: direct WhatsApp, fastest mentorship</li>
-              <li>We value your questions, privacy, & ambitions</li>
-            </ul>
-          </div>
-          <!-- RIGHT: Form -->
-          <form id="wa-contact-form" class="w-full md:w-7/12 max-w-lg bg-white/90 shadow-xl rounded-lg flex flex-col gap-5 border border-purple-200 mx-auto px-4 py-8">
-  <div>
-    <label class="font-semibold text-purple-800 mb-1 block text-[1rem]" for="wa-name">Name</label>
-    <input id="wa-name" name="name" type="text" required placeholder="Your Name"
-      class="w-full px-4 py-3 rounded border border-purple-200 focus:border-blue-400 outline-none text-lg transition" />
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <label class="font-semibold text-purple-800 mb-1 block text-[1rem]" for="wa-track">Course Track</label>
-      <select id="wa-track" name="track" required class="w-full px-4 py-3 rounded border border-purple-200 focus:border-blue-400 outline-none text-lg transition">
-        <option value="">Select Track</option>
-        <option value="NEET">NEET</option>
-        <option value="JEE">JEE</option>
-        <option value="Nursing">BSC Nursing</option>
-        <option value="ANM/GNM">ANM &amp; GNM</option>
-      </select>
-    </div>
-    <div>
-      <label class="font-semibold text-purple-800 mb-1 block text-[1rem]" for="wa-level">Level</label>
-      <select id="wa-level" name="level" required class="w-full px-4 py-3 rounded border border-purple-200 focus:border-blue-400 outline-none text-lg transition">
-        <option value="">Select Level</option>
-        <option value="Class 11">Class 11</option>
-        <option value="Class 12">Class 12</option>
-        <option value="Repeater">Repeater</option>
-        <option value="Crash Course">Crash Course</option>
-      </select>
-    </div>
-  </div>
-  <div>
-    <label class="font-semibold text-purple-800 mb-1 block text-[1rem]" for="wa-address">Address</label>
-    <input id="wa-address" name="address" type="text" required placeholder="Your Address" 
-      class="w-full px-4 py-3 rounded border border-purple-200 focus:border-blue-400 outline-none text-lg transition" />
-  </div>
-  <div>
-    <label class="font-semibold text-purple-800 mb-1 block text-[1rem]" for="wa-contact">Contact Number</label>
-    <input id="wa-contact" name="contact" type="text" required pattern="[0-9]{10,15}" maxlength="15" placeholder="Your Contact Number" 
-      class="w-full px-4 py-3 rounded border border-purple-200 focus:border-blue-400 outline-none text-lg transition" />
-  </div>
-  <div>
-    <label class="font-semibold text-purple-800 mb-1 block text-[1rem]" for="wa-query">Query / Message</label>
-    <textarea id="wa-query" name="query" rows="4" required placeholder="Type your question or request..."
-      class="w-full px-4 py-3 rounded border border-purple-200 focus:border-blue-400 outline-none text-lg transition"></textarea>
-  </div>
-  <button type="submit"
-    class="bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white font-bold text-lg rounded py-3 px-6 transition-all shadow w-full">
-    Send via WhatsApp
-  </button>
-</form>
-        </div>
-      </section>
+        <section id="contactform"
+            class="relative overflow-hidden bg-gradient-to-b from-red-200 to-blue-50 px-2 py-14 sm:px-6 md:px-12 lg:px-20">
+            <div
+                class="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-tr from-purple-100/30 via-indigo-200/30 via-60% to-transparent pointer-events-none animate-pulse">
+            </div>
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-10 md:gap-14 items-stretch z-[1] relative">
+                <!-- Info Block -->
+                <aside
+                    class="flex-1 flex flex-col justify-center bg-white/80 border-2 border-indigo-100 rounded-2xl shadow-md px-8 py-10 mb-10 md:mb-0 max-w-2xl backdrop-blur-md">
+                    <div>
+                        <h2
+                            class="text-4xl md:text-5xl font-extrabold tracking-tight text-purple-700 mb-3 flex items-center gap-2">
+                            <svg class="inline w-9 h-9 text-blue-400 -ml-1" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 10.5a8.38 8.38 0 0 1-.9 3.8c-.82 1.65-2.03 3.09-3.36 4.23a17.05 17.05 0 0 1-4.36 2.6l-.7.3-.7-.3a16.66 16.66 0 0 1-4.36-2.6c-1.33-1.14-2.54-2.58-3.36-4.23A8.38 8.38 0 0 1 3 10.5V5.48C3 4.67 3.67 4 4.5 4h15A1.5 1.5 0 0 1 21 5.48v5.02Z" />
+                                <circle cx="12" cy="9" r="2.5" />
+                            </svg>
+                            <span>Contact Our Founders</span>
+                        </h2>
+                        <span class="text-purple-900 text-2xl font-bold mb-3 block leading-tight">
+                            Fastest mentorship, real humans, 100% privacy.
+                        </span>
+                        <ul class="text-base md:text-lg font-medium text-purple-800 space-y-2 mb-5 pl-5 list-disc">
+                            <li>Direct WhatsApp to top mentors</li>
+                            <li>Personal advice for your situation</li>
+                            <li>Quickest, most confidential support</li>
+                            <li>Empathy for your goals & questions</li>
+                        </ul>
+                        <div class="flex items-center gap-4 mt-6">
+                            <div class="flex flex-col">
+                                <span class="text-indigo-600 font-semibold text-lg">Phone:</span>
+                                <a href="tel:+919564787621"
+                                    class="text-indigo-900 font-bold text-xl hover:underline">+91 9564787621</a>
+                            </div>
+                            <div class="flex flex-col border-l border-indigo-300 pl-4">
+                                <span class="text-indigo-600 font-semibold text-lg">Email:</span>
+                                <a href="mailto:info@thetafornix.in"
+                                    class="text-indigo-900 font-bold text-xl hover:underline">info@thetafornix.in</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <iframe src="https://www.google.com/maps?q=ThetaFornix&output=embed" width="100%" height="280"
+                            style="border:0; border-radius:1rem; margin-top:1rem; box-shadow:0 2px 16px 0 rgba(30,32,44,0.2);"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </aside>
+                <!-- Form Block -->
+                <form id="wa-contact-form" autocomplete="off"
+                    class="w-full md:w-7/12 max-w-lg bg-gradient-to-tr from-white via-purple-50/70 to-blue-100/90 shadow-2xl border border-indigo-200 rounded-2xl flex flex-col gap-6 px-8 py-10 mx-auto animate-fadein">
+                    <div class="text-center mb-2">
+                        <h3 class="text-2xl font-extrabold text-blue-900 tracking-tight mb-1">Reach Out Instantly</h3>
+                        <p class="text-md text-gray-600">All details go only to founders. You'll get a prompt reply on
+                            WhatsApp.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-semibold text-blue-800 text-base flex items-center gap-1" for="wa-name">
+                            <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 12c2.7 0 8 1.34 8 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2c0-2.66 5.3-4 8-4ZM12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                            </svg> Name
+                        </label>
+                        <input id="wa-name" name="name" type="text" required placeholder="Your Name"
+                            class="w-full px-4 py-3 rounded-lg border border-indigo-200 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none text-lg placeholder:text-gray-400 transition duration-150" />
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="space-y-1">
+                            <label class="font-semibold text-blue-800 text-base" for="wa-track">Course Track</label>
+                            <select id="wa-track" name="track" required
+                                class="w-full px-4 py-3 rounded-lg border border-indigo-200 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none text-lg transition duration-150">
+                                <option value="">Select Track</option>
+                                <option value="NEET">NEET</option>
+                                <option value="JEE">JEE</option>
+                                <option value="Nursing">BSC Nursing</option>
+                                <option value="ANM/GNM">ANM &amp; GNM</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="font-semibold text-blue-800 text-base" for="wa-level">Level</label>
+                            <select id="wa-level" name="level" required
+                                class="w-full px-4 py-3 rounded-lg border border-indigo-200 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none text-lg transition duration-150">
+                                <option value="">Select Level</option>
+                                <option value="Class 11">Class 11</option>
+                                <option value="Class 12">Class 12</option>
+                                <option value="Repeater">Repeater</option>
+                                <option value="Crash Course">Crash Course</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-semibold text-blue-800 text-base" for="wa-address">Address</label>
+                        <input id="wa-address" name="address" type="text" required placeholder="Your Address"
+                            class="w-full px-4 py-3 rounded-lg border border-indigo-200 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none text-lg placeholder:text-gray-400 transition duration-150" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-semibold text-blue-800 text-base" for="wa-contact">Contact Number</label>
+                        <input id="wa-contact" name="contact" type="text" required pattern="[0-9]{10,15}" maxlength="15"
+                            placeholder="Your Contact Number"
+                            class="w-full px-4 py-3 rounded-lg border border-indigo-200 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none text-lg placeholder:text-gray-400 transition duration-150" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-semibold text-blue-800 text-base" for="wa-query">Query / Message</label>
+                        <textarea id="wa-query" name="query" rows="4" required
+                            placeholder="Type your question or request..."
+                            class="w-full px-4 py-3 rounded-lg border border-indigo-200 bg-white focus:ring-2 focus:ring-blue-300 focus:border-blue-500 outline-none text-lg placeholder:text-gray-400 transition duration-150 resize-none"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="mt-2 bg-gradient-to-r from-blue-400 via-green-700 to-red-200 hover:from-green-700 hover:to-blue-400 shadow-lg text-white font-extrabold text-lg rounded-lg py-3 px-6 transition-all duration-200 group flex items-center gap-3 w-full justify-center">
+                        <svg class="w-5 h-5 text-white group-hover:animate-bounce" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M18.364 5.636a9 9 0 1 0 0 12.728a9 9 0 0 0 0-12.728ZM6.343 17.657A7 7 0 1 1 17.657 6.343A7 7 0 0 1 6.343 17.657Zm2.829-8.485a1 1 0 0 1 1.415 1.415l-4.242 4.243a1 1 0 0 1-1.415-1.415l4.242-4.243Z">
+                            </path>
+                        </svg>
+                        <span class="text-lg">Send via WhatsApp</span>
+                    </button>
+                </form>
+            </div>
+        </section>
     </main>
 
 
@@ -388,7 +439,7 @@
                             <path d="M16 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8z" />
                             <path d="M9 7h6" />
                         </svg>
-                        <span>Phone: <a href="tel:+919999999999" class="hover:underline hover:text-yellow-200">+91 99999
+                        <span>Phone: <a href="tel:+919564787621" class="hover:underline hover:text-yellow-200">+91 99999
                                 99999</a></span>
                     </div>
                     <div class="flex items-center">
@@ -463,7 +514,7 @@
     </footer>
 
     <script>
-        document.getElementById('wa-contact-form').addEventListener('submit', function(e) {
+        document.getElementById('wa-contact-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const name = document.getElementById('wa-name').value.trim();
             const track = document.getElementById('wa-track').value.trim();
@@ -471,11 +522,11 @@
             const address = document.getElementById('wa-address').value.trim();
             const contact = document.getElementById('wa-contact').value.trim();
             const query = document.getElementById('wa-query').value.trim();
-            const founderNumber = '919999999999'; // With country code, no plus or spaces
+            const founderNumber = '919564787621'; // With country code, no plus or spaces
             const msg = `Name: ${name}\nCourse: ${track} (${level})\nAddress: ${address}\nContact: ${contact}\nQuery: ${query}`;
             const url = `https://wa.me/${founderNumber}?text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank');
-          });
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

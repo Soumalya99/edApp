@@ -40,7 +40,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <!-- Brand -->
-          <a href="" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
+          <a href="" class="text-5xl font-semibold square-peg-regular text-red-700">Theta Fornix</a>
 
           <!-- Desktop Nav -->
           <nav class="hidden md:flex items-center gap-8">
@@ -491,10 +491,10 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                     class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-semibold shadow-md transition">
                     Know more
                   </a>
-                  <a href="tel:+919999999999"
+                  <a href="tel:+919564787621"
                     class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white border border-purple-300 text-purple-700 hover:bg-purple-50 font-semibold shadow-sm transition">
                     <i class="fa-solid fa-phone"></i>
-                    Call +91 99999 99999
+                    Call +91 9564787621
                   </a>
                 </div>
                 <p class="mt-3 text-sm text-gray-700">Available 9:00 AM – 8:00 PM IST • You can also WhatsApp the same
@@ -502,44 +502,23 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
               </div>
             </section>
             <!-- </div> -->
+
           </div>
-          <div id="info-card-2" class="scroll-card">
-            <div class="max-w-8xl mx-auto my-12 px-4">
-              <div
-                class="rounded-xl bg-gradient-to-r from-amber-200 to-red-300 shadow-lg ring-1 ring-gray-200 flex flex-col lg:flex-row items-center gap-10 p-5 lg:p-8">
-                <!-- Left: Text content -->
-                <div
-                  class="w-full lg:w-1/2 text-center lg:text-left flex flex-col justify-center items-center lg:items-start">
-                  <h2 class="text-3xl font-semibold text-purple-800 mb-5 satisfy-regular">Our core Aim</h2>
-                  <p class="text-gray-900 font-medium text-base md:text-lg mb-4">
-                    At THETA FORNIX, we don’t just prepare students for exams — we prepare them for life. With
-                    dedication, innovation, and personal care, we have built a space where every dream finds direction.
-                    Our exclusive collaboration with NEETPREP.COM, Delhi gives our students an edge with national-level
-                    content, while our modern classrooms, doubt-solving, and individual attention ensure no student is
-                    left behind. The trust of parents and the success of our students in Government Colleges inspire us
-                    every day. We welcome you to join the THETA FORNIX family, where excellence is not an option — it’s
-                    a habit
-                  </p>
-                  <a href="#know-more"
-                    class="inline-block mt-3 rounded-lg italic text-lg font-semibold text-red-800 hover:text-purple-700 transition shadow">" Join us today to experience learning that truly transforms futures ! "</a>
-                </div>
-                <!-- Right: Video -->
-                <div class="w-full lg:w-1/2 flex justify-center">
-                  <video class="rounded-xl shadow-md w-full max-w-md" controls>
-                    <source src="video/Theta_Fornix_Video.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
+    </section>
 
-
-
-      <!-- Mentorship Section -->
-
+    <!-- Batches -->
+    <section id="recent-batches-section" class="py-16 bg-gradient-to-b from-rose-200 to-blue-100">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl sm:text-4xl text-center satisfy-stylish text-purple-700 mb-12">Our Featured Batches</h2>
+        <div id="recent-batches" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 justify-items-center">
+        </div>
+        <!-- <div class="text-center mt-6">
+          <a href="batch.php"
+            class="inline-block bg-purple-600 hover:bg-purple-800 text-white py-2 px-7 rounded-xl text-lg font-semibold shadow-lg transition">See
+            All Batches</a>
+        </div> -->
+      </div>
     </section>
 
 
@@ -596,7 +575,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
             <!-- 10 TESTIMONIALS: ROW 1 -->
             <div class="flex min-w-max gap-6">
               <!-- Review 1 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Rahul Verma"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -607,7 +587,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Mumbai, Class of 2025</div>
               </div>
               <!-- Review 2 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sneha Patel"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -618,7 +599,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Ahmedabad, Class of 2024</div>
               </div>
               <!-- Review 3 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Amit Sharma"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -628,7 +610,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Delhi, Class of 2023</div>
               </div>
               <!-- Review 4 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="Harshad Mehta"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -638,7 +621,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Surat, Class of 2025</div>
               </div>
               <!-- Review 5 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/women/87.jpg" alt="Sakshi Singh"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -648,7 +632,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Lucknow, Class of 2023</div>
               </div>
               <!-- Review 6 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="Kunal Raj"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -659,7 +644,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Patna, Class of 2024</div>
               </div>
               <!-- Review 7 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/16.jpg" alt="Ravi Iyengar"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -669,7 +655,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Chennai, Class of 2025</div>
               </div>
               <!-- Review 8 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Pooja Rathore"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -679,7 +666,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Indore, Class of 2024</div>
               </div>
               <!-- Review 9 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Deepak Joshi"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -689,7 +677,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
                 <div class="text-xs text-purple-600">Jaipur, Class of 2022</div>
               </div>
               <!-- Review 10 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/women/70.jpg" alt="Nisha Pillai"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -704,7 +693,8 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
               <!-- Copy-paste the same 10 review cards here -->
               <!-- ... -->
               <!-- Review 1 -->
-              <div class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
+              <div
+                class="flex flex-col items-center bg-gradient-to-r from-red-200 to-amber-100 px-6 py-6 rounded-xl shadow-md min-w-[280px] max-w-xs">
                 <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Rahul Verma"
                   class="w-16 h-16 rounded-full mb-3 object-cover border-4 border-purple-200 shadow">
                 <blockquote class="text-base italic text-gray-700 mb-3 text-center">
@@ -720,7 +710,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
             </div>
           </div>
         </div>
-        
+
       </div>
       </div>
     </section>
@@ -754,7 +744,94 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
     </section>
     <!-- Recognition Section End -->
 
+    <section id="gallery" class="py-16 bg-gradient-to-b from-white to-blue-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-3xl sm:text-4xl font-semibold text-center text-purple-800 satisfy-regular mb-6">Gallery</h2>
+        <h2 class="text-2xl sm:text-2xl zilla-slab-medium-italic text-center text-red-600 mb-12">See our latest images </h2>
 
+        <div class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/Batch.webp" alt="Theta Fornix Batch" class="h-60 w-full object-cover rounded-xl shadow" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/Theta-Award-2.webp" alt="Award" class="h-60 w-full object-cover rounded-xl shadow" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/Theta-team2.webp" alt="Team2" class="h-60 w-full object-cover rounded-xl shadow" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/Theta-Team.webp" alt="Theta-team" class="h-60 w-full object-cover rounded-xl shadow" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/Theta-2.webp" alt="Theta2" class="h-60 w-full object-cover rounded-xl shadow" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/ThetaAward.webp" alt="ThetaAward" class="h-60 w-full object-cover rounded-xl shadow" />
+              </figure>
+            </div>
+            <!-- <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/Ministry.png" alt="Ministry" class="h-60 w-full object-cover rounded-xl shadow bg-white p-2" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/msme.png" alt="MSME" class="h-60 w-full object-cover rounded-xl shadow bg-white p-2" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/iso.jpg" alt="ISO" class="h-60 w-full object-cover rounded-xl shadow bg-white p-2" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/images.jpeg" alt="Recognition" class="h-60 w-full object-cover rounded-xl shadow bg-white p-2" />
+              </figure>
+            </div> -->
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+
+      <script>
+        // Initialize only after page fully loads so the Swiper library (loaded later) is available
+        window.addEventListener('load', function () {
+          // Guard against double init
+          if (window.__gallerySwiperInited) return; 
+          window.__gallerySwiperInited = true;
+
+          new Swiper('.gallery-swiper', {
+            loop: true,
+            spaceBetween: 16,
+            slidesPerView: 1,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            // 1 on small phones, 4 on lg screens
+            breakpoints: {
+              640: { slidesPerView: 2, spaceBetween: 16 },
+              768: { slidesPerView: 3, spaceBetween: 16 },
+              1024: { slidesPerView: 4, spaceBetween: 24 }
+            }
+          });
+        });
+      </script>
+    </section>
 
     <!-- Offer Notification and Registration Popup (Bottom Right) -->
     <div id="earlybird-offer-wrap"
@@ -864,7 +941,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
               <path d="M16 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8z" />
               <path d="M9 7h6" />
             </svg>
-            <span>Phone: <a href="tel:+919999999999" class="hover:underline hover:text-yellow-200">+91 99999
+            <span>Phone: <a href="tel:+919564787621" class="hover:underline hover:text-yellow-200">+91 99999
                 99999</a></span>
           </div>
           <div class="flex items-center">
@@ -1001,29 +1078,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
 
   </script>
   <script>
-    class MentorshipSlider {
-      constructor() {
-        this.swiper = new Swiper('.mentorship-slider', {
-          loop: true,
-          autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          },
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-        });
-      }
-    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      new MentorshipSlider();
-    });
   </script>
   <script>
 

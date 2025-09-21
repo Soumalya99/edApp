@@ -74,7 +74,7 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <!-- Brand -->
-        <a href="/" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
+        <a href="" class="text-5xl font-semibold square-peg-regular text-red-700">Theta Fornix</a>
 
         <!-- Desktop Nav -->
         <nav class="hidden md:flex items-center gap-8">
@@ -1047,7 +1047,7 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
               <path d="M16 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8z" />
               <path d="M9 7h6" />
             </svg>
-            <span>Phone: <a href="tel:+919999999999" class="hover:underline hover:text-yellow-200">+91 99999
+            <span>Phone: <a href="tel:+919564787621" class="hover:underline hover:text-yellow-200">+91 99999
                 99999</a></span>
           </div>
           <div class="flex items-center">

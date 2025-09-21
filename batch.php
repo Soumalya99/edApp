@@ -21,7 +21,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <!-- Brand -->
-                <a href="index.php" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
+                <a href="index.php" class="text-5xl font-semibold square-peg-regular text-red-700">Theta Fornix</a>
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-8">
@@ -422,7 +422,7 @@
                             <path d="M16 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8z" />
                             <path d="M9 7h6" />
                         </svg>
-                        <span>Phone: <a href="tel:+919999999999" class="hover:underline hover:text-yellow-200">+91 99999
+                        <span>Phone: <a href="tel:+919564787621" class="hover:underline hover:text-yellow-200">+91 99999
                                 99999</a></span>
                     </div>
                     <div class="flex items-center">
@@ -543,7 +543,7 @@
                         ? `<span class="text-gray-600 line-through text-lg">₹${course.original_price}</span>`
                         : ''}
         </div>
-        <a href="https://wa.me/919876543210" target="_blank" rel="noopener"
+        <a href="https://wa.me/919564787621" target="_blank" rel="noopener"
           class="inline-block bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-5 rounded-3xl transition duration-200">
           Enquire
         </a>

@@ -22,7 +22,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <!-- Brand -->
-                <a href="index.php" class="text-2xl font-extrabold tracking-tight text-blue-600">Theta Fornix</a>
+                <a href="index.php" class="text-5xl font-semibold square-peg-regular text-red-700">Theta Fornix</a>
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-8">
@@ -298,50 +298,201 @@
             🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919999999999"
                 class="underline font-semibold hover:text-white ml-1">Enquire on WhatsApp</a>
         </div>
-        <h2 class="text-4xl font-semibold text-purple-600 zilla-slab-regular-italic text-center mt-8 mb-6">Meet ur Mentors</h2>
+        <h2 class="text-4xl font-semibold text-purple-600 zilla-slab-regular-italic text-center mt-8 mb-6">Meet ur
+            Mentors</h2>
         <h3 class="team-mentors-h3 text-2xl satisfy-stylish font-medium text-center mb-6">
             Inspiring Excellence in Physics, Math, Chemistry &amp; Biology
         </h3>
-        <div id="mentors-grid" class="mentors-grid grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8 px-6">
+        <div id="mentors-grid" class="mentors-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mt-8 px-2">
             <!-- Dynamically injected -->
         </div>
     </section>
 
 
-    <section class=" py-12  mb-8 bg-gradient-to-b from-red-100 to-amber-100">
+    <section class=" py-12 bg-gradient-to-b from-red-100 to-amber-100">
         <div class="max-w-5xl mx-auto">
-            <h2 class="text-4xl font-semibold satisfy-regular mb-6 text-purple-700 text-center">About Our Team &amp; Founder</h2>
+            <h2 class="text-4xl font-semibold satisfy-regular mb-6 text-purple-700 text-center">About Our Team &amp;
+                Founder</h2>
+            <h2 class="text-2xl font-medium satisfy-stylish text-center mb-6">✨ National-level content, local-level
+                care. ✨</h2>
             <div class="team-intro-flex flex flex-col md:flex-row items-center justify-center gap-8 relative">
-              <!-- Left Section: image + Lottie, stacked -->
-              <div class="flex flex-col items-center basis-2/5 flex-[0_0_40%] max-w-[40%] w-full">
-                <img src="img/Owner_Theta_Fornix.jpeg" alt="Owner_Theta_Fornix"
-                     class="w-64 h-64 sm:w-96 sm:h-96 object-cover rounded-lg border-4 shadow-lg mb-5" />
-                <!-- <div id="lottie-team" class="w-64 h-64 sm:w-96 sm:h-96 flex items-center justify-center shrink-0">
+                <!-- Left Section: image + Lottie, stacked -->
+                <div
+                    class="w-full flex flex-col items-center sm:items-start sm:basis-2/5 sm:flex-[0_0_40%] sm:max-w-[40%]">
+                    <img src="img/Owner_Theta_Fornix.jpeg" alt="Owner_Theta_Fornix"
+                        class="w-80 sm:w-96 md:w-[32rem] lg:w-[36rem] h-80 sm:h-96 md:h-[28rem] lg:h-[32rem] object-cover rounded-lg border-4 shadow-lg mb-5" />
+                    <!-- <div id="lottie-team" class="w-64 h-64 sm:w-96 sm:h-96 flex items-center justify-center shrink-0">
                   <dotlottie-wc src="https://lottie.host/95afefff-94d2-4ef5-8e49-430decdbd2d1/K4fTX35Fw3.lottie"
                     style="width: 100%; height: 100%;" speed="1" autoplay loop>
                   </dotlottie-wc>
                 </div> -->
-              </div>
-              <!-- Right Section: Team Typewriter -->
-              <div class="flex-1 basis-3/5 max-w-[60%]">
-                <p id="team-typewriter"
-                  class="text-xl sm:text-xl md:text-2xl text-gray-700 md:text-left text-center leading-relaxed font-medium min-h-[90px] font-mono mt-6 md:mt-0"
-                  style="white-space: pre-line;">
-                  <!-- The paragraph will be animated in by GSAP script -->
-                </p>
-              </div>
+                </div>
+                <!-- Right Section: Team Typewriter -->
+                <div class="flex-1 basis-3/5 max-w-[60%]">
+                    <p id="team-typewriter"
+                        class="typewriter-small text-base sm:text-lg md:text-xl text-gray-700 md:text-left text-center leading-relaxed font-medium min-h-[90px] zilla-slab-medium-italic mt-6 md:mt-0">
+                    </p>
+                    <div class="flex flex-col justify-center items-center mt-10">
+                        <div class="flex space-x-7 mb-4">
+                            <img src="img/Ministry.png" alt="Recognition"
+                                class="w-20 sm:w-32 md:w-32 h-auto object-contain rounded shadow max-w-full">
+                            <img src="img/neetprep.jpeg" alt="Recognition"
+                                class="w-20 sm:w-32 md:w-32 h-auto object-contain rounded shadow max-w-full">
+                        </div>
+                        <a href="https://wa.me/919999999999" target="_blank"
+                            class="whatsapp-btn py-2 px-4 bg-green-800 rounded-2xl text-white"
+                            style="white-space: pre-line;">Contact us on WhatsApp</a>
+                    </div>
+                    <!-- The paragraph will be animated in by GSAP script -->
+                </div>
             </div>
 
         </div>
     </section>
 
-    <section>
-        <div class="team-member flex flex-col items-center">
-            <h2 class="text-4xl font-semibold text-purple-700 mt-8 mb-8">Our Founder Circle</h2>
-            <div id="founders-grid" class="founders-grid flex flex-col lg:flex-row justify-center items-center flex-wrap gap-12 mt-8 px-6">
-                <!-- Dynamically injected -->
+    <section class="bg-gradient-to-b from-red-200 to-white">
+        <div class="max-w-5xl mx-auto py-12 px-5 flex flex-col items-center ">
+            <h2 class="satisfy-stylish text-4xl font-bold text-center text-purple-700 mb-10">How Theta Fornix Empowers
+                Students</h2>
+            <div
+                class="empower-flex w-full flex flex-col-reverse lg:flex-row items-center lg:items-start justify-center gap-10">
+                <!-- LEFT: Text as list -->
+                <div class="w-full lg:w-1/2 flex flex-col justify-center items-center lg:items-start">
+                    <ul class="empower-list text-xl font-semibold zilla-slab-regular-italic leading-8 text-left mb-8">
+                        <li class="empower-li mb-3"><span class="text-red-700 text-2xl">Welcome to THETA FORNIX, where
+                                we</span>
+                            don't just teach—we build pathways
+                            to success. As a trusted and government-certified educational institute, we are dedicated to
+                            transforming the dreams of our students into tangible achievements. Our student-centric
+                            approach, combined with cutting-edge technology and personal guidance, ensures every
+                            aspirant is equipped to secure their place in a top college.</li>
+                        <li class="empower-li mb-3"><span class="text-green-700 text-2xl">Located in Medinipur, we are
+                                proud</span>
+                            to be the only institute with an
+                            exclusive collaboration with NEETPREP.COM, Delhi, which provides our students with
+                            unparalleled online learning resources and a competitive edge. This powerful partnership,
+                            along with our proven history of consistent selections in NEET, JEE, JENPAS-UG, and ANM/GNM,
+                            stands as a testament to the quality and effectiveness of our programs.</li>
+                        <li class="empower-li mb-3"><span class="text-blue-600 text-2x">At THETA FORNIX, we
+                                believe</span> that
+                            success is a journey of consistency
+                            and accountability. Our state-of-the-art digital classrooms, unlimited personalized
+                            doubt-clearing sessions, and regular mock tests are designed to strengthen weak areas and
+                            build unshakable exam temperament. This holistic support system is why we are recognized as
+                            Medinipur's No. 1 choice for competitive exam preparation.</li>
+                    </ul>
+                    <p class="satisfy-regular text-2xl text-red-700 text-center">Join THETA FORNIX and embark on a
+                        journey of excellence, where your ambition is our mission.</p>
+                </div>
+                <!-- RIGHT: Video -->
+                <div class="w-full lg:w-1/2 flex flex-col space-y-8 gap-5 items-center justify-center my-auto">
+                    <video class="rounded-xl shadow-2xl w-full max-w-xl mb-8 lg:mb-0" controls>
+                        <source src="video/Theta_Fornix_Video.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <iframe src="https://www.google.com/maps?q=ThetaFornix&output=embed" width="100%" height="280"
+                        style="border:0; border-radius:1rem; margin-top:1rem; box-shadow:0 2px 16px 0 rgba(30,32,44,0.2);"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
             </div>
         </div>
+    </section>
+
+    <section id="gallery" class="py-16 bg-gradient-to-b from-white to-blue-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-center text-purple-800 satisfy-regular mb-6">Gallery</h2>
+            <h2 class="text-2xl sm:text-2xl zilla-slab-medium-italic text-center text-red-600 mb-12">See our latest
+                images </h2>
+
+            <div class="swiper gallery-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <figure class="w-full h-full flex items-center justify-center">
+                            <img src="img/Batch.webp" alt="Theta Fornix Batch"
+                                class="h-60 w-full object-cover rounded-xl shadow" />
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="w-full h-full flex items-center justify-center">
+                            <img src="img/Theta-Award-2.webp" alt="Award"
+                                class="h-60 w-full object-cover rounded-xl shadow" />
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="w-full h-full flex items-center justify-center">
+                            <img src="img/Theta-team2.webp" alt="Team2"
+                                class="h-60 w-full object-cover rounded-xl shadow" />
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="w-full h-full flex items-center justify-center">
+                            <img src="img/Theta-Team.webp" alt="Theta-team"
+                                class="h-60 w-full object-cover rounded-xl shadow" />
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="w-full h-full flex items-center justify-center">
+                            <img src="img/Theta-2.webp" alt="Theta2"
+                                class="h-60 w-full object-cover rounded-xl shadow" />
+                        </figure>
+                    </div>
+                    <div class="swiper-slide">
+                        <figure class="w-full h-full flex items-center justify-center">
+                            <img src="img/ThetaAward.webp" alt="ThetaAward"
+                                class="h-60 w-full object-cover rounded-xl shadow" />
+                        </figure>
+                    </div>
+                    <!-- <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/Ministry.png" alt="Ministry" class="h-60 w-full object-cover rounded-xl shadow bg-white p-2" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/msme.png" alt="MSME" class="h-60 w-full object-cover rounded-xl shadow bg-white p-2" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/iso.jpg" alt="ISO" class="h-60 w-full object-cover rounded-xl shadow bg-white p-2" />
+              </figure>
+            </div>
+            <div class="swiper-slide">
+              <figure class="w-full h-full flex items-center justify-center">
+                <img src="img/images.jpeg" alt="Recognition" class="h-60 w-full object-cover rounded-xl shadow bg-white p-2" />
+              </figure>
+            </div> -->
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+
+        <script>
+            // Initialize only after page fully loads so the Swiper library (loaded later) is available
+            window.addEventListener('load', function () {
+                // Guard against double init
+                if (window.__gallerySwiperInited) return;
+                window.__gallerySwiperInited = true;
+
+                new Swiper('.gallery-swiper', {
+                    loop: true,
+                    spaceBetween: 16,
+                    slidesPerView: 1,
+                    autoplay: { delay: 3000, disableOnInteraction: false },
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                    // 1 on small phones, 4 on lg screens
+                    breakpoints: {
+                        640: { slidesPerView: 2, spaceBetween: 16 },
+                        768: { slidesPerView: 3, spaceBetween: 16 },
+                        1024: { slidesPerView: 4, spaceBetween: 24 }
+                    }
+                });
+            });
+        </script>
     </section>
 
 
@@ -370,7 +521,7 @@
                             <path d="M16 2a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8z" />
                             <path d="M9 7h6" />
                         </svg>
-                        <span>Phone: <a href="tel:+919999999999" class="hover:underline hover:text-yellow-200">+91 99999
+                        <span>Phone: <a href="tel:+919564787621" class="hover:underline hover:text-yellow-200">+91 99999
                                 99999</a></span>
                     </div>
                     <div class="flex items-center">
@@ -471,17 +622,19 @@
                         const imgPath = t.profile_image || t.image || '';
                         const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (basePrefix + String(imgPath || '').replace(/^\\+/, ''));
                         return `
-                <div class="mentor-card group relative flex flex-col items-center rounded-xl border border-purple-300 shadow-lg bg-gradient-to-b from-blue-100 to-red-100 p-3 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                  <span class="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.5),transparent_60%)]"></span>
-                  <img src="${imgSrc}" alt="${name}"
-                       class="w-full h-auto border-4 border-purple-300 shadow object-cover mb-4 transform transition-transform duration-300 group-hover:scale-105"
-                       onerror="this.src='https://via.placeholder.com/176?text=Mentor'">
-                  <h3 class="text-xl font-bold text-purple-800">${name}</h3>
-                  <p class="text-gray-600 text-center mt-1">
-                    ${subject}
-                    ${university ? `<br/><span class="text-gray-500">${university}</span>` : ''}
-                  </p>
-                </div>`;
+                        <div class="mentor-card group relative flex flex-col items-stretch rounded-xl shadow-lg bg-gradient-to-b from-blue-100 to-red-100 w-full max-w-xs mx-auto aspect-[3/4] min-h-[320px] transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-0 overflow-hidden">
+                        <span class="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.5),transparent_60%)]"></span>
+                        <div class="w-full aspect-[3/4] bg-gray-300 rounded-t-xl overflow-hidden">
+                            <img src="${imgSrc}" alt="${name}" class="w-full h-full object-cover object-top border-0"  onerror="this.src='https://via.placeholder.com/176x220?text=Mentor'">
+                        </div>
+                        <div class="flex-1 w-full px-4 py-2 flex flex-col items-center justify-start">
+                            <h3 class="text-xl font-bold text-purple-800">${name}</h3>
+                            <p class="text-white font-medium text-center mt-1 bg-black/70 p-2 rounded-md w-full">
+                            ${subject}
+                            ${university ? `<br/><span class=\"text-gray-200\">${university}</span>` : ''}
+                            </p>
+                        </div>
+                        </div>`;
                     }).join('');
 
                     grid.innerHTML = html;
@@ -492,43 +645,7 @@
         });
 
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const grid = document.getElementById('founders-grid');
-            if (!grid) return;
-            // Clear existing placeholder founder cards
-            grid.innerHTML = '';
 
-            fetch('php_backend/api/founders.php')
-                .then(r => r.json())
-                .then(resp => {
-                    const founders = Array.isArray(resp) ? resp : (resp.founders || []);
-                    if (!founders.length) {
-                        grid.innerHTML = '<p class="text-gray-600 col-span-full text-center">No founders found.</p>';
-                        return;
-                    }
-                    const baseSeg = window.location.pathname.split('/')[1] || '';
-                    const basePrefix = baseSeg ? `/${baseSeg}/` : '/';
-
-                    const html = founders.map(f => {
-                        const name = f.name || 'Founder';
-                        const imgPath = f.profile_image || f.image || f.image_path || '';
-                        const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (imgPath ? (basePrefix + String(imgPath).replace(/^\\+/, '')) : 'https://via.placeholder.com/400x300?text=Founder');
-                        return `
-                    <div class="founder-card founder-shiny group flex flex-col items-center justify-center w-full max-w-md shadow-2xl bg-gradient-to-br from-[#201c2b] via-[#25213a] to-[#812fe8] p-0 pt-0 pb-6 rounded-2xl border-0 transition-transform duration-300 hover:scale-[1.08] hover:shadow-2xl" style="overflow: hidden;">
-                        <div class="w-full bg-black relative flex justify-center items-center">
-                            <img src="${imgSrc}" alt="${name}" class="w-full h-auto object-cover" style="aspect-ratio: 4/3; background: #181c2a; min-height:235px; max-height:340px;" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=Founder'">
-                            <span class="founder-shine pointer-events-none absolute inset-0"></span>
-                        </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-center mt-5 text-purple-100 tracking-tight drop-shadow founder-name">${name}</h3>
-                    </div>`;
-                    }).join('');
-
-                    grid.innerHTML = html;
-                })
-                .catch(() => {
-                    grid.innerHTML = '<p class="text-gray-600 col-span-full text-center">Failed to load founders.</p>';
-                });
-        });
 
     </script>
     <script>
@@ -558,20 +675,20 @@
         }
 
         // Founder Card Renderer - new: only image and name, full image, shiny effect
-        function renderFounderCard(item) {
-            const name = item.name || 'Founder';
-            const imgPath = item.profile_image || item.image || item.image_path || '';
-            const baseSeg = window.location.pathname.split('/')[1] || '';
-            const basePrefix = baseSeg ? `/${baseSeg}/` : '/';
-            const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (imgPath ? (basePrefix + String(imgPath).replace(/^\\+/, '')) : 'https://via.placeholder.com/400x300?text=Founder');
-            return `
-          <div class="founder-card founder-shiny group flex flex-col items-center justify-center w-full max-w-xs shadow-xl bg-gradient-to-br from-[#201c2b] via-[#25213a] to-[#812fe8] p-0 pt-0 pb-4 rounded-xl border-0 transition-transform duration-300 hover:scale-[1.08] hover:shadow-2xl" style="overflow: hidden;">
-            <div class="w-full bg-black relative flex justify-center items-center"><img src="${imgSrc}" alt="${name}" class="w-full h-auto object-cover" style="aspect-ratio: 4/3; background: #181c2a; min-height:180px;" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Founder'">
-              <span class="founder-shine pointer-events-none absolute inset-0"></span>
-            </div>
-            <h3 class="text-lg md:text-xl font-bold text-center mt-3 text-purple-200 tracking-tight drop-shadow founder-name">${name}</h3>
-          </div>`;
-        }
+        // function renderFounderCard(item) {
+        //     const name = item.name || 'Founder';
+        //     const imgPath = item.profile_image || item.image || item.image_path || '';
+        //     const baseSeg = window.location.pathname.split('/')[1] || '';
+        //     const basePrefix = baseSeg ? `/${baseSeg}/` : '/';
+        //     const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (imgPath ? (basePrefix + String(imgPath).replace(/^\\+/, '')) : 'https://via.placeholder.com/400x300?text=Founder');
+        //     return `
+        //   <div class="founder-card founder-shiny group flex flex-col items-center justify-center w-full max-w-xs shadow-xl bg-gradient-to-br from-[#201c2b] via-[#25213a] to-[#812fe8] p-0 pt-0 pb-4 rounded-xl border-0 transition-transform duration-300 hover:scale-[1.08] hover:shadow-2xl" style="overflow: hidden;">
+        //     <div class="w-full bg-black relative flex justify-center items-center"><img src="${imgSrc}" alt="${name}" class="w-full h-auto object-cover" style="aspect-ratio: 4/3; background: #181c2a; min-height:180px;" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300?text=Founder'">
+        //       <span class="founder-shine pointer-events-none absolute inset-0"></span>
+        //     </div>
+        //     <h3 class="text-lg md:text-xl font-bold text-center mt-3 text-purple-200 tracking-tight drop-shadow founder-name">${name}</h3>
+        //   </div>`;
+        // }
 
         function loadGrid(gridId, apiEndpoint, renderCardFn, arrKey) {
             const grid = document.getElementById(gridId);
@@ -594,7 +711,38 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             loadGrid('mentors-grid', 'php_backend/api/teachers.php', renderMentorCard, 'teachers');
-            loadGrid('founders-grid', 'php_backend/api/founders.php', renderFounderCard, 'founders');
+            // loadGrid('founders-grid', 'php_backend/api/founders.php', renderFounderCard, 'founders');
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.fromTo('#about-theta-text', {
+                opacity: 0, y: 32
+            }, {
+                opacity: 1, y: 0, duration: 1.5, ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '#about-theta-text',
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.empower-li').forEach((li, i) => {
+            gsap.fromTo(li,
+                { opacity: 0, y: 36 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    delay: i * 0.14,
+                    duration: 0.75,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: li,
+                        start: "top 90%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
         });
     </script>
     <style>

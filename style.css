@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Square+Peg&display=swap');
 .glow-card {
   box-shadow: 0 0 20px 0 rgba(168,85,247,0.25), 0 2px 12px 0 rgba(0,0,0,0.07); /* purple glow + soft shadow */
   transition: box-shadow 0.3s;
@@ -152,4 +153,10 @@
   transform: scale(1.045) rotate(-2deg);
   box-shadow: 0 12px 36px 0 rgba(139,92,246,0.18), 0 2px 18px 0 rgba(220,38,38,0.10);
   z-index: 20;
+}
+
+.square-peg-regular {
+  font-family: "Square Peg", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
