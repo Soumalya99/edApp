@@ -294,7 +294,7 @@
         <section class="py-10 overflow-x-hidden">
             <div
                 class="w-full bg-gradient-to-r from-yellow-400 via-pink-400 to-indigo-400 text-white text-center py-2 text-md px-2 font-medium shadow">
-                🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919999999999"
+                🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919564787621"
                     class="underline font-semibold hover:text-white ml-1">Enquire on WhatsApp</a>
             </div>
             <h2 class="text-4xl font-semibold text-emerald-600 text-center mt-6">Study Materials</h2>

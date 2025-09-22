@@ -295,7 +295,7 @@
     <section class="py-16 max-w-8xl mx-auto">
         <div
             class="w-full bg-gradient-to-r from-yellow-400 via-pink-400 to-indigo-400 text-white text-center py-2 text-md px-2 font-medium shadow">
-            🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919999999999"
+            🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919564787621"
                 class="underline font-semibold hover:text-white ml-1">Enquire on WhatsApp</a>
         </div>
         <h2 class="text-4xl font-semibold text-purple-600 zilla-slab-regular-italic text-center mt-8 mb-6">Meet ur
@@ -339,7 +339,7 @@
                             <img src="img/neetprep.jpeg" alt="Recognition"
                                 class="w-20 sm:w-32 md:w-32 h-auto object-contain rounded shadow max-w-full">
                         </div>
-                        <a href="https://wa.me/919999999999" target="_blank"
+                        <a href="https://wa.me/919564787621" target="_blank"
                             class="whatsapp-btn py-2 px-4 bg-green-800 rounded-2xl text-white"
                             style="white-space: pre-line;">Contact us on WhatsApp</a>
                     </div>
@@ -620,7 +620,9 @@
                         const subject = parts[0] || 'Mentor';
                         const university = parts[1] || '';
                         const imgPath = t.profile_image || t.image || '';
-                        const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (basePrefix + String(imgPath || '').replace(/^\\+/, ''));
+                        const imgSrc = /^https?:/i.test(imgPath) 
+                        ? imgPath 
+                        : ('/public/' + String(imgPath || '').replace(/^\\+/, '').replace(/^public\//, ''));
                         return `
                         <div class="mentor-card group relative flex flex-col items-stretch rounded-xl shadow-lg bg-gradient-to-b from-blue-100 to-red-100 w-full max-w-xs mx-auto aspect-[3/4] min-h-[320px] transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 p-0 overflow-hidden">
                         <span class="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.5),transparent_60%)]"></span>
@@ -659,7 +661,9 @@
             const imgPath = item.profile_image || item.image || item.image_path || '';
             const baseSeg = window.location.pathname.split('/')[1] || '';
             const basePrefix = baseSeg ? `/${baseSeg}/` : '/';
-            const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (imgPath ? (basePrefix + String(imgPath).replace(/^\\+/, '')) : 'https://via.placeholder.com/176?text=Mentor');
+            const imgSrc = /^https?:/i.test(imgPath) 
+            ? imgPath 
+            : ('/public/' + String(imgPath || '').replace(/^\\+/, '').replace(/^public\//, ''));
             return `
           <div class="mentor-card group relative flex flex-col items-center rounded-xl border border-purple-300 shadow-lg bg-gradient-to-tr from-blue-100 via-gray-100 to-amber-100 p-6 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
             <span class="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.5),transparent_60%)]"></span>

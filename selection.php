@@ -281,7 +281,7 @@
   <section class="py-16 max-w-8xl mx-auto bg-gradient-to-b from-white to-red-300">
     <div
       class="w-full bg-gradient-to-r from-yellow-400 via-pink-400 to-indigo-400 text-white text-center py-2 text-md px-2 font-medium shadow">
-      🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919999999999"
+      🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919564787621"
         class="underline font-semibold hover:text-white ml-1">Enquire on WhatsApp</a>
     </div>
     <div class="flex flex-col justify-center items-center">
@@ -658,7 +658,9 @@
           const htmlPrimary = primaryCandidates.map(c => {
             const name = c.name || c.candidate_name || 'Candidate';
             const imgPath = c.image_path || c.image || '';
-            const imgSrc = /^https?:/i.test(imgPath) ? imgPath : (basePrefix + String(imgPath || '').replace(/^\\+/, ''));
+            const imgSrc = /^https?:/i.test(imgPath) 
+            ? imgPath 
+            : ('/public/' + String(imgPath || '').replace(/^\\+/, '').replace(/^public\//, ''));
             return `
           <div class="selection-card candidate-card opacity-0 translate-y-3 rounded-lg bg-gradient-to-r from-amber-300 to-red-300 border border-red-600 shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden h-auto w-64 mx-auto">
             <div class="overflow-hidden">

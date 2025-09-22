@@ -363,7 +363,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == '1') {
 
     <div
       class="w-full bg-gradient-to-r from-yellow-400 via-pink-400 to-indigo-400 text-white text-center py-2 text-md px-2 font-medium shadow">
-      🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919999999999"
+      🚀 NEW: Admissions open for 2025! <a href="https://wa.me/919564787621"
         class="underline font-semibold hover:text-white ml-1">Enquire on WhatsApp</a>
     </div>
     <!-- Features -->

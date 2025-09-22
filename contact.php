@@ -309,7 +309,7 @@
                                     d="M21 10.5a8.38 8.38 0 0 1-.9 3.8c-.82 1.65-2.03 3.09-3.36 4.23a17.05 17.05 0 0 1-4.36 2.6l-.7.3-.7-.3a16.66 16.66 0 0 1-4.36-2.6c-1.33-1.14-2.54-2.58-3.36-4.23A8.38 8.38 0 0 1 3 10.5V5.48C3 4.67 3.67 4 4.5 4h15A1.5 1.5 0 0 1 21 5.48v5.02Z" />
                                 <circle cx="12" cy="9" r="2.5" />
                             </svg>
-                            <span>Contact Our Founders</span>
+                            <span class="zilla-slab-semibold-italic">Contact Our Founders</span>
                         </h2>
                         <span class="text-purple-900 text-2xl font-bold mb-3 block leading-tight">
                             Fastest mentorship, real humans, 100% privacy.

@@ -994,18 +994,18 @@ class RecentBatchesGrid {
   }
 
   pickRandomRelevant(allCourses, count = 4) {
-  // Get only COHORT batches of (JEE + 12) or (NEET + 11)
-  const filtered = allCourses.filter(c => {
-    const title = (c.title || '').toLowerCase();
-    return title.includes('cohort');
-  });
-  // Shuffle
-  for (let i = filtered.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+    // Get only COHORT batches of (JEE + 12) or (NEET + 11)
+    const filtered = allCourses.filter(c => {
+      const title = (c.title || '').toLowerCase();
+      return title.includes('cohort');
+    });
+    // Shuffle
+    for (let i = filtered.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+    }
+    return filtered.slice(0, count);
   }
-  return filtered.slice(0, count);
-}
 
   renderBatches(courses) {
     const el = document.getElementById(this.targetId);
@@ -1226,120 +1226,383 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-    class MentorshipSlider {
-      constructor() {
-        this.swiper = new Swiper('.mentorship-slider', {
-          loop: true,
-          autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          },
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-        });
-      }
-    }
+class MentorshipSlider {
+  constructor() {
+    this.swiper = new Swiper('.mentorship-slider', {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+}
 
 
-  class OfferNotificationPopup {
-    constructor() {
-      this.offerBubble = document.getElementById('earlybird-popup');
-      this.offerFormPopup = document.getElementById('earlybird-form-popup');
-      this.offerFormClose = document.getElementById('earlybird-form-close');
-      this.offerForm = document.getElementById('earlybird-wa-form');
-      this.showTimeout = null;
-      this.reopenInterval = null;
-      this.isPopupVisible = false; // Register form popup state
-      this.visibleMs = 20000; // Show 3s
-      this.intervalMs = 60000; // Repeat every 30s
-      this.autoTimeout = null;
-      this.reopenTimeout = null;
-      this.setup();
+class OfferNotificationPopup {
+  constructor() {
+    this.offerBubble = document.getElementById('earlybird-popup');
+    this.offerFormPopup = document.getElementById('earlybird-form-popup');
+    this.offerFormClose = document.getElementById('earlybird-form-close');
+    this.offerForm = document.getElementById('earlybird-wa-form');
+    this.showTimeout = null;
+    this.reopenInterval = null;
+    this.isPopupVisible = false; // Register form popup state
+    this.visibleMs = 20000; // Show 3s
+    this.intervalMs = 60000; // Repeat every 30s
+    this.autoTimeout = null;
+    this.reopenTimeout = null;
+    this.setup();
+  }
+  setup() {
+    // Always make bubble visible
+    if (this.offerBubble) {
+      this.offerBubble.classList.remove('opacity-0', 'pointer-events-none', 'hidden');
     }
-    setup() {
-      // Always make bubble visible
-      if (this.offerBubble) {
-        this.offerBubble.classList.remove('opacity-0', 'pointer-events-none', 'hidden');
-      }
-      this.addListeners();
-      this._autoShowPopupInitial();
+    this.addListeners();
+    this._autoShowPopupInitial();
+  }
+  addListeners() {
+    // Notification bubble click opens popup
+    if (this.offerBubble && this.offerFormPopup) {
+      this.offerBubble.addEventListener('click', () => {
+        this._showPopupManually();
+      });
     }
-    addListeners() {
-      // Notification bubble click opens popup
-      if (this.offerBubble && this.offerFormPopup) {
-        this.offerBubble.addEventListener('click', () => {
-          this._showPopupManually();
-        });
-      }
-      // Register popup close button (cross)
-      if (this.offerFormClose) {
-        this.offerFormClose.addEventListener('click', () => this._closePopupAndReschedule());
-      }
-      // WhatsApp form submit
-      if (this.offerForm) {
-        this.offerForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const name = document.getElementById('earlybird-wa-name').value.trim();
-          const track = document.getElementById('earlybird-wa-track').value.trim();
-          const level = document.getElementById('earlybird-wa-level').value.trim();
-          const address = document.getElementById('earlybird-wa-address').value.trim();
-          const contact = document.getElementById('earlybird-wa-contact').value.trim();
-          const query = document.getElementById('earlybird-wa-query').value.trim();
-          const founderNumber = '919999999999';
-          const msg = `Name: ${name}\nCourse: ${track} (${level})\nAddress: ${address}\nContact: ${contact}\nQuery: ${query}`;
-          const url = `https://wa.me/${founderNumber}?text=${encodeURIComponent(msg)}`;
-          window.open(url, '_blank');
-          this._closePopupAndReschedule();
-        });
-      }
+    // Register popup close button (cross)
+    if (this.offerFormClose) {
+      this.offerFormClose.addEventListener('click', () => this._closePopupAndReschedule());
     }
-    // Auto open on page load, then auto cycles every 30s
-    _autoShowPopupInitial() {
-      this._showPopup(true);
-    }
-
-    _scheduleNextAutoPopup() {
-      if (this.reopenTimeout) clearTimeout(this.reopenTimeout);
-      this.reopenTimeout = setTimeout(() => {
-        this._showPopup(true);
-      }, this.intervalMs);
-    }
-    _showPopup(isAuto = false) {
-      if (!this.offerFormPopup) return;
-      // Don't pop up if already visible
-      if (this.isPopupVisible) return;
-      // Show popup
-      this.isPopupVisible = true;
-      this.offerFormPopup.classList.remove('hidden');
-      this.offerFormPopup.classList.add('animate-fadeInUp');
-      // Hide after 3s unless closed early
-      if (this.autoTimeout) clearTimeout(this.autoTimeout);
-      this.autoTimeout = setTimeout(() => {
+    // WhatsApp form submit
+    if (this.offerForm) {
+      this.offerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('earlybird-wa-name').value.trim();
+        const track = document.getElementById('earlybird-wa-track').value.trim();
+        const level = document.getElementById('earlybird-wa-level').value.trim();
+        const address = document.getElementById('earlybird-wa-address').value.trim();
+        const contact = document.getElementById('earlybird-wa-contact').value.trim();
+        const query = document.getElementById('earlybird-wa-query').value.trim();
+        const founderNumber = '919999999999';
+        const msg = `Name: ${name}\nCourse: ${track} (${level})\nAddress: ${address}\nContact: ${contact}\nQuery: ${query}`;
+        const url = `https://wa.me/${founderNumber}?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
         this._closePopupAndReschedule();
-      }, this.visibleMs);
-    }
-    // Manual show = show popup, then reschedule auto popup cycle
-    _showPopupManually() {
-      if (this.isPopupVisible || !this.offerFormPopup) return;
-      this._showPopup(false);
-      this._scheduleNextAutoPopup();
-    }
-    // Hide the popup and start 30s interval for next auto open
-    _closePopupAndReschedule() {
-      if (!this.offerFormPopup) return;
-      if (this.autoTimeout) clearTimeout(this.autoTimeout);
-      this.offerFormPopup.classList.add('hidden');
-      this.offerFormPopup.classList.remove('animate-fadeInUp');
-      this.isPopupVisible = false;
-      this._scheduleNextAutoPopup();
+      });
     }
   }
+  // Auto open on page load, then auto cycles every 30s
+  _autoShowPopupInitial() {
+    this._showPopup(true);
+  }
+
+  _scheduleNextAutoPopup() {
+    if (this.reopenTimeout) clearTimeout(this.reopenTimeout);
+    this.reopenTimeout = setTimeout(() => {
+      this._showPopup(true);
+    }, this.intervalMs);
+  }
+  _showPopup(isAuto = false) {
+    if (!this.offerFormPopup) return;
+    // Don't pop up if already visible
+    if (this.isPopupVisible) return;
+    // Show popup
+    this.isPopupVisible = true;
+    this.offerFormPopup.classList.remove('hidden');
+    this.offerFormPopup.classList.add('animate-fadeInUp');
+    // Hide after 3s unless closed early
+    if (this.autoTimeout) clearTimeout(this.autoTimeout);
+    this.autoTimeout = setTimeout(() => {
+      this._closePopupAndReschedule();
+    }, this.visibleMs);
+  }
+  // Manual show = show popup, then reschedule auto popup cycle
+  _showPopupManually() {
+    if (this.isPopupVisible || !this.offerFormPopup) return;
+    this._showPopup(false);
+    this._scheduleNextAutoPopup();
+  }
+  // Hide the popup and start 30s interval for next auto open
+  _closePopupAndReschedule() {
+    if (!this.offerFormPopup) return;
+    if (this.autoTimeout) clearTimeout(this.autoTimeout);
+    this.offerFormPopup.classList.add('hidden');
+    this.offerFormPopup.classList.remove('animate-fadeInUp');
+    this.isPopupVisible = false;
+    this._scheduleNextAutoPopup();
+  }
+}
+
+
+
+class AuthUI {
+  constructor() {
+    // Tab elements
+    this.tabLogin = document.getElementById('tab-login');
+    this.tabReg = document.getElementById('tab-register');
+    this.loginContent = document.getElementById('tab-content-login');
+    this.regContent = document.getElementById('tab-content-register');
+    this.messageBox = document.getElementById('message-box');
+    // Login
+    this.loginForm = document.getElementById('loginForm');
+    // Register
+    this.registerForm = document.getElementById('registerForm');
+    // Forgot password multi-step
+    this.forgotLink = document.getElementById('forgot-link');
+    this.forgotSteps = document.getElementById('forgot-steps');
+    this.forgotForm = document.getElementById('forgotForm');
+    this.otpForm = document.getElementById('otpForm');
+    this.resetPwForm = document.getElementById('resetPwForm');
+    this.forgotBackBtn = document.getElementById('forgot-back-btn');
+    this.otpBackBtn = document.getElementById('otp-back-btn');
+    this.resetBackBtn = document.getElementById('reset-back-btn');
+    this.forgotUsername = '';
+    this.forgotPhone = '';
+    this.forgotSession = '';
+    this.init();
+  }
+
+  showMessage(type, message) {
+    this.messageBox.style.display = 'block';
+    this.messageBox.className = (type === 'error')
+      ? 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4'
+      : 'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4';
+    this.messageBox.innerHTML = `<span>${message}</span>`;
+    setTimeout(() => { this.messageBox.style.display = 'none'; }, 6000);
+  }
+
+  setBtnLoading(btnId, loading) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+    const loader = btn.querySelector('.loading');
+    const txt = btn.querySelector('span[id$=btn-text]');
+    if (loading) {
+      if (loader) loader.classList.add('show');
+      if (txt) txt.textContent = 'Processing...';
+      btn.disabled = true;
+    } else {
+      if (loader) loader.classList.remove('show');
+      if (txt) txt.textContent = btnId.includes('login') ? 'Login' : (btnId.includes('register') ? 'Register' : (btnId.includes('otp') ? 'Verify OTP' : 'Reset Password'));
+      btn.disabled = false;
+    }
+  }
+
+  clearOTPInputs() {
+    if (!this.otpForm) return;
+    this.otpForm.querySelectorAll('input.otp-input').forEach(i => i.value = '');
+  }
+
+  otpSmartFocus() {
+    if (!this.otpForm) return;
+    this.otpForm.querySelectorAll('input.otp-input').forEach((input, idx, arr) => {
+      input.addEventListener('input', function () {
+        if (this.value && idx < 3) arr[idx + 1].focus();
+      });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Backspace' && idx > 0 && !this.value) {
+          arr[idx - 1].focus();
+        }
+      });
+    });
+  }
+
+  switchTabs(tab) {
+    if (tab === 'login') {
+      this.tabLogin.classList.add('tab-active');
+      this.tabLogin.classList.remove('tab-inactive');
+      this.tabReg.classList.add('tab-inactive');
+      this.tabReg.classList.remove('tab-active');
+      this.loginContent.style.display = '';
+      this.regContent.style.display = 'none';
+    } else {
+      this.tabLogin.classList.remove('tab-active');
+      this.tabLogin.classList.add('tab-inactive');
+      this.tabReg.classList.remove('tab-inactive');
+      this.tabReg.classList.add('tab-active');
+      this.loginContent.style.display = 'none';
+      this.regContent.style.display = '';
+    }
+  }
+
+  handleForgotStep(step) {
+    // steps: 'init', 'otp', 'reset'
+    if (step === 'init') {
+      this.loginForm.style.display = 'none';
+      this.forgotSteps.style.display = 'block';
+      this.forgotForm.style.display = 'block';
+      this.otpForm.style.display = 'none';
+      this.resetPwForm.style.display = 'none';
+    } else if (step === 'otp') {
+      this.forgotForm.style.display = 'none';
+      this.otpForm.style.display = 'block';
+      this.resetPwForm.style.display = 'none';
+      this.clearOTPInputs();
+      if (this.otpForm) this.otpForm.querySelectorAll('input.otp-input')[0].focus();
+    } else if (step === 'reset') {
+      this.otpForm.style.display = 'none';
+      this.resetPwForm.style.display = 'block';
+    } else if (step === 'close') {
+      this.forgotSteps.style.display = 'none';
+      this.loginForm.style.display = 'block';
+      if (this.forgotForm) this.forgotForm.reset();
+    }
+  }
+
+  // Bind all events at once
+  init() {
+    this.tabLogin.onclick = _ => this.switchTabs('login');
+    this.tabReg.onclick = _ => this.switchTabs('register');
+    this.forgotLink.onclick = e => { e.preventDefault(); this.handleForgotStep('init'); };
+    this.forgotBackBtn.onclick = _ => this.handleForgotStep('close');
+    this.otpBackBtn.onclick = _ => this.handleForgotStep('init');
+    this.resetBackBtn.onclick = _ => this.handleForgotStep('otp');
+    this.otpSmartFocus();
+
+    // Forgot step 1 - send OTP
+    this.forgotForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('forgot-username').value.trim();
+      const phone = document.getElementById('forgot-phone').value.trim();
+      if (!username || !phone) { this.showMessage('error', 'All fields are required.'); return; }
+      this.setBtnLoading('forgotBtn', true);
+      fetch('php_backend/api/admin_ForgotPassword.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ username, phone })
+      }).then(r => r.json()).then(data => {
+        this.setBtnLoading('forgotBtn', false);
+        if (data.success) {
+          this.showMessage('success', data.message || 'OTP sent!');
+          this.forgotUsername = username;
+          this.forgotPhone = phone;
+          this.forgotSession = data.session || '';
+          this.handleForgotStep('otp');
+        } else {
+          this.showMessage('error', data.error || 'Could not send OTP');
+        }
+      }).catch(e => {
+        this.showMessage('error', 'Connection error: ' + e.message);
+        this.setBtnLoading('forgotBtn', false);
+      });
+    });
+
+    // Forgot step 2 - verify OTP
+    this.otpForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const otpInputs = this.otpForm.querySelectorAll('input.otp-input');
+      const otp = Array.from(otpInputs).map(i => i.value.trim()).join('');
+      if (!otp || otp.length !== 4 || !/^[0-9]{4}$/.test(otp)) {
+        this.showMessage('error', 'Enter 4 digit OTP.'); return;
+      }
+      this.setBtnLoading('otpBtn', true);
+      fetch('php_backend/api/admin_VerifyOTP.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ otp, session: this.forgotSession })
+      }).then(r => r.json()).then(data => {
+        this.setBtnLoading('otpBtn', false);
+        if (data.success) {
+          this.showMessage('success', data.message || 'OTP verified.');
+          this.handleForgotStep('reset');
+        } else {
+          this.showMessage('error', data.error || 'Invalid OTP.');
+        }
+      }).catch(e => {
+        this.showMessage('error', 'Connection error: ' + e.message);
+        this.setBtnLoading('otpBtn', false);
+      });
+    });
+
+    // Forgot step 3 - reset password
+    this.resetPwForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const password = document.getElementById('reset-new-password').value;
+      const confirm = document.getElementById('reset-confirm-password').value;
+      if (!password || !confirm) { this.showMessage('error', 'Fill all fields'); return; }
+      if (password !== confirm) { this.showMessage('error', 'Passwords do not match.'); return; }
+      if (password.length < 6) { this.showMessage('error', 'Password too short'); return; }
+      this.setBtnLoading('resetPwBtn', true);
+      fetch('php_backend/api/admin_ResetPassword.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ username: this.forgotUsername, phone: this.forgotPhone, password, session: this.forgotSession })
+      }).then(r => r.json()).then(data => {
+        this.setBtnLoading('resetPwBtn', false);
+        if (data.success) {
+          this.showMessage('success', data.message || 'Password reset! Login now');
+          setTimeout(() => {
+            this.handleForgotStep('close');
+            this.resetPwForm.reset();
+          }, 1600);
+        } else {
+          this.showMessage('error', data.error || 'Error resetting password');
+        }
+      }).catch(e => {
+        this.showMessage('error', 'Connection error: ' + e.message);
+        this.setBtnLoading('resetPwBtn', false);
+      });
+    });
+
+    // Registration
+    this.registerForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('reg-username').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const confirm = document.getElementById('reg-confirm-password').value;
+      if (!username || !phone || !password || !confirm) { this.showMessage('error', 'All fields are required.'); return; }
+      if (password.length < 6) { this.showMessage('error', 'Password min 6 chars.'); return; }
+      if (password !== confirm) { this.showMessage('error', 'Passwords do not match.'); return; }
+      this.setBtnLoading('registerBtn', true);
+      fetch('php_backend/api/admin_Register.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ username, phone, password, confirm })
+      }).then(r => r.json()).then(data => {
+        if (data.success) {
+          this.showMessage('success', data.message || 'Registration Success!');
+          this.switchTabs('login');
+        } else {
+          this.showMessage('error', data.error || 'Registration failed.');
+        }
+        this.setBtnLoading('registerBtn', false);
+      }).catch(e => { this.showMessage('error', 'Connection error: ' + e.message); this.setBtnLoading('registerBtn', false); });
+    });
+
+    // Login
+    this.loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      if (!username || !password) { this.showMessage('error', 'Both fields required.'); return; }
+      this.setBtnLoading('loginBtn', true);
+      fetch('php_backend/api/admin_Login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ username, password }),
+        credentials: 'same-origin'
+      }).then(resp => {
+        if (resp.redirected && resp.url.includes('adminDashboard.php')) {
+          this.showMessage('success', 'Login success! Redirecting...');
+          setTimeout(() => { window.location.href = 'adminDashboard.php'; }, 900);
+        } else if (resp.redirected && resp.url.includes('error=')) {
+          const er = new URL(resp.url).searchParams.get('error');
+          this.showMessage('error', decodeURIComponent(er || 'Invalid credentials'));
+        } else if (!resp.ok) { this.showMessage('error', 'HTTP error: ' + resp.status); }
+        this.setBtnLoading('loginBtn', false);
+        return resp.text();
+      }).catch(e => { this.showMessage('error', 'Connection error: ' + e.message); this.setBtnLoading('loginBtn', false); });
+    });
+  }
+}
 
 /***  MAIN BOOTSTRAP *****/
 document.addEventListener('DOMContentLoaded', () => {
@@ -1366,8 +1629,8 @@ document.addEventListener('DOMContentLoaded', () => {
   new MentorshipSlider();
   new ResourceSectionGSAPAnim('.max-w-3xl').init();
   // new ScrollHybridCardGSAP().init();
-  new OfferNotificationPopup(); 
-
+  new OfferNotificationPopup();
+  new AuthUI();
   // Registration Modal Popup Logic (legacy popup, keep hidden but support old code)   
 
 

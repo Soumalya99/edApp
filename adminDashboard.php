@@ -70,7 +70,8 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
 
 <body>
   <!-- Navbar -->
-  <header id="site-header" class="headerNav fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
+  <header id="site-header"
+    class="headerNav fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <!-- Brand -->
@@ -385,24 +386,37 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
           <h3 class="text-xl font-semibold mb-2 text-slate-900">All Teachers</h3>
           <?php if (!empty($all_teachers)): ?>
             <style>
-              .teacher-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
-              .teacher-img-wrap { position: relative; }
+              .teacher-gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+              }
+
+              .teacher-img-wrap {
+                position: relative;
+              }
+
               .teacher-delete-btn {
                 position: absolute;
-                top: 0.4em; right: 0.4em;
-                background: rgba(255,55,55,0.93);
+                top: 0.4em;
+                right: 0.4em;
+                background: rgba(255, 55, 55, 0.93);
                 color: #fff;
                 border: none;
                 border-radius: 9999px;
-                width: 2rem; height: 2rem;
-                display: flex; align-items: center; justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 font-size: 1.25rem;
-                box-shadow: 0 1px 6px 0 rgba(0,0,0,0.08);
+                box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08);
                 z-index: 5;
                 transition: background 0.18s;
                 cursor: pointer;
                 opacity: 0.85;
               }
+
               .teacher-delete-btn:hover {
                 background: #d91a20;
                 opacity: 1;
@@ -415,18 +429,19 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
                     &times;
                   </button>
                   <img src="<?php echo htmlspecialchars($teacher['profile_image']); ?>"
-                       alt="Photo of <?php echo htmlspecialchars($teacher['name']); ?>"
-                       class="w-full h-32 object-cover rounded-md shadow bg-slate-100 mb-2">
-                  <p class="text-sm font-medium text-slate-700 truncate" title="<?php echo htmlspecialchars($teacher['name']); ?>">
+                    alt="Photo of <?php echo htmlspecialchars($teacher['name']); ?>"
+                    class="w-full h-32 object-cover rounded-md shadow bg-slate-100 mb-2">
+                  <p class="text-sm font-medium text-slate-700 truncate"
+                    title="<?php echo htmlspecialchars($teacher['name']); ?>">
                     <?php echo htmlspecialchars($teacher['name']); ?>
                   </p>
                 </div>
               <?php endforeach; ?>
             </div>
             <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                document.querySelectorAll('.teacher-delete-btn').forEach(function(btn) {
-                  btn.addEventListener('click', function() {
+              document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.teacher-delete-btn').forEach(function (btn) {
+                  btn.addEventListener('click', function () {
                     if (!confirm('Delete this teacher profile?')) return;
                     const teacherId = this.getAttribute('data-id');
                     const imgWrap = this.closest('.teacher-img-wrap');
@@ -543,486 +558,482 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
       </section> -->
 
     <!-- Founders -->
-    <?php
-    // --- Start of founders preview grid ---
-    $all_founders = [];
-    try {
-      require_once __DIR__ . '/php_backend/config/conf.php';
-      $stmt = $pdo->query("SELECT id, name, image_path FROM founders ORDER BY id DESC");
-      if ($stmt) {
-        $all_founders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+     <!-- Selections -->
+      <?php
+      // --- Start of new code for candidate preview ---
+      
+      // Fetch recent candidates for the preview gallery.
+      // NOTE: This assumes you have a 'candidates' table with 'id', 'name', and 'photo_path' columns.
+      $recent_candidates = [];
+      try {
+        // This requires your database connection file. Adjust the path if necessary.
+        require_once __DIR__ . '/php_backend/config/conf.php';
+
+        // Fetch all candidates for admin preview
+        $stmt = $pdo->query("SELECT id, name, image_path FROM candidates ORDER BY id DESC");
+
+        if ($stmt) {
+          $recent_candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+      } catch (Exception $e) {
+        // This will fail silently if the database connection or table is not found,
+        // so the rest of the page still loads.
+        error_log('Error fetching recent candidates: ' . $e->getMessage());
       }
-    } catch (Exception $e) {
-      error_log('Error fetching founders: ' . $e->getMessage());
-    }
-    // --- End of founders preview grid fetch ---
-    ?>
-    <section id="founder-section" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <!-- Left: Show all founder photos with delete cross overlay -->
-        <div>
-          <h3 class="text-xl font-semibold mb-2 text-slate-900">All Founders</h3>
-          <?php if (!empty($all_founders)): ?>
-            <style>
-              .founder-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
-              .founder-img-wrap { position: relative; }
-              .founder-delete-btn {
-                position: absolute;
-                top: 0.4em; right: 0.4em;
-                background: rgba(255,55,55,0.93);
-                color: #fff;
-                border: none;
-                border-radius: 9999px;
-                width: 2rem; height: 2rem;
-                display: flex; align-items: center; justify-content: center;
-                font-size: 1.25rem;
-                box-shadow: 0 1px 6px 0 rgba(0,0,0,0.08);
-                z-index: 5;
-                transition: background 0.18s;
-                cursor: pointer;
-                opacity: 0.85;
-              }
-              .founder-delete-btn:hover {
-                background: #d91a20;
-                opacity: 1;
-              }
-            </style>
-            <div class="founder-gallery">
-              <?php foreach ($all_founders as $founder): ?>
-                <div class="founder-img-wrap bg-slate-50 p-2 rounded-lg shadow text-center">
-                  <button class="founder-delete-btn" title="Delete" data-id="<?php echo $founder['id']; ?>">&times;</button>
-                  <img src="<?php echo htmlspecialchars($founder['image_path']); ?>"
-                       alt="Photo of <?php echo htmlspecialchars($founder['name']); ?>"
-                       class="w-full h-32 object-cover rounded-md shadow bg-slate-100 mb-2">
-                  <p class="text-sm font-medium text-slate-700 truncate" title="<?php echo htmlspecialchars($founder['name']); ?>">
-                    <?php echo htmlspecialchars($founder['name']); ?>
-                  </p>
-                </div>
-              <?php endforeach; ?>
-            </div>
-            <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                document.querySelectorAll('.founder-delete-btn').forEach(function(btn) {
-                  btn.addEventListener('click', function() {
-                    if (!confirm('Delete this founder photo?')) return;
-                    const founderId = this.getAttribute('data-id');
-                    const imgWrap = this.closest('.founder-img-wrap');
-                    fetch('php_backend/api/founders.php?id=' + encodeURIComponent(founderId), {
-                      method: 'DELETE',
-                    }).then(async res => {
-                      const result = await res.json();
-                      if (res.ok) {
-                        imgWrap.remove();
-                        ToastNotification.show('Founder photo deleted.');
-                      } else {
-                        ToastNotification.show(result.error || 'Delete failed.', 'error');
-                      }
-                    }).catch(() => {
-                      ToastNotification.show('Could not reach server.', 'error');
-                    });
-                  });
-                });
-              });
-            </script>
-          <?php else: ?>
-            <div class="flex items-center justify-center h-full bg-slate-50 rounded-lg p-8 border border-dashed">
-              <p class="text-slate-500 text-center">No founders to show.<br>Upload one to see it here.</p>
-            </div>
-          <?php endif; ?>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-1 text-slate-900">Add or Update a Founder</h3>
-          <p class="text-slate-600 mb-4">Provide the founder's name and upload one or more photos.</p>
+      // --- End of new code for candidate preview ---
+      ?>
+      <section id="selection-section"
+        class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
+        <div class="grid md:grid-cols-2 gap-8 items-start">
+          <!-- Left side: Form for uploading -->
+          <div>
+            <h3 class="text-xl font-semibold mb-1 text-slate-900">Upload Selection Candidate Photos</h3>
+            <p class="text-slate-600 mb-4">Add a candidate's name and their photo.</p>
 
-          <form action="php_backend/api/founders.php" method="POST" enctype="multipart/form-data"
-            class="space-y-4 animated-form">
-            <div>
-              <label for="founder_name" class="block font-medium text-gray-800 mb-2">Founder's Name</label>
-              <input type="text" id="founder_name" name="founder_name" required
-                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
-                placeholder="e.g., Jane Doe" />
-            </div>
-
-            <div>
-              <label for="founder_image" class="block font-medium text-gray-800 mb-2">Founder Images</label>
-              <div
-                class="dropzone group relative border-2 border-dashed border-slate-300 rounded-xl p-5 text-center cursor-pointer transition">
-                <input id="founder_image" type="file" name="founder_image" accept="image/*" multiple required
-                  class="absolute inset-0 opacity-0 cursor-pointer" />
-                <div class="flex flex-col items-center gap-2 pointer-events-none">
-                  <span class="rounded-full bg-blue-50 text-blue-600 px-3 py-1 text-xs font-medium">Click or drag &
-                    drop</span>
-                  <span class="text-slate-500 text-sm">PNG, JPG, JPEG</span>
-                  <div class="file-list mt-1 text-xs text-slate-600"></div>
-                </div>
-              </div>
-            </div>
-
-            <button type="submit"
-              class="submit-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 active:scale-[0.98] transition">
-              <span class="btn-label">Upload</span>
-              <span class="btn-spinner hidden spinner"></span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- Selections -->
-    <?php
-    // --- Start of new code for candidate preview ---
-    
-    // Fetch recent candidates for the preview gallery.
-    // NOTE: This assumes you have a 'candidates' table with 'id', 'name', and 'photo_path' columns.
-    $recent_candidates = [];
-    try {
-      // This requires your database connection file. Adjust the path if necessary.
-      require_once __DIR__ . '/php_backend/config/conf.php';
-
-      // Fetch all candidates for admin preview
-      $stmt = $pdo->query("SELECT id, name, image_path FROM candidates ORDER BY id DESC");
-
-      if ($stmt) {
-        $recent_candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      }
-    } catch (Exception $e) {
-      // This will fail silently if the database connection or table is not found,
-      // so the rest of the page still loads.
-      error_log('Error fetching recent candidates: ' . $e->getMessage());
-    }
-    // --- End of new code for candidate preview ---
-    ?>
-    <section id="selection-section" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
-      <div class="grid md:grid-cols-2 gap-8 items-start">
-        <!-- Left side: Form for uploading -->
-        <div>
-          <h3 class="text-xl font-semibold mb-1 text-slate-900">Upload Selection Candidate Photos</h3>
-          <p class="text-slate-600 mb-4">Add a candidate's name and their photo.</p>
-
-          <form action="php_backend/api/candidate.php" method="POST" enctype="multipart/form-data"
-            class="space-y-4 animated-form">
-            <div>
-              <label for="candidate_name" class="block font-medium text-gray-800 mb-2">Candidate's Name</label>
-              <input type="text" id="candidate_name" name="candidate_name" required
-                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
-                placeholder="e.g., John Smith" />
-            </div>
-
-            <div>
-              <label class="block font-medium text-gray-800 mb-2">Selection Images</label>
-              <div
-                class="dropzone group relative border-2 border-dashed border-slate-300 rounded-xl p-5 text-center cursor-pointer transition">
-                <input id="image" type="file" name="image" accept="image/*" multiple required
-                  class="absolute inset-0 opacity-0 cursor-pointer" />
-                <div class="flex flex-col items-center gap-2 pointer-events-none">
-                  <span class="rounded-full bg-blue-50 text-blue-600 px-3 py-1 text-xs font-medium">Click or drag &
-                    drop</span>
-                  <span class="text-slate-500 text-sm">PNG, JPG, JPEG</span>
-                  <div class="file-list mt-1 text-xs text-slate-600"></div>
-                </div>
-              </div>
-            </div>
-
-            <button type="submit"
-              class="submit-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 active:scale-[0.98] transition">
-              <span class="btn-label">Upload</span>
-              <span class="btn-spinner hidden spinner"></span>
-            </button>
-          </form>
-        </div>
-
-        <!-- Right side: Preview of recently added images -->
-        <div>
-          <h3 class="text-xl font-semibold mb-4 text-slate-900">All Candidates</h3>
-          <?php if (!empty($recent_candidates)): ?>
-            <style>
-              .candidate-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
-              .candidate-img-wrap { position: relative; }
-              .candidate-delete-btn {
-                position: absolute;
-                top: 0.4em; right: 0.4em;
-                background: rgba(255,55,55,0.93);
-                color: #fff;
-                border: none;
-                border-radius: 9999px;
-                width: 2rem; height: 2rem;
-                display: flex; align-items: center; justify-content: center;
-                font-size: 1.25rem;
-                box-shadow: 0 1px 6px 0 rgba(0,0,0,0.08);
-                z-index: 5;
-                transition: background 0.18s;
-                cursor: pointer;
-                opacity: 0.85;
-              }
-              .candidate-delete-btn:hover {
-                background: #d91a20;
-                opacity: 1;
-              }
-            </style>
-            <div class="candidate-gallery">
-              <?php foreach ($recent_candidates as $candidate): ?>
-                <div class="candidate-img-wrap group bg-slate-50 p-2 rounded-lg shadow text-center">
-                  <button class="candidate-delete-btn" title="Delete" data-id="<?php echo $candidate['id']; ?>">
-                    &times;
-                  </button>
-                  <img src="<?php echo htmlspecialchars($candidate['image_path']); ?>"
-                    alt="Photo of <?php echo htmlspecialchars($candidate['name']); ?>"
-                    class="w-full h-32 object-cover rounded-md shadow bg-slate-100 mb-2">
-                  <p class="text-sm font-medium text-slate-700 truncate"
-                    title="<?php echo htmlspecialchars($candidate['name']); ?>">
-                    <?php echo htmlspecialchars($candidate['name']); ?>
-                  </p>
-                </div>
-              <?php endforeach; ?>
-            </div>
-            <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                document.querySelectorAll('.candidate-delete-btn').forEach(function(btn) {
-                  btn.addEventListener('click', function() {
-                    if (!confirm('Delete this candidate photo?')) return;
-                    const candidateId = this.getAttribute('data-id');
-                    const imgWrap = this.closest('.candidate-img-wrap');
-                    fetch('php_backend/api/candidate.php?id=' + encodeURIComponent(candidateId), {
-                      method: 'DELETE',
-                    }).then(async res => {
-                      const result = await res.json();
-                      if (res.ok) {
-                        imgWrap.remove();
-                        ToastNotification.show('Photo deleted.');
-                      } else {
-                        ToastNotification.show(result.error || 'Delete failed.', 'error');
-                      }
-                    }).catch(() => {
-                      ToastNotification.show('Could not reach server.', 'error');
-                    });
-                  });
-                });
-              });
-            </script>
-          <?php else: ?>
-            <div class="flex items-center justify-center h-full bg-slate-50 rounded-lg p-8 border border-dashed">
-              <p class="text-slate-500 text-center">No candidates to show.<br>Upload one to see it here.</p>
-            </div>
-          <?php endif; ?>
-        </div>
-      </div>
-    </section>
-
-    <!-- Batch/Course -->
-    <section id="batch-section" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div class="flex items-center justify-center">
-          <lottie-player src="https://assets4.lottiefiles.com/private_files/lf30_5ttqPi.json" background="transparent"
-            speed="1" class="w-72 h-72" loop autoplay>
-          </lottie-player>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-1 text-slate-900">Add/Edit Course Batch</h3>
-          <p class="text-slate-600 mb-4">Update batch details with a polished animated form.</p>
-
-          <form action="php_backend/api/courses.php" method="POST" enctype="multipart/form-data"
-            class="space-y-5 animated-form">
-            <div>
-              <label class="block font-medium text-gray-800 mb-2">Batch/Course Image</label>
-              <div
-                class="dropzone group relative border-2 border-dashed border-slate-300 rounded-xl p-5 text-center cursor-pointer transition">
-                <input id="batch_image" type="file" name="batch_image" accept="image/*" required
-                  class="absolute inset-0 opacity-0 cursor-pointer" />
-                <div class="flex flex-col items-center gap-2 pointer-events-none">
-                  <span class="rounded-full bg-blue-50 text-blue-600 px-3 py-1 text-xs font-medium">Click or drag &
-                    drop</span>
-                  <span class="text-slate-500 text-sm">PNG, JPG, JPEG</span>
-                  <div class="file-list mt-1 text-xs text-slate-600"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="relative">
-              <input type="text" id="batch_title" name="batch_title" required placeholder=" "
-                class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
-              <label for="batch_title" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
-                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
-                  peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Title</label>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              <div class="relative">
-                <input type="text" id="track" name="track" required placeholder="JEE"
-                  class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
-                <label for="track" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
-                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
-                    peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Track</label>
-              </div>
-              <div class="relative">
-                <input type="text" id="level" name="level" required placeholder="Class 11"
-                  class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
-                <label for="level" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
-                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
-                    peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Level</label>
-              </div>
-            </div>
-
-            <div class="relative">
-              <textarea id="batch_inclusives" name="batch_inclusives" rows="4" placeholder=" "
-                class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent"></textarea>
-              <label for="batch_inclusives" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
-                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
-                  peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Course Includes (one per line)</label>
-              <p class="text-xs text-slate-500 mt-1">Example: Live Classes, PDF Notes, Mock Tests</p>
-            </div>
-
-            <div class="relative">
-              <input type="number" id="current_price" name="current_price" min="0" required placeholder=" "
-                class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
-              <label for="current_price" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
-                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
-                  peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Current Price (INR)</label>
-            </div>
-
-            <button type="submit"
-              class="submit-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 active:scale-[0.98] transition">
-              <span class="btn-label">Save Batch</span>
-              <span class="btn-spinner hidden spinner"></span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-
-    <?php
-    // This PHP block should be placed before the HTML section below.
-    // It assumes a PDO connection object `$pdo` is available from your conf.php file.
-    
-    // Fetch distinct tracks for the dropdown
-    $track_sql = "SELECT DISTINCT track FROM courses ORDER BY track ASC";
-    $track_stmt = $pdo->prepare($track_sql);
-    $track_stmt->execute();
-    $tracks = $track_stmt->fetchAll(PDO::FETCH_COLUMN);
-
-    // Fetch distinct levels for the dropdown
-    $level_sql = "SELECT DISTINCT level FROM courses ORDER BY level ASC";
-    $level_stmt = $pdo->prepare($level_sql);
-    $level_stmt->execute();
-    $levels = $level_stmt->fetchAll(PDO::FETCH_COLUMN);
-    ?>
-
-    <!-- Demo Video Section -->
-    <section id="demo-video-section"
-      class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div class="flex items-center justify-center order-2 md:order-1">
-          <div class="w-full">
-            <h3 class="text-xl font-semibold mb-1 text-slate-900">Upload Demo Class Video Link</h3>
-            <p class="text-slate-600 mb-4">Select a course track and level, then paste a valid YouTube link.</p>
-
-            <form action="php_backend/api/demo_class_vid.php" method="POST" class="space-y-5 animated-form">
-
-              <!-- Track Selection Dropdown -->
+            <form action="php_backend/api/candidate.php" method="POST" enctype="multipart/form-data"
+              class="space-y-4 animated-form">
               <div>
-                <label for="track" class="block text-sm font-medium text-slate-700 mb-1">Track</label>
-                <select id="track" name="track" required
-                  class="w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition">
-                  <option value="" disabled selected>Please select a track</option>
-                  <?php
-                  foreach ($tracks as $track) {
-                    echo '<option value="' . htmlspecialchars($track) . '">' . htmlspecialchars($track) . '</option>';
-                  }
-                  ?>
-                </select>
+                <label for="candidate_name" class="block font-medium text-gray-800 mb-2">Candidate's Name</label>
+                <input type="text" id="candidate_name" name="candidate_name" required
+                  class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
+                  placeholder="e.g., John Smith" />
               </div>
 
-              <!-- Level Selection Dropdown -->
               <div>
-                <label for="level" class="block text-sm font-medium text-slate-700 mb-1">Level</label>
-                <select id="level" name="level" required
-                  class="w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition">
-                  <option value="" disabled selected>Please select a level</option>
-                  <?php
-                  foreach ($levels as $level) {
-                    echo '<option value="' . htmlspecialchars($level) . '">' . htmlspecialchars($level) . '</option>';
-                  }
-                  ?>
-                </select>
-              </div>
-
-              <!-- Video Link Input -->
-              <div class="relative">
-                <input type="url" id="video_link" name="video_link" placeholder=" " required
-                  class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
-                <label for="video_link" class="absolute left-3 -top-2.5 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
-                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-                    peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600">YouTube Video Link</label>
+                <label class="block font-medium text-gray-800 mb-2">Selection Images</label>
+                <div
+                  class="dropzone group relative border-2 border-dashed border-slate-300 rounded-xl p-5 text-center cursor-pointer transition">
+                  <input id="image" type="file" name="image" accept="image/*" multiple required
+                    class="absolute inset-0 opacity-0 cursor-pointer" />
+                  <div class="flex flex-col items-center gap-2 pointer-events-none">
+                    <span class="rounded-full bg-blue-50 text-blue-600 px-3 py-1 text-xs font-medium">Click or drag &
+                      drop</span>
+                    <span class="text-slate-500 text-sm">PNG, JPG, JPEG</span>
+                    <div class="file-list mt-1 text-xs text-slate-600"></div>
+                  </div>
+                </div>
               </div>
 
               <button type="submit"
                 class="submit-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 active:scale-[0.98] transition">
-                <span class="btn-label">Update Video Link</span>
+                <span class="btn-label">Upload</span>
+                <span class="btn-spinner hidden spinner"></span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Right side: Preview of recently added images -->
+          <div>
+            <h3 class="text-xl font-semibold mb-4 text-slate-900">All Candidates</h3>
+            <?php if (!empty($recent_candidates)): ?>
+              <style>
+                .candidate-gallery {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                  gap: 1rem;
+                }
+
+                .candidate-img-wrap {
+                  position: relative;
+                }
+
+                .candidate-delete-btn {
+                  position: absolute;
+                  top: 0.4em;
+                  right: 0.4em;
+                  background: rgba(255, 55, 55, 0.93);
+                  color: #fff;
+                  border: none;
+                  border-radius: 9999px;
+                  width: 2rem;
+                  height: 2rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.25rem;
+                  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.08);
+                  z-index: 5;
+                  transition: background 0.18s;
+                  cursor: pointer;
+                  opacity: 0.85;
+                }
+
+                .candidate-delete-btn:hover {
+                  background: #d91a20;
+                  opacity: 1;
+                }
+              </style>
+              <div class="candidate-gallery">
+                <?php foreach ($recent_candidates as $candidate): ?>
+                  <div class="candidate-img-wrap group bg-slate-50 p-2 rounded-lg shadow text-center">
+                    <button class="candidate-delete-btn" title="Delete" data-id="<?php echo $candidate['id']; ?>">
+                      &times;
+                    </button>
+                    <img src="<?php echo htmlspecialchars($candidate['image_path']); ?>"
+                      alt="Photo of <?php echo htmlspecialchars($candidate['name']); ?>"
+                      class="w-full h-32 object-cover rounded-md shadow bg-slate-100 mb-2">
+                    <p class="text-sm font-medium text-slate-700 truncate"
+                      title="<?php echo htmlspecialchars($candidate['name']); ?>">
+                      <?php echo htmlspecialchars($candidate['name']); ?>
+                    </p>
+                  </div>
+                <?php endforeach; ?>
+              </div>
+              <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                  document.querySelectorAll('.candidate-delete-btn').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                      if (!confirm('Delete this candidate photo?')) return;
+                      const candidateId = this.getAttribute('data-id');
+                      const imgWrap = this.closest('.candidate-img-wrap');
+                      fetch('php_backend/api/candidate.php?id=' + encodeURIComponent(candidateId), {
+                        method: 'DELETE',
+                      }).then(async res => {
+                        const result = await res.json();
+                        if (res.ok) {
+                          imgWrap.remove();
+                          ToastNotification.show('Photo deleted.');
+                        } else {
+                          ToastNotification.show(result.error || 'Delete failed.', 'error');
+                        }
+                      }).catch(() => {
+                        ToastNotification.show('Could not reach server.', 'error');
+                      });
+                    });
+                  });
+                });
+              </script>
+            <?php else: ?>
+              <div class="flex items-center justify-center h-full bg-slate-50 rounded-lg p-8 border border-dashed">
+                <p class="text-slate-500 text-center">No candidates to show.<br>Upload one to see it here.</p>
+              </div>
+            <?php endif; ?>
+          </div>
+        </div>
+      </section>
+
+      <!-- Batch/Course -->
+      <section id="batch-section" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div class="flex items-center justify-center">
+            <div id="batch-list-container" class="w-full flex flex-wrap gap-4 items-center justify-center"></div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-1 text-slate-900">Add/Edit Course Batch</h3>
+            <p class="text-slate-600 mb-4">Update batch details with a polished animated form.</p>
+
+            <form action="php_backend/api/courses.php" method="POST" enctype="multipart/form-data"
+              class="space-y-5 animated-form">
+              <div>
+                <label class="block font-medium text-gray-800 mb-2">Batch/Course Image</label>
+                <div
+                  class="dropzone group relative border-2 border-dashed border-slate-300 rounded-xl p-5 text-center cursor-pointer transition">
+                  <input id="batch_image" type="file" name="batch_image" accept="image/*" required
+                    class="absolute inset-0 opacity-0 cursor-pointer" />
+                  <div class="flex flex-col items-center gap-2 pointer-events-none">
+                    <span class="rounded-full bg-blue-50 text-blue-600 px-3 py-1 text-xs font-medium">Click or drag &
+                      drop</span>
+                    <span class="text-slate-500 text-sm">PNG, JPG, JPEG</span>
+                    <div class="file-list mt-1 text-xs text-slate-600"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="relative">
+                <input type="text" id="batch_title" name="batch_title" required placeholder=" "
+                  class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
+                <label for="batch_title" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
+                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
+                  peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Title</label>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div class="relative">
+                  <input type="text" id="track" name="track" required placeholder="JEE"
+                    class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
+                  <label for="track" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
+                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
+                    peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Track</label>
+                </div>
+                <div class="relative">
+                  <input type="text" id="level" name="level" required placeholder="Class 11"
+                    class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
+                  <label for="level" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
+                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
+                    peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Level</label>
+                </div>
+              </div>
+
+              <div class="relative">
+                <textarea id="batch_inclusives" name="batch_inclusives" rows="4" placeholder=" "
+                  class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent"></textarea>
+                <label for="batch_inclusives" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
+                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
+                  peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Course Includes (one per line)</label>
+                <p class="text-xs text-slate-500 mt-1">Example: Live Classes, PDF Notes, Mock Tests</p>
+              </div>
+
+              <div class="relative">
+                <input type="number" id="current_price" name="current_price" min="0" required placeholder=" "
+                  class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
+                <label for="current_price" class="absolute left-3 top-2 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
+                  peer-placeholder-shown:top-3 peer-placeholder-shown:text-slate-500 peer-placeholder-shown:text-sm
+                  peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600">Current Price (INR)</label>
+              </div>
+
+              <button type="submit"
+                class="submit-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 active:scale-[0.98] transition">
+                <span class="btn-label">Save Batch</span>
                 <span class="btn-spinner hidden spinner"></span>
               </button>
             </form>
           </div>
         </div>
-        <div class="flex items-center justify-center order-1 md:order-2">
-          <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_sSF6EG.json" background="transparent"
-            speed="1" class="w-full max-w-sm h-auto" loop autoplay>
-          </lottie-player>
-        </div>
+        <script>
+          async function fetchBatches() {
+            const list = document.getElementById('batch-list-container');
+            list.innerHTML = 'Loading...';
+            try {
+              const res = await fetch('php_backend/api/courses.php');
+              const data = await res.json();
+              if (!Array.isArray(data)) {
+                list.innerHTML = '<div class="text-gray-500 p-3">No batches found.</div>';
+                return;
+              }
+              if (!data.length) {
+                list.innerHTML = '<div class="text-gray-500 p-3">No batches uploaded.</div>';
+                return;
+              }
+              list.innerHTML = data.map(batch => `
+      <div class="relative bg-blue-50 border border-blue-200 p-2 rounded-lg flex flex-col items-center justify-center text-center w-24 h-32">
+        <button aria-label="Delete" onclick="deleteBatch(${batch.id})"
+                class="absolute top-2 right-2 text-red-500 hover:bg-red-100 rounded-full text-lg font-bold w-7 h-7 flex items-center justify-center">&times;</button>
+        <img src="${batch.batch_image_path || 'fallback.jpg'}" alt="${batch.title}" class="w-16 h-16 rounded-md object-cover border mb-2" />
+        <div class="font-semibold text-xs truncate mt-1 w-full">${batch.title || ''}</div>
       </div>
-    </section>
+    `).join('');
+            } catch (err) {
+              list.innerHTML = '<div class="text-red-600 p-3">Failed to load batches</div>';
+            }
+          }
 
-    <!-- Resources -->
-    <section id="resources-section" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <!-- Left: List of uploaded PDFs -->
-        <div class="flex items-center justify-center">
-          <div class="w-full max-w-xs" id="resource-list-container">
-            <h4 class="text-lg font-bold text-blue-700 mb-3">Uploaded Resources</h4>
-            <ul id="resource-list" class="space-y-2">
-              <!-- AJAX updates here -->
-            </ul>
+          async function deleteBatch(id) {
+            if (!confirm('Are you sure you want to delete this batch?')) return;
+            const list = document.getElementById('batch-list-container');
+            try {
+              const res = await fetch(`php_backend/api/courses.php?id=${id}`, { method: 'DELETE' });
+              const data = await res.json();
+              if (data.success) {
+                fetchBatches();
+              } else {
+                alert(data.error || 'Failed to delete');
+              }
+            } catch (e) {
+              alert('Error deleting batch');
+            }
+          }
+
+          // Fetch batches on page load
+          fetchBatches();
+        </script>
+      </section>
+
+
+
+      <?php
+      // This PHP block should be placed before the HTML section below.
+      // It assumes a PDO connection object `$pdo` is available from your conf.php file.
+      
+      // Fetch distinct tracks for the dropdown
+      $track_sql = "SELECT DISTINCT track FROM courses";
+      $track_stmt = $pdo->prepare($track_sql);
+      $track_stmt->execute();
+      $tracks = $track_stmt->fetchAll(PDO::FETCH_COLUMN);
+
+      // Fetch distinct levels for the dropdown
+      $level_sql = "SELECT DISTINCT level FROM courses";
+      $level_stmt = $pdo->prepare($level_sql);
+      $level_stmt->execute();
+      $levels = $level_stmt->fetchAll(PDO::FETCH_COLUMN);
+      ?>
+
+      <!-- Demo Video Section -->
+      <section id="demo-video-section"
+        class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div class="flex items-center justify-center order-2 md:order-1">
+            <div class="w-full">
+              <h3 class="text-xl font-semibold mb-1 text-slate-900">Upload Demo Class Video Link</h3>
+              <p class="text-slate-600 mb-4">Select a course track and level, then paste a valid YouTube link.</p>
+
+              <form action="php_backend/api/demo_class_vid.php" method="POST" class="space-y-5 animated-form">
+
+                <!-- Track Selection Dropdown -->
+                <div>
+                  <label for="track" class="block text-sm font-medium text-slate-700 mb-1">Track</label>
+                  <select id="track" name="track" required
+                    class="w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition">
+                    <option value="" disabled selected>Please select a track</option>
+                    <?php
+                    foreach ($tracks as $track) {
+                      echo '<option value="' . htmlspecialchars($track) . '">' . htmlspecialchars($track) . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+
+                <!-- Level Selection Dropdown -->
+                <div>
+                  <label for="level" class="block text-sm font-medium text-slate-700 mb-1">Level</label>
+                  <select id="level" name="level" required
+                    class="w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition">
+                    <option value="" disabled selected>Please select a level</option>
+                    <?php
+                    foreach ($levels as $level) {
+                      echo '<option value="' . htmlspecialchars($level) . '">' . htmlspecialchars($level) . '</option>';
+                    }
+                    ?>
+                  </select>
+                </div>
+
+                <!-- Video Link Input -->
+                <div class="relative">
+                  <input type="url" id="video_link" name="video_link" placeholder=" " required
+                    class="peer w-full border border-blue-200 px-3 py-3 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition placeholder-transparent" />
+                  <label for="video_link" class="absolute left-3 -top-2.5 px-1 bg-white text-slate-500 text-sm transition-all pointer-events-none
+                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
+                    peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600">YouTube Video Link</label>
+                </div>
+
+                <button type="submit"
+                  class="submit-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 active:scale-[0.98] transition">
+                  <span class="btn-label">Update Video Link</span>
+                  <span class="btn-spinner hidden spinner"></span>
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="flex items-center justify-center order-1 md:order-2">
+            <div id="demo-video-list-panel" class="w-full max-w-xs bg-blue-50 rounded-lg p-4"
+              style="max-height: 280px; overflow-y: auto;">
+              <ul id="demo-video-list" class="space-y-3">
+                <!-- JS will populate demo video links here -->
+              </ul>
+            </div>
           </div>
         </div>
-        <!-- Right: Upload Form -->
-        <div>
-          <h3 class="text-xl font-semibold mb-1 text-slate-900">Upload Resources (PDF)</h3>
-          <p class="text-slate-600 mb-4">Share materials as PDF documents. Enter folder name (or leave as existing), a
-            title, and upload a PDF.</p>
-          <form id="resource-upload-form" action="php_backend/api/resources.php" method="POST"
-            enctype="multipart/form-data" class="space-y-4 animated-form">
-            <div>
-              <label class="block font-medium text-gray-800 mb-2" for="folder_name">Folder Name</label>
-              <input id="folder_name" name="folder_name" type="text" required
-                class="w-full px-4 py-2 border border-slate-300 rounded-lg" placeholder="e.g. General" />
+        <script>
+          async function fetchDemoVideoList() {
+            const ul = document.getElementById('demo-video-list');
+            ul.innerHTML = '<li class="text-gray-500">Loading...</li>';
+            try {
+              const res = await fetch('php_backend/api/demo_class_vid.php');
+              const data = await res.json();
+              console.log("Fetched demo videos:", data);
+              if (!data || !data.success || !data.videos || !data.videos.length) {
+                ul.innerHTML = '<li class="text-gray-500">No demo videos available.</li>';
+                return;
+              }
+              ul.innerHTML = data.videos.map(vid => {
+                const safeTrack = vid.track ? vid.track.replace(/[<>]/g, '') : '';
+                const safeLevel = vid.level ? vid.level.replace(/[<>]/g, '') : '';
+                const safeLink = vid.video_link ? vid.video_link.replace(/[<>]/g, '') : '';
+                // Extract YouTube video ID for the thumbnail
+                let youtubeID = '';
+                const ytMatch = safeLink.match(/(?:youtube[.]com.*[?&]v=|youtu[.]be\/)([\w-]{11})/);
+                if (ytMatch && ytMatch[1]) youtubeID = ytMatch[1];
+                const thumbUrl = youtubeID ? `https://img.youtube.com/vi/${youtubeID}/hqdefault.jpg` : '';
+                return `
+          <li class="flex items-center bg-white rounded p-2 shadow gap-2 relative group hover:bg-blue-100 transition">
+            ${thumbUrl ? `<a href="${safeLink}" target="_blank" class="flex-shrink-0 w-20 h-12 mr-2"><img src="${thumbUrl}" alt="Thumbnail" class="rounded shadow w-full h-full object-cover"></a>` : ''}
+            <div class="flex-1 min-w-0">
+              <a href="${safeLink}" target="_blank" class="truncate font-medium text-blue-700 hover:underline text-sm block" title="${safeLink}">
+                ${(safeTrack || '') + (safeTrack && safeLevel ? ' • ' : '') + (safeLevel || '')}
+              </a>
+              <span class="block text-xs text-slate-500 truncate">${safeLink}</span>
             </div>
-            <div>
-              <label class="block font-medium text-gray-800 mb-2" for="title">Title</label>
-              <input id="title" name="title" type="text" required
-                class="w-full px-4 py-2 border border-slate-300 rounded-lg" placeholder="Resource title" />
+            <button onclick="deleteDemoVideo(${vid.id})" class="ml-2 text-red-600 hover:bg-red-100 rounded-full p-1 w-7 h-7 flex items-center justify-center text-lg font-bold group-hover:visible focus:visible" title="Delete">&times;</button>
+          </li>
+        `;
+              }).join('');
+            } catch (e) {
+              ul.innerHTML = '<li class="text-red-500">Failed to load videos.</li>';
+            }
+          }
+
+          async function deleteDemoVideo(id) {
+            if (!confirm('Delete this demo class video?')) return;
+            try {
+              const res = await fetch(`php_backend/api/demo_class_vid.php?id=${id}`, { method: 'DELETE' });
+              const data = await res.json();
+              if (data.success) {
+                fetchDemoVideoList();
+                ToastNotification.show('Demo class video deleted.');
+              } else {
+                alert(data.error || 'Delete failed');
+              }
+            } catch (e) {
+              alert('Could not delete video.');
+            }
+          }
+          // Initial video list load
+          fetchDemoVideoList();
+        </script>
+      </section>
+
+      <!-- Resources -->
+      <section id="resources-section"
+        class="bg-white rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <!-- Left: List of uploaded PDFs -->
+          <div class="flex items-center justify-center">
+            <div class="w-full max-w-xs" id="resource-list-container">
+              <h4 class="text-lg font-bold text-blue-700 mb-3">Uploaded Resources</h4>
+              <ul id="resource-list" class="space-y-2">
+                <!-- AJAX updates here -->
+              </ul>
             </div>
-            <div>
-              <label class="block font-medium text-gray-800 mb-2">PDF File</label>
-              <div
-                class="dropzone group relative border-2 border-dashed border-slate-300 rounded-xl p-5 text-center cursor-pointer transition">
-                <input id="resource_pdf" type="file" name="resource_pdf" accept="application/pdf" required
-                  class="absolute inset-0 opacity-0 cursor-pointer" />
-                <div class="flex flex-col items-center gap-2 pointer-events-none">
-                  <span class="rounded-full bg-blue-50 text-blue-600 px-3 py-1 text-xs font-medium">Click or drag &
-                    drop</span>
-                  <span class="text-slate-500 text-sm">PDF only</span>
-                  <div class="file-list mt-1 text-xs text-slate-600"></div>
+          </div>
+          <!-- Right: Upload Form -->
+          <div>
+            <h3 class="text-xl font-semibold mb-1 text-slate-900">Upload Resources (PDF)</h3>
+            <p class="text-slate-600 mb-4">Share materials as PDF documents. Enter folder name (or leave as existing), a
+              title, and upload a PDF.</p>
+            <form id="resource-upload-form" action="php_backend/api/resources.php" method="POST"
+              enctype="multipart/form-data" class="space-y-4 animated-form">
+              <div>
+                <label class="block font-medium text-gray-800 mb-2" for="folder_name">Folder Name</label>
+                <input id="folder_name" name="folder_name" type="text" required
+                  class="w-full px-4 py-2 border border-slate-300 rounded-lg" placeholder="e.g. General" />
+              </div>
+              <div>
+                <label class="block font-medium text-gray-800 mb-2" for="title">Title</label>
+                <input id="title" name="title" type="text" required
+                  class="w-full px-4 py-2 border border-slate-300 rounded-lg" placeholder="Resource title" />
+              </div>
+              <div>
+                <label class="block font-medium text-gray-800 mb-2">PDF File</label>
+                <div
+                  class="dropzone group relative border-2 border-dashed border-slate-300 rounded-xl p-5 text-center cursor-pointer transition">
+                  <input id="resource_pdf" type="file" name="resource_pdf" accept="application/pdf" required
+                    class="absolute inset-0 opacity-0 cursor-pointer" />
+                  <div class="flex flex-col items-center gap-2 pointer-events-none">
+                    <span class="rounded-full bg-blue-50 text-blue-600 px-3 py-1 text-xs font-medium">Click or drag &
+                      drop</span>
+                    <span class="text-slate-500 text-sm">PDF only</span>
+                    <div class="file-list mt-1 text-xs text-slate-600"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <button type="submit"
-              class="submit-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 active:scale-[0.98] transition">
-              <span class="btn-label">Upload PDF</span>
-              <span class="btn-spinner hidden spinner"></span>
-            </button>
-          </form>
+              <button type="submit"
+                class="submit-btn inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 active:scale-[0.98] transition">
+                <span class="btn-label">Upload PDF</span>
+                <span class="btn-spinner hidden spinner"></span>
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
   </main>
 
   <footer id="contact" class="bg-blue-950 text-white pt-10 pb-6 mt-12">
@@ -1056,8 +1067,8 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
               <path d="M4 4h16v16H4z" />
               <path d="M22,6L12,13L2,6" />
             </svg>
-            <span>Email: <a href="mailto:info@Theta Fornix.in"
-                class="hover:underline hover:text-yellow-200">info@Theta Fornix.in</a></span>
+            <span>Email: <a href="mailto:info@Theta Fornix.in" class="hover:underline hover:text-yellow-200">info@Theta
+                Fornix.in</a></span>
           </div>
           <!-- Social Icons -->
           <div class="flex space-x-4 mt-5">
@@ -1125,254 +1136,277 @@ $admin_name = isset($_SESSION['admin_username']) ? $_SESSION['admin_username'] :
   <script>
 
     const ToastNotification = {
-  show(message, type = 'success') {
-    const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
-    const toastEl = document.createElement('div');
-    toastEl.className = `fixed top-5 right-5 ${bgColor} text-white py-2 px-4 rounded-lg shadow-lg text-sm z-50`;
-    toastEl.textContent = message;
+      show(message, type = 'success') {
+        const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+        const toastEl = document.createElement('div');
+        toastEl.className = `fixed top-5 right-5 ${bgColor} text-white py-2 px-4 rounded-lg shadow-lg text-sm z-50`;
+        toastEl.textContent = message;
 
-    document.body.appendChild(toastEl);
+        document.body.appendChild(toastEl);
 
-    // Animate in
-    gsap.fromTo(toastEl, {
-      opacity: 0,
-      y: -20,
-      x: 20
-    }, {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      duration: 0.5,
-      ease: 'power3.out'
-    });
+        // Animate in
+        gsap.fromTo(toastEl, {
+          opacity: 0,
+          y: -20,
+          x: 20
+        }, {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          duration: 0.5,
+          ease: 'power3.out'
+        });
 
-    // Animate out and remove after a delay
-    gsap.to(toastEl, {
-      opacity: 0,
-      duration: 0.5,
-      delay: 3,
-      onComplete: () => toastEl.remove()
-    });
-  }
-};
+        // Animate out and remove after a delay
+        gsap.to(toastEl, {
+          opacity: 0,
+          duration: 0.5,
+          delay: 3,
+          onComplete: () => toastEl.remove()
+        });
+      }
+    };
 
-/**
- * Manages the UI interactions for a file dropzone.
- */
-class Dropzone {
-  constructor(element) {
-    this.zone = element;
-    this.input = this.zone.querySelector("input[type='file']");
-    this.fileList = this.zone.querySelector(".file-list");
-    this.allowMultiple = this.input?.hasAttribute("multiple");
-  }
-
-  init() {
-    if (!this.input) return;
-    this.zone.addEventListener("click", () => this.input.click());
-    this.input.addEventListener("change", () => this._showFiles(this.input.files));
-
-    ["dragenter", "dragover"].forEach(evt =>
-      this.zone.addEventListener(evt, e => this._handleDragOver(e))
-    );
-    ["dragleave", "drop"].forEach(evt =>
-      this.zone.addEventListener(evt, e => this._handleDragLeave(e))
-    );
-    this.zone.addEventListener("drop", e => this._handleDrop(e));
-  }
-
-  _showFiles(files) {
-    if (!this.fileList) return;
-    if (!files || files.length === 0) {
-      this.fileList.textContent = "";
-      return;
-    }
-    const names = Array.from(files).map(f => f.name).slice(0, 3);
-    const moreCount = files.length - 3;
-    this.fileList.textContent = names.join(", ") + (moreCount > 0 ? ` +${moreCount} more` : "");
-  }
-
-  _handleDragOver(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    this.zone.classList.add("dragover");
-  }
-
-  _handleDragLeave(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    this.zone.classList.remove("dragover");
-  }
-
-  _handleDrop(e) {
-    const dt = e.dataTransfer;
-    if (!dt || !dt.files || !dt.files.length) return;
-
-    if (!this.allowMultiple && dt.files.length > 1) {
-      const firstFile = new DataTransfer();
-      firstFile.items.add(dt.files[0]);
-      this.input.files = firstFile.files;
-    } else {
-      this.input.files = dt.files;
-    }
-    this._showFiles(this.input.files);
-  }
-
-  reset() {
-    if (this.fileList) {
-      this.fileList.textContent = "";
-    }
-  }
-}
-
-/**
- * Handles AJAX form submission, button animations, and toast notifications.
- */
-class FormHandler {
-  constructor(formElement) {
-    this.form = formElement;
-    this.btn = this.form.querySelector(".submit-btn");
-    this.label = this.btn?.querySelector(".btn-label");
-    this.spinner = this.btn?.querySelector(".btn-spinner");
-    this.dropzone = this.form.querySelector('.dropzone') ? new Dropzone(this.form.querySelector('.dropzone')) : null;
-  }
-
-  init() {
-    if (!this.form) return;
-    this.form.addEventListener("submit", e => this._handleSubmit(e));
-  }
-
-  async _handleSubmit(e) {
-    e.preventDefault();
-    if (!this.btn) return;
-
-    this._setLoading(true);
-
-    try {
-      const formData = new FormData(this.form);
-      const response = await fetch(this.form.action, {
-        method: this.form.method,
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (!response.ok) {
-        // The server returned an error. Let's find out what it was.
-        let errorText;
-        try {
-          // First, try to parse the response as JSON, as our backend should return JSON errors.
-          const errorResult = await response.json();
-          errorText = errorResult.message || JSON.stringify(errorResult);
-        } catch (jsonError) {
-          // If parsing as JSON fails, the response is likely HTML (e.g., a PHP error page) or plain text.
-          // We'll show a more generic message to the user but the details are in the console.
-          throw new Error(`Server returned status ${response.status}. Check console for full response.`);
-        }
-        throw new Error(errorText);
+    /**
+     * Manages the UI interactions for a file dropzone.
+     */
+    class Dropzone {
+      constructor(element) {
+        this.zone = element;
+        this.input = this.zone.querySelector("input[type='file']");
+        this.fileList = this.zone.querySelector(".file-list");
+        this.allowMultiple = this.input?.hasAttribute("multiple");
       }
 
-      // If we get here, the response was successful (status 2xx)
-      const result = await response.json();
-      ToastNotification.show(result.message || 'Success!', 'success');
-      this.form.reset();
-      this.dropzone?.reset();
+      init() {
+        if (!this.input) return;
+        this.zone.addEventListener("click", () => this.input.click());
+        this.input.addEventListener("change", () => this._showFiles(this.input.files));
 
-    } catch (error) {
-      // This will catch network errors from fetch() itself, or any errors we've thrown above.
-      console.error('Form submission error:', error);
-      ToastNotification.show(error.message || 'An unexpected error occurred.', 'error');
-    } finally {
-      this._setLoading(false);
+        ["dragenter", "dragover"].forEach(evt =>
+          this.zone.addEventListener(evt, e => this._handleDragOver(e))
+        );
+        ["dragleave", "drop"].forEach(evt =>
+          this.zone.addEventListener(evt, e => this._handleDragLeave(e))
+        );
+        this.zone.addEventListener("drop", e => this._handleDrop(e));
+      }
+
+      _showFiles(files) {
+        if (!this.fileList) return;
+        if (!files || files.length === 0) {
+          this.fileList.textContent = "";
+          return;
+        }
+        const names = Array.from(files).map(f => f.name).slice(0, 3);
+        const moreCount = files.length - 3;
+        this.fileList.textContent = names.join(", ") + (moreCount > 0 ? ` +${moreCount} more` : "");
+      }
+
+      _handleDragOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.zone.classList.add("dragover");
+      }
+
+      _handleDragLeave(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.zone.classList.remove("dragover");
+      }
+
+      _handleDrop(e) {
+        const dt = e.dataTransfer;
+        if (!dt || !dt.files || !dt.files.length) return;
+
+        if (!this.allowMultiple && dt.files.length > 1) {
+          const firstFile = new DataTransfer();
+          firstFile.items.add(dt.files[0]);
+          this.input.files = firstFile.files;
+        } else {
+          this.input.files = dt.files;
+        }
+        this._showFiles(this.input.files);
+      }
+
+      reset() {
+        if (this.fileList) {
+          this.fileList.textContent = "";
+        }
+      }
     }
-  }
 
-  _setLoading(isLoading) {
-    if (!this.btn) return;
-    if (isLoading) {
-      this.btn.classList.add("pointer-events-none", "opacity-90");
-      this.label?.classList.add("opacity-0");
-      this.spinner?.classList.remove("hidden");
-    } else {
-      this.btn.classList.remove("pointer-events-none", "opacity-90");
-      this.label?.classList.remove("opacity-0");
-      this.spinner?.classList.add("hidden");
+    /**
+     * Handles AJAX form submission, button animations, and toast notifications.
+     */
+    class FormHandler {
+      constructor(formElement) {
+        this.form = formElement;
+        this.btn = this.form.querySelector(".submit-btn");
+        this.label = this.btn?.querySelector(".btn-label");
+        this.spinner = this.btn?.querySelector(".btn-spinner");
+        this.dropzone = this.form.querySelector('.dropzone') ? new Dropzone(this.form.querySelector('.dropzone')) : null;
+      }
+
+      init() {
+        if (!this.form) return;
+        this.form.addEventListener("submit", e => this._handleSubmit(e));
+      }
+
+      async _handleSubmit(e) {
+        e.preventDefault();
+        if (!this.btn) return;
+
+        this._setLoading(true);
+
+        try {
+          const formData = new FormData(this.form);
+          const response = await fetch(this.form.action, {
+            method: this.form.method,
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (!response.ok) {
+            // The server returned an error. Let's find out what it was.
+            let errorText;
+            try {
+              // First, try to parse the response as JSON, as our backend should return JSON errors.
+              const errorResult = await response.json();
+              errorText = errorResult.message || JSON.stringify(errorResult);
+            } catch (jsonError) {
+              // If parsing as JSON fails, the response is likely HTML (e.g., a PHP error page) or plain text.
+              // We'll show a more generic message to the user but the details are in the console.
+              throw new Error(`Server returned status ${response.status}. Check console for full response.`);
+            }
+            throw new Error(errorText);
+          }
+
+          // If we get here, the response was successful (status 2xx)
+          const result = await response.json();
+          ToastNotification.show(result.message || 'Success!', 'success');
+          this.form.reset();
+          this.dropzone?.reset();
+
+        } catch (error) {
+          // This will catch network errors from fetch() itself, or any errors we've thrown above.
+          console.error('Form submission error:', error);
+          ToastNotification.show(error.message || 'An unexpected error occurred.', 'error');
+        } finally {
+          this._setLoading(false);
+        }
+      }
+
+      _setLoading(isLoading) {
+        if (!this.btn) return;
+        if (isLoading) {
+          this.btn.classList.add("pointer-events-none", "opacity-90");
+          this.label?.classList.add("opacity-0");
+          this.spinner?.classList.remove("hidden");
+        } else {
+          this.btn.classList.remove("pointer-events-none", "opacity-90");
+          this.label?.classList.remove("opacity-0");
+          this.spinner?.classList.add("hidden");
+        }
+      }
     }
-  }
-}
 
-/**
- * Manages page-level animations like section reveals.
- */
-class PageAnimator {
-  init() {
-    document.querySelectorAll("main > section").forEach((section, idx) => {
-      gsap.from(section, {
-        opacity: 0,
-        y: 40,
-        duration: 0.9,
-        delay: idx * 0.1 + 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 85%",
-        },
+    /**
+     * Manages page-level animations like section reveals.
+     */
+    class PageAnimator {
+      init() {
+        document.querySelectorAll("main > section").forEach((section, idx) => {
+          gsap.from(section, {
+            opacity: 0,
+            y: 40,
+            duration: 0.9,
+            delay: idx * 0.1 + 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 85%",
+            },
+          });
+        });
+      }
+    }
+
+    // Initialize all components on DOM content loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      new PageAnimator().init();
+
+      document.querySelectorAll(".dropzone").forEach(zone => {
+        // The Dropzone class is now instantiated and managed by the FormHandler
+        // to allow for resetting the file list display on successful form submission.
+        // We only initialize it here if it's NOT inside an animated form.
+        if (!zone.closest('form.animated-form')) {
+          new Dropzone(zone).init();
+        }
+      });
+
+      document.querySelectorAll("form.animated-form").forEach(form => {
+        const handler = new FormHandler(form);
+        handler.init();
+        // Also initialize the dropzone within the form context
+        handler.dropzone?.init();
       });
     });
-  }
-}
-
-// Initialize all components on DOM content loaded
-document.addEventListener('DOMContentLoaded', () => {
-  new PageAnimator().init();
-
-  document.querySelectorAll(".dropzone").forEach(zone => {
-    // The Dropzone class is now instantiated and managed by the FormHandler
-    // to allow for resetting the file list display on successful form submission.
-    // We only initialize it here if it's NOT inside an animated form.
-    if (!zone.closest('form.animated-form')) {
-      new Dropzone(zone).init();
-    }
-  });
-
-  document.querySelectorAll("form.animated-form").forEach(form => {
-    const handler = new FormHandler(form);
-    handler.init();
-    // Also initialize the dropzone within the form context
-    handler.dropzone?.init();
-  });
-});
+    // Fetch all resources and show with delete icon
     function fetchResources() {
       fetch('php_backend/api/resources.php')
         .then(res => res.json())
         .then(data => {
+          console.log("Resource data :", data);
           const ul = document.getElementById('resource-list');
           ul.innerHTML = '';
-          if (data && data.success && data.resources && data.resources.length) {
-            data.resources.forEach(res => {
-              ul.innerHTML += `<li class="flex items-center gap-2">
-            <span class="font-medium">${res.title || 'Untitled PDF'}</span>
-            <a href="/public/${res.pdf_path}" target="_blank" class="px-2 py-1 bg-blue-100 text-blue-700 rounded">View</a>
-            <span class="text-xs text-gray-400">${new Date(res.created_at).toLocaleString()}</span>
-          </li>`;
+          if (data && data.success && Array.isArray(data.folders) && data.folders.length) {
+            let foundPDF = false;
+            data.folders.forEach(folder => {
+              if(Array.isArray(folder.resources) && folder.resources.length) {
+                folder.resources.forEach(res => {
+                  foundPDF = true;
+                  ul.innerHTML += `<li class="flex items-center gap-2 group bg-white rounded p-2 shadow relative hover:bg-blue-50 transition">
+                    <a href="/public/${res.pdf_path}" target="_blank" class="flex-1 text-lg text-blue-600 hover:text-blue-900" title="View PDF">📄 PDF</a>
+                    <button title="Delete PDF" onclick="deleteResource(${res.id})" class="text-red-600 hover:bg-red-100 rounded-full p-1 w-7 h-7 flex items-center justify-center text-lg font-bold opacity-80 hover:opacity-100">&times;</button>
+                  </li>`;
+                });
+              }
             });
+            if (!foundPDF) ul.innerHTML = '<li class="text-slate-500">No resources uploaded yet.</li>';
           } else {
             ul.innerHTML = '<li class="text-slate-500">No resources uploaded yet.</li>';
           }
         });
     }
 
-    // Initial load
+    // Delete resource handler
+    async function deleteResource(id) {
+      if (!confirm('Delete this PDF resource?')) return;
+      try {
+        const res = await fetch(`php_backend/api/resources.php?id=${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          fetchResources();
+          ToastNotification.show('Resource PDF deleted.');
+        } else {
+          alert(data.error || 'Delete failed');
+        }
+      } catch (e) {
+        alert('Could not delete resource.');
+      }
+    }
+
+    // Fetch resources on initial load and after upload
     document.addEventListener('DOMContentLoaded', function () {
       fetchResources();
-      // Real-time update after resource form submit
       document.getElementById('resource-upload-form').addEventListener('submit', function (e) {
-        // Allow your existing animated-form handler to do its work, then:
         setTimeout(fetchResources, 700); // Wait for upload and refresh list
       });
     });
-    
 
-    
+
+
   </script>
   <script src="./main.js" defer></script>
 </body>

@@ -46,6 +46,7 @@ CREATE TABLE demo_classes (
 CREATE TABLE admins(
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
+    contactNumber VARCHAR(15) NOT NULL,
     password VARCHAR(255) NOT NULL,
 );
 
